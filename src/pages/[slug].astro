@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const description = post.data.description ?? post.data.excerpt ?? '';
+const canonical = post.data.canonical ?? new URL(`/${post.data.slug}/`, Astro.site).href;
+---
+<BaseLayout title={`${post.data.title} | Yonatan Kra`} description={description} canonical={canonical}>
+  <article>
+    <h1>{post.data.title}</h1>
+    <p><time datetime={post.data.published.toISOString()}>{post.data.published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time></p>
+    <Content />
+    {post.data.comments.length > 0 && (
+      <section aria-labelledby="comments-title">
+        <h2 id="comments-title">Comments</h2>
+        {post.data.comments.map((comment) => (
+          <article>
+            <h3>{comment.author}</h3>
+            <time datetime={comment.date.toISOString()}>{comment.date.toLocaleDateString()}</time>
+            <p set:html={comment.content} />
+          </article>
+        ))}
+      </section>
+    )}
+  </article>
+</BaseLayout>
