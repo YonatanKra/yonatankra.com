@@ -1,0 +1,31 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'Yonatan Kra',
+  description = 'Family, Code, Run',
+  canonical = Astro.url.href,
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title="Yonatan Kra" href="/feed/" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <a href="/"><strong>Yonatan Kra</strong></a>
+      <p>Family, Code, Run</p>
+    </header>
+    <main><slot /></main>
+  </body>
+</html>
