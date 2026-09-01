@@ -115,6 +115,9 @@ const postById = byId(posts);
 const termById = byId(terms, 'term_id');
 const taxonomyById = byId(taxonomy, 'term_taxonomy_id');
 const userById = byId(users);
+const categoryTaxonomyByTermId = new Map(
+  taxonomy.filter((t) => t.taxonomy === 'category').map((t) => [t.term_id, t]),
+);
 
 const metaByPost = new Map();
 for (const meta of postmeta) {
@@ -124,13 +127,33 @@ for (const meta of postmeta) {
   map.get(meta.meta_key).push(meta.meta_value);
 }
 
+function categoryPath(tax) {
+  const slugs = [];
+  let current = tax;
+  const seen = new Set();
+  while (current && !seen.has(current.term_id)) {
+    seen.add(current.term_id);
+    const term = termById.get(current.term_id);
+    if (term) slugs.unshift(term.slug);
+    current = current.parent && current.parent !== '0'
+      ? categoryTaxonomyByTermId.get(current.parent)
+      : undefined;
+  }
+  return slugs.join('/');
+}
+
 const taxByPost = new Map();
 for (const rel of relationships) {
   const tax = taxonomyById.get(rel.term_taxonomy_id);
   const term = tax && termById.get(tax.term_id);
   if (!tax || !term) continue;
   if (!taxByPost.has(rel.object_id)) taxByPost.set(rel.object_id, []);
-  taxByPost.get(rel.object_id).push({ taxonomy: tax.taxonomy, name: term.name, slug: term.slug });
+  taxByPost.get(rel.object_id).push({
+    taxonomy: tax.taxonomy,
+    name: term.name,
+    slug: term.slug,
+    path: tax.taxonomy === 'category' ? categoryPath(tax) : term.slug,
+  });
 }
 
 const commentsByPost = new Map();
@@ -151,6 +174,17 @@ function featuredImage(postId) {
   return attachment.guid?.replace(/^https?:\/\/(?:www\.)?yonatankra\.com/, '');
 }
 
+function replaceGistShortcodes(content) {
+  return content.replace(/\[gist\s+(https?:\/\/gist\.github\.com\/[^\s\]#]+)(?:#[^\s\]]+)?\s*\/?\]/gi, (_all, url) => {
+    return `<script src="${url}.js"></script>`;
+  });
+}
+
+function normalizeBody(content) {
+  return replaceGistShortcodes(content ?? '')
+    .replaceAll('https://www.yonatankra.com/', 'https://yonatankra.com/');
+}
+
 function frontmatter(post) {
   const terms = taxByPost.get(post.ID) ?? [];
   const historicalComments = (commentsByPost.get(post.ID) ?? [])
@@ -166,7 +200,9 @@ function frontmatter(post) {
     updated: post.post_modified,
     author,
     ...(description ? { description } : {}),
-    categories: terms.filter((t) => t.taxonomy === 'category' && t.name !== 'Uncategorized').map((t) => t.name),
+    categories: terms
+      .filter((t) => t.taxonomy === 'category' && t.name !== 'Uncategorized')
+      .map(({ name, slug, path }) => ({ name, slug, path })),
     tags: terms.filter((t) => t.taxonomy === 'post_tag').map((t) => t.name),
     ...(featuredImage(post.ID) ? { featuredImage: featuredImage(post.ID) } : {}),
     canonical: `https://yonatankra.com/${post.post_name}/`,
@@ -179,7 +215,7 @@ const manifest = [];
 
 for (const post of published) {
   const yaml = YAML.stringify(frontmatter(post), { lineWidth: 0 }).trim();
-  const body = (post.post_content ?? '').replaceAll('https://www.yonatankra.com/', 'https://yonatankra.com/');
+  const body = normalizeBody(post.post_content);
   fs.writeFileSync(path.join(outDir, `${post.post_name}.md`), `---\n${yaml}\n---\n\n${body}\n`);
   manifest.push({ id: Number(post.ID), url: `/${post.post_name}/`, title: post.post_title });
 }
