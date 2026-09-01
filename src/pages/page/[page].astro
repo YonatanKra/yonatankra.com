@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths({ paginate }) {
+  const posts = (await getCollection('posts', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+  return paginate(posts, { pageSize: 10 });
+}
+
+const { page } = Astro.props;
+---
+<BaseLayout title={`Page ${page.currentPage} | Yonatan Kra`} description="Yonatan Kra blog archive">
+  <h1>Posts</h1>
+  {page.data.map((post) => (
+    <article>
+      <h2><a href={`/${post.data.slug}/`}>{post.data.title}</a></h2>
+      <time datetime={post.data.published.toISOString()}>{post.data.published.toLocaleDateString('en-US')}</time>
+      {(post.data.excerpt || post.data.description) && <p>{post.data.excerpt ?? post.data.description}</p>}
+    </article>
+  ))}
+  <nav aria-label="Pagination">
+    {page.url.prev && <a href={page.url.prev}>Previous</a>}
+    {page.url.next && <a href={page.url.next}>Next</a>}
+  </nav>
+</BaseLayout>
