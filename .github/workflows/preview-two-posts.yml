@@ -8,6 +8,7 @@ on:
       - 'scripts/import-preview-posts.mjs'
       - 'scripts/download-live-media.mjs'
       - 'scripts/validate-legacy-urls.mjs'
+      - 'scripts/wordpress-migration-utils.mjs'
       - '.github/workflows/preview-two-posts.yml'
       - 'astro.config.mjs'
       - 'package.json'
@@ -21,6 +22,9 @@ permissions:
 concurrency:
   group: preview-two-posts-pages
   cancel-in-progress: true
+
+env:
+  PUBLIC_BASE_PATH: /yonatankra.com
 
 jobs:
   build:
