@@ -1,14 +1,14 @@
-name: Preview two migrated posts
+name: Preview migrated WordPress site
 
 on:
   push:
     branches: [preview-two-posts-fix]
     paths:
       - 'src/**'
-      - 'scripts/import-preview-posts.mjs'
-      - 'scripts/download-live-media.mjs'
+      - 'public/**'
+      - 'migration/legacy-posts.json'
+      - 'migration/media-urls.json'
       - 'scripts/validate-legacy-urls.mjs'
-      - 'scripts/wordpress-migration-utils.mjs'
       - '.github/workflows/preview-two-posts.yml'
       - 'astro.config.mjs'
       - 'package.json'
@@ -35,13 +35,9 @@ jobs:
         with:
           node-version: 22
       - run: npm install
-      - name: Import two live posts
-        run: node scripts/import-preview-posts.mjs
-      - name: Download referenced media
-        run: node scripts/download-live-media.mjs migration/media-urls.json
-      - name: Build Astro
+      - name: Build Astro and search index
         run: npm run build
-      - name: Validate preview legacy URLs
+      - name: Validate migrated URLs and local media
         run: npm run test:legacy
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
