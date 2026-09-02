@@ -27,12 +27,12 @@ jobs:
           shopt -s nullglob
           files=(migration/import-chunks/part-*)
           echo "count=${#files[@]}" >> "$GITHUB_OUTPUT"
-          if [ "${#files[@]}" -ne 27 ]; then
-            echo "Waiting for all 27 import chunks; found ${#files[@]}."
+          if [ "${#files[@]}" -ne 9 ]; then
+            echo "Waiting for all 9 import chunks; found ${#files[@]}."
           fi
 
       - name: Reconstruct generated public content
-        if: steps.chunks.outputs.count == '27'
+        if: steps.chunks.outputs.count == '9'
         shell: bash
         run: |
           cat migration/import-chunks/part-* | base64 --decode > /tmp/wordpress-content.tar.gz
@@ -41,7 +41,7 @@ jobs:
           test "$(find src/content/posts -maxdepth 1 -name '*.md' | wc -l)" -eq 85
 
       - name: Commit generated Markdown
-        if: steps.chunks.outputs.count == '27'
+        if: steps.chunks.outputs.count == '9'
         shell: bash
         run: |
           rm -rf migration/import-chunks
