@@ -10,6 +10,12 @@ const categorySchema = z.union([
   }),
 ]);
 
+const commentsSchema = z.array(z.object({
+  author: z.string(),
+  date: z.coerce.date(),
+  content: z.string(),
+})).default([]);
+
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
   schema: z.object({
@@ -25,12 +31,21 @@ const posts = defineCollection({
     featuredImage: z.string().optional(),
     canonical: z.string().url().optional(),
     draft: z.boolean().default(false),
-    comments: z.array(z.object({
-      author: z.string(),
-      date: z.coerce.date(),
-      content: z.string(),
-    })).default([]),
+    comments: commentsSchema,
   }),
 });
 
-export const collections = { posts };
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    published: z.coerce.date().optional(),
+    updated: z.coerce.date().optional(),
+    description: z.string().optional(),
+    canonical: z.string().url().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { posts, pages };
