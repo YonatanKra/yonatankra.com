@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  PUBLIC_BASE_PATH: /yonatankra.com
+  PUBLIC_BASE_PATH: /
 
 permissions:
   contents: read
