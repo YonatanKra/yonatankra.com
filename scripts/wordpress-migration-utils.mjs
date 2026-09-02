@@ -1,5 +1,12 @@
 const SITE = 'https://yonatankra.com';
 
+const TAG_SLUG_ALIASES = new Map([
+  ['perofrmance', 'performance'],
+  ['chrome-developer-tools', 'chrome-devtools'],
+  ['the-event-loop', 'event-loop'],
+  ['ecmascript-modules', 'es-modules'],
+]);
+
 function normalizedBasePath() {
   const raw = (process.env.PUBLIC_BASE_PATH || '').trim();
   if (!raw || raw === '/') return '';
@@ -80,6 +87,34 @@ export function categoryPath(term) {
   }
 }
 
+export function normalizeTagSlug(slug = '') {
+  const normalized = slug.toLowerCase().trim();
+  return TAG_SLUG_ALIASES.get(normalized) ?? normalized;
+}
+
+export function normalizeTagTerm(term, termsBySlug = new Map()) {
+  if (!term) return null;
+  const canonicalSlug = normalizeTagSlug(term.slug);
+  const canonicalTerm = termsBySlug.get(canonicalSlug);
+  return {
+    name: decodeHtml(canonicalTerm?.name ?? term.name),
+    slug: canonicalSlug,
+  };
+}
+
+export function normalizeTagTerms(terms = []) {
+  const termsBySlug = new Map(terms.filter(Boolean).map(term => [term.slug, term]));
+  const out = [];
+  const seen = new Set();
+  for (const term of terms) {
+    const normalized = normalizeTagTerm(term, termsBySlug);
+    if (!normalized || seen.has(normalized.slug)) continue;
+    seen.add(normalized.slug);
+    out.push(normalized);
+  }
+  return out;
+}
+
 export function normalizeMediaUrl(rawUrl) {
   if (!rawUrl) return rawUrl;
   return rawUrl.startsWith('/') ? `${SITE}${rawUrl}` : rawUrl.startsWith('//') ? `https:${rawUrl}` : rawUrl;
@@ -108,3 +143,4 @@ export function rewriteImportedHtml(html = '') {
 }
 
 export const WORDPRESS_SITE = SITE;
+export const TAG_ALIASES = Object.freeze(Object.fromEntries(TAG_SLUG_ALIASES));
