@@ -1,0 +1,427 @@
+[
+  {
+    "id": 2236,
+    "url": "/busting-legacy-code-with-ai-agents/",
+    "title": "Busting Legacy Code with AI Agents and Test Driven Development"
+  },
+  {
+    "id": 2206,
+    "url": "/meaningful-tests-human-hubris-vs-ai/",
+    "title": "Meaningful Tests: Human Hubris vs. AI"
+  },
+  {
+    "id": 2096,
+    "url": "/what-can-we-learn-from-building-a-bluesky-web-component-bot-part-1/",
+    "title": "What can we learn from building a BlueSky web component bot?-  Part 1"
+  },
+  {
+    "id": 2076,
+    "url": "/how-to-remove-a-secret-token-from-your-git-history/",
+    "title": "How to Remove a Secret Token from Your Git History"
+  },
+  {
+    "id": 2041,
+    "url": "/how-to-deploy-static-websites-with-nx-github-and-cloudflare/",
+    "title": "How to Deploy Static Websites with Nx, GitHub, and Cloudflare?"
+  },
+  {
+    "id": 2010,
+    "url": "/implementing-your-own-ssr-server-for-web-components/",
+    "title": "Implementing Your Own SSR Server for Web Components"
+  },
+  {
+    "id": 1957,
+    "url": "/3-reasons-why-you-should-use-conventional-commits/",
+    "title": "3 Reasons  Why You Should Use Conventional Commits"
+  },
+  {
+    "id": 1850,
+    "url": "/test-drive-your-code-confrontjs-2023/",
+    "title": "ConfrontJS 2023 – The Movie"
+  },
+  {
+    "id": 1827,
+    "url": "/how-to-setup-vitest-in-a-tauri-project/",
+    "title": "How to write Unit Tests for Tauri Frontend with Vitest?"
+  },
+  {
+    "id": 1769,
+    "url": "/how-can-tests-contribute-to-communication/",
+    "title": "How Can Tests Contribute to Communication?"
+  },
+  {
+    "id": 1771,
+    "url": "/a-tale-of-implementation-and-detail/",
+    "title": "A Tale of Implementation and Detail"
+  },
+  {
+    "id": 1753,
+    "url": "/how-to-write-unit-tests-in-rust-for-tauri/",
+    "title": "How to Write Unit Tests in Rust for Tauri?"
+  },
+  {
+    "id": 1747,
+    "url": "/how-service-workers-sped-up-our-website-by-97-5/",
+    "title": "How Service Workers Sped Up Our Website by 97.5%?"
+  },
+  {
+    "id": 1736,
+    "url": "/from-zero-to-hero-with-github-actions-video/",
+    "title": "From Zero to Hero with Github Actions (video)"
+  },
+  {
+    "id": 1733,
+    "url": "/live-session-3-tips-for-more-meaningful-tests/",
+    "title": "Live Session: 3 Tips for More Meaningful Tests"
+  },
+  {
+    "id": 1725,
+    "url": "/live-coding-an-open-source-feature/",
+    "title": "Live Coding an Open Source Feature"
+  },
+  {
+    "id": 1704,
+    "url": "/how-to-use-github-actions-self-hosted-runners/",
+    "title": "How to Use Github Actions Self-Hosted Runners?"
+  },
+  {
+    "id": 1677,
+    "url": "/how-to-build-a-vivid-birthday-quiz-in-20-minutes/",
+    "title": "How to Build a Vivid Birthday Quiz in 20 minutes?"
+  },
+  {
+    "id": 1653,
+    "url": "/the-one-trick-to-writing-effective-tests/",
+    "title": "The One Trick to Writing Effective Tests"
+  },
+  {
+    "id": 1645,
+    "url": "/3-simple-habits-to-improve-your-tests/",
+    "title": "3 Simple Habits to Improve Your Tests"
+  },
+  {
+    "id": 1569,
+    "url": "/2-ways-to-use-your-docker-image-in-github-actions/",
+    "title": "2 Ways to Use Your Own Docker Image in Github Actions"
+  },
+  {
+    "id": 1594,
+    "url": "/how-to-build-a-chrome-extension-that-will-make-your-facebook-posts-better/",
+    "title": "How to Build a Chrome Extension that will Make Your Facebook Posts Better?"
+  },
+  {
+    "id": 1565,
+    "url": "/how-to-create-a-chrome-extension/",
+    "title": "How to Create a Chrome Extension?"
+  },
+  {
+    "id": 1553,
+    "url": "/what-is-the-coupling-pitfall-and-how-to-avoid-it/",
+    "title": "What is the Coupling Pitfall and how to Avoid it?"
+  },
+  {
+    "id": 1546,
+    "url": "/how-to-optimize-javascript-performance/",
+    "title": "How to optimize JavaScript Performance?"
+  },
+  {
+    "id": 1531,
+    "url": "/understanding-unit-tests-in-javascript-5-frameworks/",
+    "title": "Understanding Unit Tests in Javascript: 5 Frameworks"
+  },
+  {
+    "id": 1437,
+    "url": "/how-to-create-a-workspace-generator-in-nx-workspace/",
+    "title": "How to create a workspace generator as a library in Nx workspace?"
+  },
+  {
+    "id": 1457,
+    "url": "/how-to-use-the-new-ecmascript-module-in-typescript/",
+    "title": "How we employed the new ECMAScript Module Support in typescript"
+  },
+  {
+    "id": 1439,
+    "url": "/6-lessons-learned-from-using-playwright/",
+    "title": "6 Lessons Learned from Using Playwright for UI Tests"
+  },
+  {
+    "id": 1358,
+    "url": "/how-to-use-htmlwebpackplugin-for-multiple-entries/",
+    "title": "How to use webpack and HTML Webpack Plugin to generate HTML pages for multiple entries in 2 steps?"
+  },
+  {
+    "id": 1384,
+    "url": "/a-good-case-for-eval-in-javascript/",
+    "title": "A good case for Eval in JavaScript"
+  },
+  {
+    "id": 1382,
+    "url": "/custom-webpack-config-in-an-nx-workspace-the-video/",
+    "title": "Custom Webpack Config in an Nx Workspace – the Video"
+  },
+  {
+    "id": 1339,
+    "url": "/fullstack-react-native-project-in-8-minutes/",
+    "title": "How to easily setup a fullstack react and react-native project in 8 minutes?"
+  },
+  {
+    "id": 1324,
+    "url": "/how-to-remote-debug-and-profile-node-js-apps/",
+    "title": "How to Remote Debug and Profile Node.js Apps?"
+  },
+  {
+    "id": 1283,
+    "url": "/5-tdd-lessons-when-writing-javascript-algorithm/",
+    "title": "5 lessons learned when I TDD an algorithm in JavaScript"
+  },
+  {
+    "id": 1195,
+    "url": "/7-github-actions-tricks-i-wish-i-knew-before-i-started/",
+    "title": "7 Github Actions Tricks I Wish I Knew Before I Started"
+  },
+  {
+    "id": 1106,
+    "url": "/blogging-graphics-resources/",
+    "title": "How to Get Blogging Graphics For Free"
+  },
+  {
+    "id": 1156,
+    "url": "/yet-another-interview-question-deep-dive-intersection-of-two-arrays/",
+    "title": "Yet another interview question deep dive: Intersection of Two Arrays"
+  },
+  {
+    "id": 1139,
+    "url": "/how-to-find-a-unique-number-in-a-list-of-pairs/",
+    "title": "How to find a unique number in a list containing pairs?"
+  },
+  {
+    "id": 1127,
+    "url": "/simple-collision-detection-with-path2d/",
+    "title": "Simple Collision Detection with Path2D"
+  },
+  {
+    "id": 1112,
+    "url": "/custom-json-stringify-to-classes-with-the-tojson-method/",
+    "title": "Custom JSON.stringify to Classes with the toJSON method"
+  },
+  {
+    "id": 1107,
+    "url": "/how-to-deploy-npm-modules-in-an-nx-monorepo-and-github-actions/",
+    "title": "How to deploy NPM modules in an NX monorepo and github actions?"
+  },
+  {
+    "id": 1093,
+    "url": "/how-to-solve-ts2307-cannot-find-module-when-using-inline-webpack-loaders-with-typescript/",
+    "title": "How to solve “TS2307: Cannot find module” when using inline webpack loaders with TypeScript"
+  },
+  {
+    "id": 1059,
+    "url": "/ars-blogging-how-to-start-and-manage-a-tech-blog/",
+    "title": "Ars Blogging: How to start and manage a tech blog?"
+  },
+  {
+    "id": 1032,
+    "url": "/deep-dive-into-an-interview-question-array-nesting/",
+    "title": "Deep dive into an interview question: Array Nesting"
+  },
+  {
+    "id": 982,
+    "url": "/how-to-create-terrain-and-heightmaps-using-the-diamond-square-algorithm-in-javascript/",
+    "title": "How to Create Terrain and Heightmaps using the Diamond-Square Algorithm in JavaScript?"
+  },
+  {
+    "id": 869,
+    "url": "/how-to-write-a-simple-collision-detector-in-html5-canvas-and-javascript/",
+    "title": "How to write a simple collision detector in HTML5 canvas and JavaScript?"
+  },
+  {
+    "id": 870,
+    "url": "/how-to-test-html5-canvas-with-jest/",
+    "title": "How to test HTML5 canvas with jest?"
+  },
+  {
+    "id": 833,
+    "url": "/how-to-generate-a-maze-using-javascript-and-html5-canvas-and-a-cellular-automaton-algorithm/",
+    "title": "How to generate a maze using JavaScript and HTML5 canvas and a Cellular Automaton algorithm?"
+  },
+  {
+    "id": 816,
+    "url": "/how-to-setup-ci-cd-with-github-actions/",
+    "title": "How to Setup CI/CD with Github Actions?"
+  },
+  {
+    "id": 802,
+    "url": "/how-to-create-a-workspace-coverage-report-in-nrwl-nx-monorepo/",
+    "title": "How to create a workspace coverage report in nrwl/nx monorepo?"
+  },
+  {
+    "id": 792,
+    "url": "/musings-about-tests-as-documentation/",
+    "title": "Musings about tests as documentation"
+  },
+  {
+    "id": 773,
+    "url": "/how-to-use-custom-webpack-configuration-in-a-nrwl-project/",
+    "title": "How to use custom webpack configuration in an Nx project?"
+  },
+  {
+    "id": 735,
+    "url": "/how-to-test-github-actions-locally-using-act/",
+    "title": "How to test github actions locally using Act?"
+  },
+  {
+    "id": 592,
+    "url": "/look-ma-my-codes-in-youtube/",
+    "title": "This is how I helped YouTube improve performance with a simple JavaScript trick"
+  },
+  {
+    "id": 599,
+    "url": "/how-does-the-event-loop-work/",
+    "title": "How does the JavaScript event loop work and how to help it run your code faster?"
+  },
+  {
+    "id": 597,
+    "url": "/what-is-askql-hacktoberfest-lightning-talk/",
+    "title": "What is AskQL? Hacktoberfest Lightning Talk"
+  },
+  {
+    "id": 580,
+    "url": "/how-to-profile-javascript-performance-in-the-browser/",
+    "title": "How to profile javascript performance in google chrome?"
+  },
+  {
+    "id": 523,
+    "url": "/on-covid-19-graphql-and-askql/",
+    "title": "GraphQL Alternative: GraphQL vs. AskQL"
+  },
+  {
+    "id": 493,
+    "url": "/askql-nodejs-quickstart/",
+    "title": "AskQL Nodejs QuickStart"
+  },
+  {
+    "id": 453,
+    "url": "/introduction-to-askql/",
+    "title": "Introduction to AskQL"
+  },
+  {
+    "id": 415,
+    "url": "/form-association-and-web-components-today/",
+    "title": "Form Association and Web Components – Today"
+  },
+  {
+    "id": 405,
+    "url": "/handling-different-kafka-message-versions/",
+    "title": "Handling Different Kafka Message Versions"
+  },
+  {
+    "id": 381,
+    "url": "/writing-custom-github-actions-with-javascript/",
+    "title": "Writing Custom Github Actions with Javascript"
+  },
+  {
+    "id": 368,
+    "url": "/debug-jest-in-a-nrwl-nx-project-with-webstorm/",
+    "title": "Debug Jest in a NRWL/nx project with webstorm"
+  },
+  {
+    "id": 350,
+    "url": "/measuring-used-js-heap-size-in-nodejs/",
+    "title": "Measuring used JS heap size in nodejs"
+  },
+  {
+    "id": 332,
+    "url": "/measuring-used-js-heap-size/",
+    "title": "Measuring used JS heap size in the browser"
+  },
+  {
+    "id": 246,
+    "url": "/layout-reflow/",
+    "title": "What is a Forced Reflow and How to Solve it?"
+  },
+  {
+    "id": 299,
+    "url": "/the-event-loop-and-your-code/",
+    "title": "The event loop and your code"
+  },
+  {
+    "id": 292,
+    "url": "/viewing-the-critical-rendering-path-in-the-browser/",
+    "title": "Viewing the Critical Rendering Path in the browser"
+  },
+  {
+    "id": 284,
+    "url": "/memory-on-a-diet/",
+    "title": "Memory on a Diet"
+  },
+  {
+    "id": 251,
+    "url": "/reducing-network-traffic-with-the-flyweight-design-pattern/",
+    "title": "Reducing Network Traffic with the Flyweight Design Pattern"
+  },
+  {
+    "id": 253,
+    "url": "/optimization-patterns-in-javascript-talk/",
+    "title": "Optimization Patterns in Javascript Talk"
+  },
+  {
+    "id": 249,
+    "url": "/collecting-garbage-in-confrontjs/",
+    "title": "Collecting Garbage in ConfrontJS"
+  },
+  {
+    "id": 162,
+    "url": "/algorithm-against-the-machine/",
+    "title": "Programming Complexity in JavaScript – not What You’d Expect"
+  },
+  {
+    "id": 227,
+    "url": "/object-pool-use-case/",
+    "title": "Object Pool use case"
+  },
+  {
+    "id": 133,
+    "url": "/improve-performance-with-object-pool/",
+    "title": "Improve Performance with Object Pool"
+  },
+  {
+    "id": 185,
+    "url": "/memory-allocation-and-garbage-collection-in-javascript/",
+    "title": "Memory Allocation and Garbage Collection in Javascript"
+  },
+  {
+    "id": 22,
+    "url": "/publications-on-github/",
+    "title": "Publications on Github"
+  },
+  {
+    "id": 206,
+    "url": "/confrontjs-2019/",
+    "title": "ConfrontJS 2019"
+  },
+  {
+    "id": 24,
+    "url": "/runtime-optimization-patterns/",
+    "title": "Runtime Optimization Patterns"
+  },
+  {
+    "id": 4,
+    "url": "/codetalks-2019/",
+    "title": "Codetalks 2019"
+  },
+  {
+    "id": 60,
+    "url": "/publishing-a-web-components-library/",
+    "title": "Publishing a Web Components Library"
+  },
+  {
+    "id": 42,
+    "url": "/bitwise-operators-565e3ceb90cd/",
+    "title": "Bitwise Operators"
+  },
+  {
+    "id": 1364,
+    "url": "/no-nonsense-webpack-project/",
+    "title": "No-nonsense webpack project"
+  }
+]
