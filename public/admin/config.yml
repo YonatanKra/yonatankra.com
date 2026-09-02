@@ -1,0 +1,133 @@
+backend:
+  name: github
+  repo: YonatanKra/yonatankra.com
+  branch: main
+  use_graphql: true
+  squash_merges: true
+  # Production GitHub OAuth requires a tiny external OAuth proxy.
+  # Uncomment these after the proxy is deployed:
+  # base_url: https://cms-auth.yonatankra.com
+  # auth_endpoint: auth
+
+publish_mode: editorial_workflow
+local_backend: true
+
+site_url: https://yonatankra.com
+display_url: https://yonatankra.com
+show_preview_links: true
+
+media_folder: public/wp-content/uploads
+public_folder: /wp-content/uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: posts
+    label: Articles
+    label_singular: Article
+    description: Blog articles published on yonatankra.com
+    folder: src/content/posts
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{fields.slug}}"
+    preview_path: "{{fields.slug}}/"
+    summary: "{{title}} · {{published}}"
+    sortable_fields: [published, title, updated]
+    view_filters:
+      - label: Drafts
+        field: draft
+        pattern: true
+      - label: Published
+        field: draft
+        pattern: false
+    editor:
+      preview: true
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Slug
+        name: slug
+        widget: string
+        pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Use lowercase words separated by hyphens.']
+        hint: This becomes the permanent article URL. Avoid changing it after publication.
+      - label: Published
+        name: published
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: HH:mm
+      - label: Updated
+        name: updated
+        widget: datetime
+        required: false
+        date_format: YYYY-MM-DD
+        time_format: HH:mm
+      - label: Author
+        name: author
+        widget: string
+        default: Yonatan Kra
+      - label: Description
+        name: description
+        widget: text
+        required: false
+        hint: Short SEO/social description.
+      - label: Excerpt
+        name: excerpt
+        widget: text
+        required: false
+        hint: Optional shorter text for article cards. Falls back to Description.
+      - label: Categories
+        name: categories
+        widget: list
+        required: false
+        summary: "{{fields.name}}"
+        hint: Reuse the existing WordPress category name, slug and path when possible. Hierarchical categories use paths such as coding/algorithms.
+        fields:
+          - label: Name
+            name: name
+            widget: string
+          - label: Slug
+            name: slug
+            widget: string
+            pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Use lowercase words separated by hyphens.']
+          - label: Path
+            name: path
+            widget: string
+            hint: Usually the slug. For child categories use parent/child, e.g. testing/playwright.
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        allow_add: true
+        field:
+          label: Tag
+          name: tag
+          widget: string
+      - label: Featured image
+        name: featuredImage
+        widget: image
+        required: false
+        choose_url: false
+        hint: Uploaded files are stored under public/wp-content/uploads.
+      - label: Canonical URL
+        name: canonical
+        widget: string
+        required: false
+        pattern: ['^https?://.+', 'Enter a full http(s) URL.']
+        hint: Leave empty for new posts unless the canonical URL should differ from the article URL.
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: true
+        hint: Draft posts are excluded from the built site.
+      - label: Comments
+        name: comments
+        widget: hidden
+        default: []
+      - label: Body
+        name: body
+        widget: markdown
