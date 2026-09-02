@@ -1,0 +1,52 @@
+name: Materialize WordPress content
+
+on:
+  push:
+    paths:
+      - 'migration/import-chunks/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wordpress-content-import
+  cancel-in-progress: true
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check complete import payload
+        id: chunks
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=(migration/import-chunks/part-*)
+          echo "count=${#files[@]}" >> "$GITHUB_OUTPUT"
+          if [ "${#files[@]}" -ne 11 ]; then
+            echo "Waiting for all 11 import chunks; found ${#files[@]}."
+          fi
+
+      - name: Reconstruct generated public content
+        if: steps.chunks.outputs.count == '11'
+        shell: bash
+        run: |
+          cat migration/import-chunks/part-* | base64 --decode > /tmp/wordpress-content.tar.gz
+          tar -xzf /tmp/wordpress-content.tar.gz
+          test -f migration/legacy-posts.json
+          test "$(find src/content/posts -maxdepth 1 -name '*.md' | wc -l)" -eq 85
+
+      - name: Commit generated Markdown
+        if: steps.chunks.outputs.count == '11'
+        shell: bash
+        run: |
+          rm -rf migration/import-chunks
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/content/posts migration/legacy-posts.json migration/import-chunks
+          git commit -m 'content: import 85 published WordPress posts'
+          git push
