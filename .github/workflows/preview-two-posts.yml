@@ -7,6 +7,7 @@ on:
       - 'src/**'
       - 'scripts/import-preview-posts.mjs'
       - 'scripts/download-live-media.mjs'
+      - 'scripts/validate-legacy-urls.mjs'
       - '.github/workflows/preview-two-posts.yml'
       - 'astro.config.mjs'
       - 'package.json'
@@ -14,9 +15,11 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: preview-two-posts-build
+  group: preview-two-posts-pages
   cancel-in-progress: true
 
 jobs:
@@ -36,9 +39,20 @@ jobs:
         run: npm run build
       - name: Validate preview legacy URLs
         run: npm run test:legacy
-      - name: Upload preview site
-        uses: actions/upload-artifact@v4
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: preview-two-posts-site
-          path: dist
-          if-no-files-found: error
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
