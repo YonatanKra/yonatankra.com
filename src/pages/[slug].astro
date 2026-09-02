@@ -4,23 +4,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
-  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
+  const pages = await getCollection('pages', ({ data }) => !data.draft);
+
+  return [
+    ...posts.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry, kind: 'post' } })),
+    ...pages.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry, kind: 'page' } })),
+  ];
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
-const description = post.data.description ?? post.data.excerpt ?? '';
-const canonical = post.data.canonical ?? new URL(`/${post.data.slug}/`, Astro.site).href;
+const { entry, kind } = Astro.props;
+const { Content } = await render(entry);
+const description = entry.data.description ?? (kind === 'post' ? entry.data.excerpt : undefined) ?? '';
+const canonical = entry.data.canonical ?? new URL(`/${entry.data.slug}/`, Astro.site).href;
+const isPost = kind === 'post';
 ---
-<BaseLayout title={`${post.data.title} | Yonatan Kra`} description={description} canonical={canonical}>
+<BaseLayout title={`${entry.data.title} | Yonatan Kra`} description={description} canonical={canonical}>
   <article>
-    <h1>{post.data.title}</h1>
-    <p><time datetime={post.data.published.toISOString()}>{post.data.published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time></p>
+    <h1>{entry.data.title}</h1>
+    {isPost && entry.data.published && (
+      <p><time datetime={entry.data.published.toISOString()}>{entry.data.published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time></p>
+    )}
     <Content />
-    {post.data.comments.length > 0 && (
+    {isPost && entry.data.comments.length > 0 && (
       <section aria-labelledby="comments-title">
         <h2 id="comments-title">Comments</h2>
-        {post.data.comments.map((comment) => (
+        {entry.data.comments.map((comment) => (
           <article>
             <h3>{comment.author}</h3>
             <time datetime={comment.date.toISOString()}>{comment.date.toLocaleDateString()}</time>
