@@ -6,6 +6,7 @@ import {
   WORDPRESS_SITE as SITE,
   categoryPath,
   decodeHtml as decode,
+  fetchWordPress,
   mediaUrlsFromHtml as htmlMedia,
   normalizeMediaUrl,
   publicPath,
@@ -21,7 +22,7 @@ fs.mkdirSync(pageDir, { recursive: true });
 
 async function request(url, optional = false) {
   try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(20000), headers: { 'user-agent': 'Mozilla/5.0 yonatankra.com Astro migration', accept: 'application/json' } });
+    const res = await fetchWordPress(url, { timeout: 20000 });
     const type = res.headers.get('content-type') || '';
     if (!res.ok || !type.includes('json')) throw new Error(`${res.status} ${res.statusText}, content-type=${type}`);
     return res;
