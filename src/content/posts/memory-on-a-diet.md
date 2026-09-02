@@ -6,17 +6,27 @@ updated: 2021-08-10T16:53:38
 author: Yonatan Kra
 description: In my last article, I talked about the flyweight design pattern. I mostly talked about how it can save you (and your end user) bandwidth. I failed to mention the save on memory. If we continue the example from the aforementioned blog post, let’s measure the memory consumption. A short reminder – the client code [&hellip;]
 categories:
+  - name: Design Patterns
+    slug: design-patterns
+    path: design-patterns
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: Memory
+    slug: memory
+    path: javascript/memory
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - design patterns
+  - flyweight
+  - javascript
+  - memory
+  - performance
 canonical: https://yonatankra.com/memory-on-a-diet/
 comments: []
 ---
-
 
 <p>In my last article, I talked about <a href="/reducing-network-traffic-with-the-flyweight-design-pattern/">the flyweight design pattern</a>. I mostly talked about how it can save you (and your end user) bandwidth.</p>
 

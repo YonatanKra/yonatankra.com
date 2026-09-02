@@ -9,11 +9,14 @@ categories:
   - name: nx
     slug: nx
     path: javascript/nx
-tags: []
+tags:
+  - javascript
+  - nx
+  - nx plugin
+  - nx workspace
 canonical: https://yonatankra.com/how-to-create-a-workspace-generator-in-nx-workspace/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How to create an Nx generator? How to use it in your Nx workspace? How we converted a workspace generator into a publishable library? And how can boring be good for you?</p>
 

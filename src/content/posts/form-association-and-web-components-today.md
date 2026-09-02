@@ -9,11 +9,15 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+  - name: Web Component
+    slug: web-component
+    path: web-component
+tags:
+  - javascript
+  - web components
 canonical: https://yonatankra.com/form-association-and-web-components-today/
 comments: []
 ---
-
 
 <p>Recently I&#8217;ve joined a team that&#8217;s creating a UI library using web components.  This is great &#8211; but it has its challenges.  One of these challenges is form association behind Shadow DOM.</p>
 

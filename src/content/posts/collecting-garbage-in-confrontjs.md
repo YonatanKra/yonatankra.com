@@ -9,17 +9,27 @@ categories:
   - name: Conferences
     slug: conferences
     path: conferences
+  - name: ConfrontJS 2019
+    slug: confrontjs-2019
+    path: conferences/confrontjs-2019
+  - name: Design Patterns
+    slug: design-patterns
+    path: design-patterns
   - name: Javascript
     slug: javascript
     path: javascript
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - ConfrontJS
+  - design patterns
+  - garbage collection
+  - object pool
+  - performance
 canonical: https://yonatankra.com/collecting-garbage-in-confrontjs/
 comments: []
 ---
-
 
 <p>My video from confrontJS about reducing garbage collection with the Object Pool design pattern is now live on YouTube!</p>
 

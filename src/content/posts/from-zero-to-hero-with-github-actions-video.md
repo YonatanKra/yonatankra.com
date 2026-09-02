@@ -5,12 +5,14 @@ published: 2023-05-22T20:19:00
 updated: 2023-05-15T20:22:05
 author: Yonatan Kra
 description: My talk from JFokus 2023. I spoke about the main building blocks of a CI/CD process with github actions.
-categories: []
+categories:
+  - name: Uncategorized
+    slug: uncategorized
+    path: uncategorized
 tags: []
 canonical: https://yonatankra.com/from-zero-to-hero-with-github-actions-video/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">My talk from JFokus 2023. I spoke about the main building blocks of a CI/CD process with github actions.</p>
 

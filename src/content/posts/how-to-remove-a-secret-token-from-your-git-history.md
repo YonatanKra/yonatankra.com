@@ -5,12 +5,20 @@ published: 2024-12-04T15:42:32
 updated: 2024-12-12T10:57:17
 author: Yonatan Kra
 description: "Learn how to safely remove exposed authentication tokens from your Git repository’s entire history using BFG, a powerful cleanup tool. Understand the security risks of committed secrets and master the step-by-step process to sanitize your code repository and protect your organization’s digital assets. The Unexpected Security Alert Picture this: You’re a developer, deep in the [&hellip;]"
-categories: []
-tags: []
+categories:
+  - name: Github
+    slug: github
+    path: github
+  - name: Security
+    slug: security
+    path: security
+tags:
+  - cybersecurity
+  - git
+  - github
 canonical: https://yonatankra.com/how-to-remove-a-secret-token-from-your-git-history/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Learn how to safely remove exposed authentication tokens from your Git repository&#8217;s entire history using BFG, a powerful cleanup tool. Understand the security risks of committed secrets and master the step-by-step process to sanitize your code repository and protect your organization&#8217;s digital assets.</p>
 

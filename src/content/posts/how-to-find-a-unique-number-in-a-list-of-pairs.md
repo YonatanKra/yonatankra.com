@@ -6,10 +6,18 @@ updated: 2021-10-07T16:04:58
 author: Yonatan Kra
 description: "Finding a single unique number in a list containing pairs might sound pretty simple, right? Because a one-sentence description might be misleading, let’s start with an example of an input array: [1,3,17,3,1] Given such an array, the unique number is the one that appears only once (17). The rest of the numbers (1 and 3) [&hellip;]"
 categories:
+  - name: Algorithms
+    slug: algorithms
+    path: coding/algorithms
+  - name: Interview Questions
+    slug: interview-questions
+    path: coding/interview-questions
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+tags:
+  - javascript
+  - performance
 canonical: https://yonatankra.com/how-to-find-a-unique-number-in-a-list-of-pairs/
 comments:
   - author: David
@@ -40,7 +48,6 @@ comments:
                   res -=i<br />
           return res</p>
 ---
-
 
 <p class="has-medium-font-size">Finding a single unique number in a list containing pairs might sound pretty simple, right? </p>
 

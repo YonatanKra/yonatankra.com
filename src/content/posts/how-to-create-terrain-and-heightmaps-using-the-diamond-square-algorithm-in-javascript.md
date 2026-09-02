@@ -5,7 +5,16 @@ published: 2021-08-22T17:29:24
 updated: 2021-08-22T17:44:52
 author: Yonatan Kra
 description: The diamond-square algorithm is a procedural terrain generation algorithm. It makes it easy to generate Heightmaps and Terrain for games. In this article we will implement the diamond-square algorithm in JavaScript, plot our terrain on a canvas and see how a player can interact with its various terrain types. Many games are using Procedural Terrain [&hellip;]
-categories: []
+categories:
+  - name: Algorithms
+    slug: algorithms
+    path: coding/algorithms
+  - name: canvas
+    slug: canvas
+    path: javascript/canvas
+  - name: Gaming
+    slug: gaming
+    path: coding/gaming
 tags: []
 canonical: https://yonatankra.com/how-to-create-terrain-and-heightmaps-using-the-diamond-square-algorithm-in-javascript/
 comments:
@@ -33,7 +42,6 @@ comments:
       That&#8217;s an edge case I should cover with tests I guess 🙂<br />
       Thanks again Stefan!</p>
 ---
-
 
 <p class="has-medium-font-size">The diamond-square algorithm is a procedural terrain generation algorithm. It makes it easy to generate Heightmaps and Terrain for games.  In this article we will implement the diamond-square algorithm in JavaScript, plot our terrain on a canvas and see how a player can interact with its various terrain types.</p>
 

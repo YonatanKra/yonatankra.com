@@ -6,17 +6,26 @@ updated: 2021-08-10T16:53:39
 author: Yonatan Kra
 description: In a former article I’ve shown the consequences of memory allocation and garbage collection.  Object pool is a simple design pattern that can be used in order to solve both problems.
 categories:
+  - name: Design Patterns
+    slug: design-patterns
+    path: design-patterns
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: Memory
+    slug: memory
+    path: javascript/memory
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - design patterns
+  - memory
+  - object pool
+  - performance
 canonical: https://yonatankra.com/improve-performance-with-object-pool/
 comments: []
 ---
-
 
 <p>In a former article I&#8217;ve shown <a href="/memory-allocation-and-garbage-collection-in-javascript/">the consequences of memory allocation and garbage collection</a>.  Object pool is a simple design pattern that can be used in order to solve both problems.</p>
 

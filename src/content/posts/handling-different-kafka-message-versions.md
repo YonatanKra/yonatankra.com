@@ -12,11 +12,15 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+tags:
+  - architecture
+  - consumers
+  - javascript
+  - kafka
+  - producers
 canonical: https://yonatankra.com/handling-different-kafka-message-versions/
 comments: []
 ---
-
 
 <figure class="wp-block-image size-large"><img data-recalc-dims="1" decoding="async" src="https://i0.wp.com/kafka.apache.org/images/logo.png?w=640&#038;ssl=1" alt=""/></figure>
 

@@ -9,14 +9,21 @@ categories:
   - name: Conferences
     slug: conferences
     path: conferences
+  - name: ConfrontJS
+    slug: confrontjs
+    path: conferences/confrontjs
   - name: Performance
     slug: performance
     path: performance
-tags: []
+  - name: WarsawJS
+    slug: warsawjs
+    path: conferences/warsawjs
+tags:
+  - ConfrontJS
+  - JavaScript performance
 canonical: https://yonatankra.com/how-to-optimize-javascript-performance/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How can we profile and optimize our JavaScript code? How can we profile and optimize rendering in the browser? How does it all relate to the all-mighty Event Loop?</p>
 

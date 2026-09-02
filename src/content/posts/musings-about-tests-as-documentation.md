@@ -6,14 +6,19 @@ updated: 2021-08-10T16:53:37
 author: Yonatan Kra
 description: "This post originated from a non-english post on Linkedin. Here’s a translation of the original post: Yes, it’s very important to me that the systems I develop are covered by tests. In this approach I trust that external libraries that I use in the system have been tested. A few times I’ve read about how [&hellip;]"
 categories:
+  - name: Musings
+    slug: musings
+    path: musings
   - name: Testing
     slug: testing
     path: testing
-tags: []
+tags:
+  - culture
+  - musings
+  - testing
 canonical: https://yonatankra.com/musings-about-tests-as-documentation/
 comments: []
 ---
-
 
 <p>This post originated from a non-english post on Linkedin. Here&#8217;s a translation of the original post:</p>
 

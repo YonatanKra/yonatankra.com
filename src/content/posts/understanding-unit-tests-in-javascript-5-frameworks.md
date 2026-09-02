@@ -9,17 +9,21 @@ categories:
   - name: Testing
     slug: testing
     path: testing
+  - name: Cypress
+    slug: cypress
+    path: testing/cypress
   - name: Javascript
     slug: javascript
     path: javascript
   - name: jest
     slug: jest
     path: testing/jest
-tags: []
+tags:
+  - javascript
+  - testing
 canonical: https://yonatankra.com/understanding-unit-tests-in-javascript-5-frameworks/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">When it comes to testing, checking a single function is different from testing a complete application at once. It helps to understand the flaws in any units of the application and allows the developers to take appropriate steps.&nbsp;</p>
 

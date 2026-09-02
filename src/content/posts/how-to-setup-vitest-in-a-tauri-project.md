@@ -15,11 +15,17 @@ categories:
   - name: Tauri
     slug: tauri
     path: tauri
-tags: []
+  - name: Tauri Demo
+    slug: tauri-demo
+    path: tauri-demo
+tags:
+  - javascript
+  - tauri
+  - testing
+  - vitest
 canonical: https://yonatankra.com/how-to-setup-vitest-in-a-tauri-project/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Starting a project for me usually starts with setting up the testing infrastructure. The only exception is when one already exists. In this article we will learn two things. We will start from setting up vitest in the Tauri project. We will then learn how to write a test in JavaScript for a part that&#8217;s connecting to the Tauri Rust backend.</p>
 

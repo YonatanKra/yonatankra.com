@@ -6,10 +6,17 @@ updated: 2023-09-12T04:46:03
 author: Yonatan Kra
 description: Here are 7 tricks with github actions that changed my life (or at least my CI/CD pipeline). These tricks helped me create a more maintainable workflows code as well as boosted performance of the whole CI/CD process. If you haven’t used github actions before, you can watch my talk on how to setup CI/CD with [&hellip;]
 categories:
+  - name: Github
+    slug: github
+    path: github
   - name: github actions
     slug: github-actions
     path: devops/github-actions
-tags: []
+tags:
+  - ci/cd
+  - devops
+  - github
+  - github actions
 canonical: https://yonatankra.com/7-github-actions-tricks-i-wish-i-knew-before-i-started/
 comments:
   - author: Steve
@@ -44,7 +51,6 @@ comments:
       In the example I use it here: <a href="https://gist.github.com/YonatanKra/99aa3be8aadad92fc87c9fa39658a718#file-pre-release-yml-L13" rel="nofollow ugc">reusable workflow usage</a><br />
       Hope this clarifies it 🙂</p>
 ---
-
 
 <p class="has-medium-font-size">Here are 7 tricks with github actions that changed my life (or at least my CI/CD pipeline). These tricks helped me create a more maintainable workflows code as well as boosted performance of the whole CI/CD process.</p>
 

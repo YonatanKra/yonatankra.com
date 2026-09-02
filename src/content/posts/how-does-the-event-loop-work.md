@@ -15,11 +15,16 @@ categories:
   - name: Performance
     slug: performance
     path: performance
-tags: []
+  - name: WarsawJS
+    slug: warsawjs
+    path: conferences/warsawjs
+tags:
+  - conference
+  - javascript
+  - event loop
 canonical: https://yonatankra.com/how-does-the-event-loop-work/
 comments: []
 ---
-
 
 <figure class="wp-block-embed-youtube wp-block-embed is-type-video is-provider-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
 <span class="embed-youtube" style="text-align:center; display: block;"><iframe loading="lazy" class="youtube-player" width="640" height="360" src="https://www.youtube.com/embed/Nqx3rtv_dko?version=3&#038;rel=1&#038;showsearch=0&#038;showinfo=1&#038;iv_load_policy=1&#038;fs=1&#038;hl=en-US&#038;autohide=2&#038;wmode=transparent" allowfullscreen="true" style="border:0;" sandbox="allow-scripts allow-same-origin allow-popups allow-presentation allow-popups-to-escape-sandbox"></iframe></span>

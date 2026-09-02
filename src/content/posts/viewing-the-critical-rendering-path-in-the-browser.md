@@ -12,11 +12,13 @@ categories:
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - chrome
+  - critical rendering path
+  - javascript
 canonical: https://yonatankra.com/viewing-the-critical-rendering-path-in-the-browser/
 comments: []
 ---
-
 
 <p>The critical rendering path (CRP from now on) is also known as The Pixel Path. It’s actually what happens from the moment your javascript code runs, until the moment the pixels are shown on screen. We can also call it a “frame”. </p>
 

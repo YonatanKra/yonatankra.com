@@ -5,12 +5,16 @@ published: 2020-10-08T05:25:09
 updated: 2021-08-10T16:53:38
 author: Yonatan Kra
 description: AskQL is a new query language that is also a programming language. Read on to see how you can actually get Star Wars with AskQL. We can query AskQL with askscript. The askscript should be very intuitive for developers, because it looks like a script! Let’s query the most common first query – hello world! [&hellip;]
-categories: []
-tags: []
+categories:
+  - name: AskQL
+    slug: askql
+    path: askql
+tags:
+  - AskQL
+  - nodejs
 canonical: https://yonatankra.com/introduction-to-askql/
 comments: []
 ---
-
 
 <p>AskQL is a new query language that is also a programming language. Read on to see how you can actually get Star Wars with AskQL.</p>
 

@@ -9,6 +9,9 @@ categories:
   - name: Coding
     slug: coding
     path: coding
+  - name: Github
+    slug: github
+    path: github
   - name: Javascript
     slug: javascript
     path: javascript
@@ -18,11 +21,13 @@ categories:
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - javascript
+  - open source
+  - performance
 canonical: https://yonatankra.com/look-ma-my-codes-in-youtube/
 comments: []
 ---
-
 
 <p class="has-cyan-bluish-gray-color has-text-color has-medium-font-size"><strong>Google&#8217;s Material Web Components had a performance issue and I thought I could help. The results: 90% performance improvement in big lists removal. Here&#8217;s how I did it, and how you can duplicate it in your application.</strong></p>
 

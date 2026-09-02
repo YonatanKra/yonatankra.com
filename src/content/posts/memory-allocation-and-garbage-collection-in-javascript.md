@@ -9,14 +9,20 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: Memory
+    slug: memory
+    path: javascript/memory
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - garbage collection
+  - javascript
+  - memory
+  - performance
 canonical: https://yonatankra.com/memory-allocation-and-garbage-collection-in-javascript/
 comments: []
 ---
-
 
 <figure class="wp-block-image size-large"><img data-recalc-dims="1" loading="lazy" decoding="async" width="640" height="427" src="/wp-content/uploads/2020/01/memoryAllocation.jpg" alt="Memory Allocation" class="wp-image-193" srcset="/wp-content/uploads/2020/01/memoryAllocation-scaled.jpg 1024w, /wp-content/uploads/2020/01/memoryAllocation-scaled.jpg 300w, /wp-content/uploads/2020/01/memoryAllocation-scaled.jpg 768w, /wp-content/uploads/2020/01/memoryAllocation-scaled.jpg 1536w, /wp-content/uploads/2020/01/memoryAllocation-scaled.jpg 2048w, /wp-content/uploads/2020/01/memoryAllocation-scaled.jpg 135w, /wp-content/uploads/2020/01/memoryAllocation-scaled.jpg 1280w, /wp-content/uploads/2020/01/memoryAllocation-scaled.jpg 1920w" sizes="auto, (max-width: 640px) 100vw, 640px" /><figcaption>This is how we can allocate memory &#8211; by taking photos. This empty frame is ready to be filled with a memory.
 Photo by Rolands Zilvinskis on Unsplash</figcaption></figure>

@@ -12,7 +12,12 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+  - name: Web Component
+    slug: web-component
+    path: web-component
+tags:
+  - vivid
+  - web components
 canonical: https://yonatankra.com/how-to-build-a-vivid-birthday-quiz-in-20-minutes/
 comments:
   - author: Yinon
@@ -20,7 +25,6 @@ comments:
     content: |
       <p>having such a library providing all the UI is a life saver! great serve yonatankra</p>
 ---
-
 
 <p class="has-medium-font-size">Vivid, Vonage&#8217;s design system, is now published. What better way to celebrate Vivid&#8217;s public birthday than to build a birthday quiz? Let&#8217;s have a vivid birthday!</p>
 

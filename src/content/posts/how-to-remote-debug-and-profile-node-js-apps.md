@@ -9,14 +9,22 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: debugging
+    slug: debugging
+    path: javascript/debugging
   - name: nodejs
     slug: nodejs
     path: javascript/nodejs
-tags: []
+  - name: Skills
+    slug: skills
+    path: meta-programming/skills
+tags:
+  - chrome devtools
+  - debugging
+  - javascript
 canonical: https://yonatankra.com/how-to-remote-debug-and-profile-node-js-apps/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Debugging is an important skill for every developer. Here’s how to quickly setup debugging for nodejs with free tools everyone has.</p>
 

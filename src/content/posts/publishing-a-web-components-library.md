@@ -5,12 +5,24 @@ published: 2019-04-01T00:00:00
 updated: 2022-06-18T08:46:58
 author: Yonatan Kra
 description: Once upon a time, in order to create web components, one had to resort to a front end framework like angular or react (yes yes, I’ve heard the “it’s only a lib” before from all the angularists in the crowd) . Web component is one awesome piece of technology (or rather, a combination of 4 technologies). [&hellip;]
-categories: []
-tags: []
+categories:
+  - name: Github
+    slug: github
+    path: github
+  - name: NPM
+    slug: npm
+    path: npm
+  - name: Web Component
+    slug: web-component
+    path: web-component
+tags:
+  - github
+  - npm
+  - testing
+  - web components
 canonical: https://yonatankra.com/publishing-a-web-components-library/
 comments: []
 ---
-
 
 <div class="wp-block-image"><figure class="aligncenter"><img decoding="async" src="https://i0.wp.com/cdn-images-1.medium.com/max/800/1*Z9FDHEnHP8kpKHgdgnC01Q.png?resize=580%2C326&amp;ssl=1" alt=""/></figure></div>
 

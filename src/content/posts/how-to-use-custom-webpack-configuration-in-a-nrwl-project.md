@@ -12,7 +12,12 @@ categories:
   - name: nx
     slug: nx
     path: javascript/nx
-tags: []
+  - name: webpack
+    slug: webpack
+    path: javascript/webpack
+tags:
+  - nx
+  - webpack
 canonical: https://yonatankra.com/how-to-use-custom-webpack-configuration-in-a-nrwl-project/
 comments:
   - author: rajesh
@@ -29,7 +34,6 @@ comments:
     content: |
       <p>What do you mean? Do you have a repository where the issue is reproduced?</p>
 ---
-
 
 <p class="has-medium-font-size">Customizing webpack for your own needs is a powerful functionality. It allows you full control of your app&#8217;s development and deployment process. In this article we will go over how to do that in an NX monorepo.</p>
 

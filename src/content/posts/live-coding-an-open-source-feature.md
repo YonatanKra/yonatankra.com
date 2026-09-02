@@ -9,17 +9,22 @@ categories:
   - name: Coding
     slug: coding
     path: coding
+  - name: ConfrontJS
+    slug: confrontjs
+    path: conferences/confrontjs
   - name: Open Source
     slug: open-source
     path: open-source
   - name: Testing
     slug: testing
     path: testing
-tags: []
+tags:
+  - live coding
+  - open source
+  - tdd
 canonical: https://yonatankra.com/live-coding-an-open-source-feature/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How do I approach a new feature in an open source project? How do I TDD a frontend feature? What do we use for cross-browser testing? All this and more in this live coding session recording</p>
 

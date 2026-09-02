@@ -6,13 +6,23 @@ updated: 2022-05-07T07:23:55
 author: Yonatan Kra
 description: What is the new standard to serve both an ECMAScript Module (ESM) as well as Commonjs in the same package? How to use it? And how to make Jest and Playwright to work with it? When developing an npm package, there are many considerations one needs to take regarding consumption. These considerations change with time [&hellip;]
 categories:
+  - name: typescript
+    slug: typescript
+    path: javascript/typescript
   - name: Javascript
     slug: javascript
     path: javascript
   - name: jest
     slug: jest
     path: testing/jest
-tags: []
+  - name: Playwright
+    slug: playwright
+    path: testing/playwright
+tags:
+  - es modules
+  - jest
+  - playwright
+  - typescript
 canonical: https://yonatankra.com/how-to-use-the-new-ecmascript-module-in-typescript/
 comments:
   - author: Yinon
@@ -20,7 +30,6 @@ comments:
     content: |
       <p>and here&#8217;s <a href="https://github.com/Vonage/vivid-3/pull/348" target="_blank" rel="noopener nofollow ugc">its PR</a></p>
 ---
-
 
 <p class="has-medium-font-size">What is the new standard to serve both an ECMAScript Module (ESM) as well as Commonjs in the same package? How to use it? And how to make <code>Jest</code> and <code>Playwright</code> to work with it?</p>
 

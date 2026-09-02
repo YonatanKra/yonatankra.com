@@ -12,17 +12,24 @@ categories:
   - name: Architecture
     slug: architecture
     path: architecture
+  - name: Design Patterns
+    slug: design-patterns
+    path: design-patterns
   - name: Flutter
     slug: flutter
     path: flutter
   - name: Meta Programming
     slug: meta-programming
     path: meta-programming
-tags: []
+tags:
+  - architecture
+  - flutter
+  - software design
+  - tdd
+  - testing
 canonical: https://yonatankra.com/meaningful-tests-human-hubris-vs-ai/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">What makes a test meaningful? How can tests shape better architecture? And what roles do humans and AI play?</p>
 

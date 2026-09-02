@@ -15,11 +15,15 @@ categories:
   - name: nodejs
     slug: nodejs
     path: javascript/nodejs
-tags: []
+tags:
+  - express
+  - fullstack
+  - nx
+  - react
+  - react-native
 canonical: https://yonatankra.com/fullstack-react-native-project-in-8-minutes/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Setup a fully working fullstack express, react and react-native environment in 8 minutes. We will do it with Nx, express, react and react native.</p>
 

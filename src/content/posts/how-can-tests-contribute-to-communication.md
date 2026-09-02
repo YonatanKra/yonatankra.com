@@ -15,11 +15,14 @@ categories:
   - name: Meta Programming
     slug: meta-programming
     path: meta-programming
-tags: []
+tags:
+  - javascript
+  - meta programming
+  - soft skills
+  - testing
 canonical: https://yonatankra.com/how-can-tests-contribute-to-communication/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Tests can improve communication and save time (and frustration). Bad tests can do the opposite. In this article, we&#8217;ll explore an example from real life of how bad tests are harmful and how good ones convey the right information.</p>
 

@@ -6,17 +6,26 @@ updated: 2021-08-10T16:53:38
 author: Yonatan Kra
 description: Your users expect a fast and smooth experience. Sometimes what stands in the way is how long it takes to download data. The flyweight design pattern is a possible solution to help reduce bandwidth in your app.
 categories:
+  - name: Design Patterns
+    slug: design-patterns
+    path: design-patterns
   - name: Javascript
     slug: javascript
     path: javascript
   - name: Performance
     slug: performance
     path: performance
-tags: []
+  - name: Uncategorized
+    slug: uncategorized
+    path: uncategorized
+tags:
+  - bandwidth
+  - design patterns
+  - flyweight
+  - javascript
 canonical: https://yonatankra.com/reducing-network-traffic-with-the-flyweight-design-pattern/
 comments: []
 ---
-
 
 <div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
 <div class="wp-block-image"><figure class="aligncenter"><img data-recalc-dims="1" loading="lazy" decoding="async" width="640" height="625" src="/wp-content/uploads/2020/01/Yu-Kimura-e1579765470619.jpeg" alt="" class="wp-image-261" srcset="/wp-content/uploads/2020/01/Yu-Kimura-e1579765470619.jpeg 685w, /wp-content/uploads/2020/01/Yu-Kimura-e1579765470619.jpeg 300w, /wp-content/uploads/2020/01/Yu-Kimura-e1579765470619.jpeg 92w" sizes="auto, (max-width: 640px) 100vw, 640px" /><figcaption> WBC flyweight champion <strong><a rel="noreferrer noopener" href="https://fr.wikipedia.org/wiki/Yu_Kimura" target="_blank">Yu Kimura</a></strong><br>Image by: Papakanno (<a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener">CC BY-SA</a>) </figcaption></figure></div>

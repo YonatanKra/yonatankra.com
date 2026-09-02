@@ -5,12 +5,20 @@ published: 2021-09-27T17:57:34
 updated: 2021-11-30T08:16:06
 author: Yonatan Kra
 description: How to create a simple and efficient collision detection between paths in your HTML5 Canvas app or game? In this article we will create a maze, allow a player to navigate through the maze and detect when the player collides with the walls. The End Goal Let’s build a simple game. The game will look [&hellip;]
-categories: []
-tags: []
+categories:
+  - name: canvas
+    slug: canvas
+    path: javascript/canvas
+  - name: Gaming
+    slug: gaming
+    path: coding/gaming
+tags:
+  - canvas
+  - collision detection
+  - javascript
 canonical: https://yonatankra.com/simple-collision-detection-with-path2d/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How to create a simple and efficient collision detection between paths in your HTML5 Canvas app or game? In this article we will create a maze, allow a player to navigate through the maze and detect when the player collides with the walls.</p>
 

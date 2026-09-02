@@ -5,12 +5,16 @@ published: 2022-03-04T08:04:08
 updated: 2022-03-04T08:04:11
 author: Yonatan Kra
 description: Here’s how to create an HTML for a specific or every entry file using Webpack and HTML Webpack Plugin. A really short explanation. Webpack Bundling in a Nutshell Webpack allows you to bundle your app from one or multiple files. It starts from a file called “entry” and follows your import or require calls. It [&hellip;]
-categories: []
-tags: []
+categories:
+  - name: webpack
+    slug: webpack
+    path: javascript/webpack
+tags:
+  - HTMLWebpackPlugin
+  - webpack
 canonical: https://yonatankra.com/how-to-use-htmlwebpackplugin-for-multiple-entries/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Here&#8217;s how to create an HTML for a specific or every entry file using Webpack and HTML Webpack Plugin. A really short explanation.</p>
 

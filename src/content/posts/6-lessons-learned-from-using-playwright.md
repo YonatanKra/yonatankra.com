@@ -12,11 +12,16 @@ categories:
   - name: Coding
     slug: coding
     path: coding
-tags: []
+  - name: Playwright
+    slug: playwright
+    path: testing/playwright
+tags:
+  - javascript
+  - playwright
+  - testing
 canonical: https://yonatankra.com/6-lessons-learned-from-using-playwright/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Here are 6 practical lessons learned from a production incident, ui-test coverage (using playwright) and code review.</p>
 

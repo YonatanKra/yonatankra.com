@@ -6,13 +6,20 @@ updated: 2021-12-12T19:40:09
 author: Yonatan Kra
 description: In this short article you will learn what you need to install in order to prepare a test environment for canvas operations with jest. After finishing the article, you will be ready for some canvas testing action! In the past few months, my kid and I been building HTML5 games. I’d might actually get you [&hellip;]
 categories:
+  - name: canvas
+    slug: canvas
+    path: javascript/canvas
   - name: Javascript
     slug: javascript
     path: javascript
   - name: Testing
     slug: testing
     path: testing
-tags: []
+tags:
+  - canvas
+  - javascript
+  - jest
+  - testing
 canonical: https://yonatankra.com/how-to-test-html5-canvas-with-jest/
 comments:
   - author: Douglas Counts
@@ -39,7 +46,6 @@ comments:
           ]<br />
         },</p>
 ---
-
 
 <p class="has-medium-font-size">In this short article you will learn what you need to install in order to prepare a test environment for canvas operations with jest. After finishing the article, you will be ready for some canvas testing action!</p>
 

@@ -9,7 +9,8 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+tags:
+  - javascript
 canonical: https://yonatankra.com/custom-json-stringify-to-classes-with-the-tojson-method/
 comments:
   - author: Piotr Zientara
@@ -17,7 +18,6 @@ comments:
     content: |
       <p>I find this insightful, and I never thought of this `toJSON` getter. Looks like an intro to an interesting pattern that can help the code to remain clean. Thank you Yonatan for sharing this!</p>
 ---
-
 
 <p class="has-medium-font-size">The <code>toJSON</code> method allows you to tell <code>JSON.stringify</code> how to print out your <code>Class</code>. This can be pretty useful&#8230;</p>
 

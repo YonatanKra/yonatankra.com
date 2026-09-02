@@ -12,11 +12,16 @@ categories:
   - name: Conferences
     slug: conferences
     path: conferences
-tags: []
+  - name: webpack
+    slug: webpack
+    path: javascript/webpack
+tags:
+  - nx
+  - talks
+  - webpack
 canonical: https://yonatankra.com/custom-webpack-config-in-an-nx-workspace-the-video/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">This is my talk from nx conf 2021 on how to customize webpack config in an Nx workspace.</p>
 

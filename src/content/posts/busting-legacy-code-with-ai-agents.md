@@ -12,11 +12,17 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+  - name: Uncategorized
+    slug: uncategorized
+    path: uncategorized
+tags:
+  - ai agents
+  - javascript
+  - tdd
+  - testing
 canonical: https://yonatankra.com/busting-legacy-code-with-ai-agents/
 comments: []
 ---
-
 
 <div id="ez-toc-container" class="ez-toc-v2_0_87 counter-hierarchy ez-toc-counter ez-toc-grey ez-toc-container-direction">
 <p class="ez-toc-title" style="cursor:inherit">Table of Contents</p>

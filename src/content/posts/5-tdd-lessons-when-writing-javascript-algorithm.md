@@ -9,6 +9,9 @@ categories:
   - name: Testing
     slug: testing
     path: testing
+  - name: Algorithms
+    slug: algorithms
+    path: coding/algorithms
   - name: Javascript
     slug: javascript
     path: javascript
@@ -16,7 +19,6 @@ tags: []
 canonical: https://yonatankra.com/5-tdd-lessons-when-writing-javascript-algorithm/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How to develop an algorithm using TDD? In this article we will implement the Diamond-Square algorithm using TDD. This article was inspired by Uncle Bob&#8217;s blog post TDD Lesson &#8211; Terrain Generation.</p>
 

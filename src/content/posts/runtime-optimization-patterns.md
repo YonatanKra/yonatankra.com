@@ -6,17 +6,26 @@ updated: 2021-08-10T16:53:39
 author: Yonatan Kra
 description: "My talk from CodeTalks 2019 is live. You can watch it here: In this talk I go over 3 design patterns I’ve used in production in order to enhance performance in Javascript: Dirty flag, data locality and Object pool. Some extra material about the subjects: 1. Dirty flag in cesium 2. Object pool example 3. [&hellip;]"
 categories:
+  - name: CodeTalks 2019
+    slug: codetalks-2019
+    path: conferences/codetalks-2019
   - name: Conferences
     slug: conferences
     path: conferences
+  - name: Design Patterns
+    slug: design-patterns
+    path: design-patterns
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - code talks
+  - design patterns
+  - optimization
+  - performance
 canonical: https://yonatankra.com/runtime-optimization-patterns/
 comments: []
 ---
-
 
 <p>My talk from <a href="https://www.codetalks.de/speakers#talk-930?event=5" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">CodeTalks 2019</a> is live. You can watch it here:</p>
 

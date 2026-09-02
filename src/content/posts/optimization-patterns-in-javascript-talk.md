@@ -6,17 +6,25 @@ updated: 2021-08-10T16:53:39
 author: Yonatan Kra
 description: My talk (in Hebrew) at Javascript Israel about Optimization Patterns in Javascript is now online. Enjoy 🙂
 categories:
+  - name: Design Patterns
+    slug: design-patterns
+    path: design-patterns
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: Javascript Israel
+    slug: javascript-israel
+    path: conferences/javascript-israel
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - design patterns
+  - javascript
+  - performance
 canonical: https://yonatankra.com/optimization-patterns-in-javascript-talk/
 comments: []
 ---
-
 
 <p>My talk (in Hebrew) at Javascript Israel about Optimization Patterns in Javascript is now online. Enjoy 🙂</p>
 

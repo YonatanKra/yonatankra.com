@@ -18,11 +18,19 @@ categories:
   - name: Testing
     slug: testing
     path: testing
-tags: []
+  - name: typescript
+    slug: typescript
+    path: javascript/typescript
+  - name: Web Component
+    slug: web-component
+    path: web-component
+tags:
+  - javascript
+  - testing
+  - web components
 canonical: https://yonatankra.com/what-can-we-learn-from-building-a-bluesky-web-component-bot-part-1/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How to build a web component based application that integrates the BlueSky Social public API? Covered topics: TDD, BlueSky API, BlueSky bot (automation), AtProto SDK, Streaming, Web components.</p>
 

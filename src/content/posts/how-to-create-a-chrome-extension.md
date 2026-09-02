@@ -9,11 +9,12 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+tags:
+  - chrome extensions
+  - javascript
 canonical: https://yonatankra.com/how-to-create-a-chrome-extension/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Did you know you can improve your (and your colleagues&#8217;) life by developing chrome extensions? Keren Kenzi showed how to do it in Fullstack Exchange 2022</p>
 

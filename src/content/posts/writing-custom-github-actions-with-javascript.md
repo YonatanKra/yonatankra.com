@@ -6,14 +6,19 @@ updated: 2021-08-10T16:53:38
 author: Yonatan Kra
 description: Lately I’ve been involved with an Open Source project called AskQL. I really like the project, try to contribute as much as I can and learn a lot in the process. One of the issues there was to enforce conventional commit names. This looked pretty easy – there must be tons of github actions in [&hellip;]
 categories:
+  - name: Github
+    slug: github
+    path: github
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+tags:
+  - devops
+  - github
+  - github actions
 canonical: https://yonatankra.com/writing-custom-github-actions-with-javascript/
 comments: []
 ---
-
 
 <p>Lately I&#8217;ve been involved with an Open Source project called <a rel="noreferrer noopener" href="https://github.com/xFAANG/askql" target="_blank">AskQL</a>. I really like the project, try to contribute as much as I can and learn a lot in the process.</p>
 

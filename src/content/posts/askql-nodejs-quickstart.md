@@ -6,14 +6,19 @@ updated: 2021-08-10T16:53:38
 author: Yonatan Kra
 description: AskQL is a new query language that is also a programming language. I’ve written an introduction about it in the former post. In this article we will see how it can be setup in a nodejs server. Quickly setting a server To setup a server with AskQL, we first need a server. Let’s set it [&hellip;]
 categories:
+  - name: AskQL
+    slug: askql
+    path: askql
   - name: nodejs
     slug: nodejs
     path: javascript/nodejs
-tags: []
+tags:
+  - AskQL
+  - express
+  - nodejs
 canonical: https://yonatankra.com/askql-nodejs-quickstart/
 comments: []
 ---
-
 
 <p>AskQL is a new query language that is also a programming language. I&#8217;ve written <a href="/introduction-to-askql/" data-type="post" data-id="453">an introduction about it in the former post</a>.</p>
 

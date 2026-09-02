@@ -6,14 +6,24 @@ updated: 2021-08-10T16:53:38
 author: Yonatan Kra
 description: "How does AskQL differ from GraphQL? After writing about AskQL and how to use AskQL with nodejs, the obvious question that repeat itself was: How does it differ from GraphQL? In this article I will try to show the main benefits of AskQL by converting a simple Covid-19 GraphQL project into AskQL. The Project The [&hellip;]"
 categories:
+  - name: AskQL
+    slug: askql
+    path: askql
+  - name: GraphQL
+    slug: graphql
+    path: graphql
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+tags:
+  - AskQL
+  - covid-19
+  - GraphQL
+  - javascript
+  - nodejs
 canonical: https://yonatankra.com/on-covid-19-graphql-and-askql/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How does AskQL differ from GraphQL? </p>
 

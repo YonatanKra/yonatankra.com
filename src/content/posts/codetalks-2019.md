@@ -6,14 +6,18 @@ updated: 2021-08-10T16:53:39
 author: Yonatan Kra
 description: Last week I’ve had the honor and pleasure to speak at CodeTalks 2019 @Hamburg. All in all it was a great experience. The organizing team was very helpful and the event itself was organized amazingly (especially considering there were about 2000 people in the conference). I also got to hang out with Yonatan and Liat [&hellip;]
 categories:
+  - name: CodeTalks 2019
+    slug: codetalks-2019
+    path: conferences/codetalks-2019
   - name: Conferences
     slug: conferences
     path: conferences
-tags: []
+tags:
+  - code talks
+  - conference
 canonical: https://yonatankra.com/codetalks-2019/
 comments: []
 ---
-
 
 <figure class="wp-block-image size-large"><img data-recalc-dims="1" loading="lazy" decoding="async" width="640" height="453" src="/wp-content/uploads/2019/12/codeTalksGang.png" alt="" class="wp-image-7" srcset="/wp-content/uploads/2019/12/codeTalksGang.png 847w, /wp-content/uploads/2019/12/codeTalksGang.png 300w, /wp-content/uploads/2019/12/codeTalksGang.png 768w" sizes="auto, (max-width: 640px) 100vw, 640px" /><figcaption>The Israeli Gang at CodeTalks 2019, Hamburg</figcaption></figure>
 

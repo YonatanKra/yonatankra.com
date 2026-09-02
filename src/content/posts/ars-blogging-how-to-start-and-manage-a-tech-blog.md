@@ -9,11 +9,13 @@ categories:
   - name: Meta Programming
     slug: meta-programming
     path: meta-programming
+  - name: Skills
+    slug: skills
+    path: meta-programming/skills
 tags: []
 canonical: https://yonatankra.com/ars-blogging-how-to-start-and-manage-a-tech-blog/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How to start blogging? What are the benefits of blogging and continuously sharing your knowledge? How to get your articles to an audience and who&#8217;s best to write for?</p>
 

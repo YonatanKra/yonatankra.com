@@ -9,17 +9,23 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: Memory
+    slug: memory
+    path: javascript/memory
   - name: nodejs
     slug: nodejs
     path: javascript/nodejs
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - javascript
+  - memory
+  - nodejs
+  - performance
 canonical: https://yonatankra.com/measuring-used-js-heap-size-in-nodejs/
 comments: []
 ---
-
 
 <p>In the former article, we saw <a href="/measuring-used-js-heap-size/">how to measure the JS heap in the browser</a> and a few use cases it can come in handy.  I was asked how this can be done in a nodejs app as well. </p>
 

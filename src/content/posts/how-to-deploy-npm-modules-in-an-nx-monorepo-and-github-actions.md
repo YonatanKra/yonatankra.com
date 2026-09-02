@@ -12,11 +12,16 @@ categories:
   - name: nx
     slug: nx
     path: javascript/nx
-tags: []
+  - name: Uncategorized
+    slug: uncategorized
+    path: uncategorized
+tags:
+  - github actions
+  - npm modules
+  - nx
 canonical: https://yonatankra.com/how-to-deploy-npm-modules-in-an-nx-monorepo-and-github-actions/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How do you maintain and deploy multiple NPM modules? How do you make sure versions do not mismatch or that nothing breaks while upgrading dependencies? And how do you deploy multiple packages at the same time in one CLI command?</p>
 

@@ -6,17 +6,22 @@ updated: 2022-09-01T06:31:07
 author: Yonatan Kra
 description: How to build a chrome extension, manipulate and interact with a page and publish it to the Chrome Web Store? Here’s how I created a Chrome extension that enables me to style the text in my posts and comments – and how you can do it too I post on Facebook occasionally. I guess many [&hellip;]
 categories:
+  - name: chrome extensions
+    slug: chrome-extensions
+    path: javascript/chrome-extensions
   - name: jest
     slug: jest
     path: testing/jest
   - name: Testing
     slug: testing
     path: testing
-tags: []
+tags:
+  - chrome extensions
+  - tdd
+  - testing
 canonical: https://yonatankra.com/how-to-build-a-chrome-extension-that-will-make-your-facebook-posts-better/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How to build a chrome extension, manipulate and interact with a page and publish it to the Chrome Web Store? Here&#8217;s how I created a Chrome extension that enables me to style the text in my posts and comments &#8211; and how you can do it too</p>
 

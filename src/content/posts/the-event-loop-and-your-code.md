@@ -9,11 +9,17 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+  - name: javascript engine
+    slug: javascript-engine
+    path: javascript/javascript-engine
+tags:
+  - call stack
+  - callback queue
+  - event loop
+  - javascript
 canonical: https://yonatankra.com/the-event-loop-and-your-code/
 comments: []
 ---
-
 
 <p>The event loop is a core concept in Javascript.  It is fundamental in order to understand how asynchronous code works &#8211; and how not to work with synchronous code.</p>
 

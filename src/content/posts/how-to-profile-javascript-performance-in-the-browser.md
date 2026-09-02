@@ -12,11 +12,13 @@ categories:
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - chrome devtools
+  - how to
+  - profiling performance
 canonical: https://yonatankra.com/how-to-profile-javascript-performance-in-the-browser/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">In order to solve performance issues, you must learn how to profile and monitor an application. How to do that using Google Chrome developer tools?</p>
 

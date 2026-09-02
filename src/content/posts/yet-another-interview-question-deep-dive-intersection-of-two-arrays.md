@@ -6,10 +6,19 @@ updated: 2021-10-06T15:08:00
 author: Yonatan Kra
 description: Can we learn something practical from a pure computer science interview question? In this article we will solve an interview question and optimize it – but we will also look at a practical way to handle data in real life. The problem of finding intersecting numbers between two arrays is simple. Assuming an input of [&hellip;]
 categories:
+  - name: Algorithms
+    slug: algorithms
+    path: coding/algorithms
+  - name: Interview Questions
+    slug: interview-questions
+    path: coding/interview-questions
   - name: nodejs
     slug: nodejs
     path: javascript/nodejs
-tags: []
+tags:
+  - nodejs
+  - performance
+  - streams
 canonical: https://yonatankra.com/yet-another-interview-question-deep-dive-intersection-of-two-arrays/
 comments:
   - author: Miki
@@ -26,7 +35,6 @@ comments:
       <p>You are correct. I&#8217;m a big fan of <a href="/?s=pre+allocation" rel="noopener" target="_blank">pre allocation</a> for performance boosts.<br />
       Didn&#8217;t want to delve too much into it, but if it is of interest to anyone, here is a link to articles in which I speak about it and how to measure its implications: <a href="/?s=pre+allocation" rel="noopener" target="_blank">https://yonatankra.com/?s=pre+allocation</a>.</p>
 ---
-
 
 <p class="has-medium-font-size">Can we learn something practical from a pure computer science interview question? In this article we will solve an interview question and optimize it &#8211; but we will also look at a practical way to handle data in real life.</p>
 

@@ -6,14 +6,22 @@ updated: 2021-08-16T20:38:49
 author: Yonatan Kra
 description: Collision detection is the basics of entities interaction on canvas. Imagine you have a Player Character (PC) that’s walking through a maze and you’d like to know if this PC bumps into a wall or can keep on going. One can argue that there’s a wall crossing potion somewhere, but let’s assume one doesn’t have [&hellip;]
 categories:
+  - name: Algorithms
+    slug: algorithms
+    path: coding/algorithms
+  - name: canvas
+    slug: canvas
+    path: javascript/canvas
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+tags:
+  - algorithms
+  - canvas
+  - javascript
 canonical: https://yonatankra.com/how-to-write-a-simple-collision-detector-in-html5-canvas-and-javascript/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Collision detection is the basics of entities interaction on canvas. Imagine you have a Player Character (PC) that&#8217;s walking through a maze and you&#8217;d like to know if this PC bumps into a wall or can keep on going. One can argue that  there&#8217;s a <code>wall crossing potion</code> somewhere, but let&#8217;s assume one doesn&#8217;t have it (yet). Let&#8217;s see how we can make this work.</p>
 

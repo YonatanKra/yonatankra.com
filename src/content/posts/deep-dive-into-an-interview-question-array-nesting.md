@@ -6,14 +6,22 @@ updated: 2021-12-09T23:12:17
 author: Yonatan Kra
 description: The Array Nesting interview question might seem complex at first and very simple after you solve it. But sometimes, a deeper dive into it can expose some more performance optimizations that can be interesting. After this article, you’ll be able to amaze your interviewers with some new insights they didn’t think of! What is the [&hellip;]
 categories:
+  - name: Algorithms
+    slug: algorithms
+    path: coding/algorithms
+  - name: Interview Questions
+    slug: interview-questions
+    path: coding/interview-questions
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - algorithms
+  - javascript
+  - performance
 canonical: https://yonatankra.com/deep-dive-into-an-interview-question-array-nesting/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">The Array Nesting interview question might seem complex at first and very simple after you solve it.  But sometimes, a deeper dive into it can expose some more performance optimizations that can be interesting. After this article, you&#8217;ll be able to amaze your interviewers with some new insights they didn&#8217;t think of!</p>
 

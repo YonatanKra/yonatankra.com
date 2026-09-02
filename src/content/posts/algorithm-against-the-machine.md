@@ -6,9 +6,15 @@ updated: 2021-08-10T16:53:39
 author: Yonatan Kra
 description: How a followup chat with a meetup  attendee helped me distill a javascript memory issue? Read more about memory allocation and garbage collection.
 categories:
+  - name: Design Patterns
+    slug: design-patterns
+    path: design-patterns
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: Memory
+    slug: memory
+    path: javascript/memory
   - name: Performance
     slug: performance
     path: performance
@@ -16,7 +22,6 @@ tags: []
 canonical: https://yonatankra.com/algorithm-against-the-machine/
 comments: []
 ---
-
 
 <p>I&#8217;ve recently given a talk about Design Patterns in JS at <a href="https://2019.confrontjs.com/" target="_blank" rel="noopener">Javascript Israel</a>.  I&#8217;ve spoken about memory allocation in JS when I explained about the <a href="/improve-performance-with-object-pool/">Object Pool design pattern</a>.</p>
 

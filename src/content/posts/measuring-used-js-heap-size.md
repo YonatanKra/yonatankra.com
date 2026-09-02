@@ -9,14 +9,22 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: javascript engine
+    slug: javascript-engine
+    path: javascript/javascript-engine
+  - name: Memory
+    slug: memory
+    path: javascript/memory
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - javascript
+  - jsheap
+  - performance
 canonical: https://yonatankra.com/measuring-used-js-heap-size/
 comments: []
 ---
-
 
 <p>Part of the tools frontend developers have in their arsenal is the performance API. Part of it is the memory object. It can be used for various causes &#8211; from debugging performance through experimenting to performance budget monitoring.</p>
 

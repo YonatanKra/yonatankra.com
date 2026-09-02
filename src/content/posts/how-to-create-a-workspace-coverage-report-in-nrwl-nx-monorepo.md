@@ -18,7 +18,10 @@ categories:
   - name: Testing
     slug: testing
     path: testing
-tags: []
+tags:
+  - code coverage
+  - continuous integration
+  - testing
 canonical: https://yonatankra.com/how-to-create-a-workspace-coverage-report-in-nrwl-nx-monorepo/
 comments:
   - author: Mike Graham
@@ -35,7 +38,6 @@ comments:
     content: |
       <p>works as expected. Thank you very much!</p>
 ---
-
 
 <p>This is going to be a short one.  I&#8217;m using nrwl/nx a LOT. I&#8217;m also testing a LOT.  Lately I needed to add a coverage report to one of my nrwl/nx repositories. The coverage tool I was using needed the coverage in one file, while the nrwl/nx creates the reports per library and app.</p>
 

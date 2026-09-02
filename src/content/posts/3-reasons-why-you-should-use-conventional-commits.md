@@ -9,14 +9,20 @@ categories:
   - name: Meta Programming
     slug: meta-programming
     path: meta-programming
+  - name: Github
+    slug: github
+    path: github
   - name: github actions
     slug: github-actions
     path: devops/github-actions
-tags: []
+tags:
+  - conventional commits
+  - git
+  - standards
+  - team work
 canonical: https://yonatankra.com/3-reasons-why-you-should-use-conventional-commits/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Conventional Commits is a standardized approach to version control that enhances clarity, consistency, and collaboration among developers. We&#8217;ll understand what Conventional Commits are, explore how they work, and explain the three main benefits you gain by using them. </p>
 

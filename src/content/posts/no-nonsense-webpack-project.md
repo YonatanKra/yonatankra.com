@@ -5,12 +5,18 @@ published: 2018-02-22T10:29:00
 updated: 2022-01-12T10:41:16
 author: Yonatan Kra
 description: "Or: How to use Webpack to build a project from scratch? Using webpack without fully understanding it, as if it were magic? Heard about the wonders of webpack, but got flustered by its ominous documentation? Are you from outer-space (like — a totally different galaxy) and haven’t heard of webpack at all? In any of these cases [&hellip;]"
-categories: []
-tags: []
+categories:
+  - name: Uncategorized
+    slug: uncategorized
+    path: uncategorized
+  - name: webpack
+    slug: webpack
+    path: javascript/webpack
+tags:
+  - webpack
 canonical: https://yonatankra.com/no-nonsense-webpack-project/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Or: How to use Webpack to build a project from scratch? </p>
 

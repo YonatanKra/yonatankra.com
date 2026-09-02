@@ -9,11 +9,12 @@ categories:
   - name: Testing
     slug: testing
     path: testing
-tags: []
+tags:
+  - tdd
+  - testing
 canonical: https://yonatankra.com/the-one-trick-to-writing-effective-tests/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">How do you know your test is effective? How do you know your test protects you from breaking changes? And how can you do TDD without doing TDD? The best distillment of TDD taken from a TDD workshop in JFokus.</p>
 

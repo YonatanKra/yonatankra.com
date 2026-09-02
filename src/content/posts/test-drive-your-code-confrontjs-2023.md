@@ -6,6 +6,9 @@ updated: 2023-09-09T14:41:50
 author: Yonatan Kra
 description: On March 2023 I gave the keynote at ConfrontJS in Warsaw. I spoke about how we can become more professional as developers, my 5 tips for becoming such, and a final most-important take-home message to the audience.
 categories:
+  - name: ConfrontJS
+    slug: confrontjs
+    path: conferences/confrontjs
   - name: Conferences
     slug: conferences
     path: conferences
@@ -18,11 +21,13 @@ categories:
   - name: Testing
     slug: testing
     path: testing
-tags: []
+tags:
+  - ConfrontJS
+  - javascript
+  - testing
 canonical: https://yonatankra.com/test-drive-your-code-confrontjs-2023/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">On March 2023 I gave the keynote at ConfrontJS in Warsaw. I spoke about how we can become more professional as developers, my 5 tips for becoming such, and a final most-important take-home message to the audience. </p>
 

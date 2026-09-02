@@ -9,8 +9,14 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: Web Component
+    slug: web-component
+    path: web-component
 tags:
+  - eval
+  - lit-element
   - lit-html
+  - web components
 canonical: https://yonatankra.com/a-good-case-for-eval-in-javascript/
 comments:
   - author: Justin
@@ -25,7 +31,6 @@ comments:
       This would be beneficial for future readers who are lit users I guess 🙂<br />
       I&#8217;ll update the article with your comment.</p>
 ---
-
 
 <p class="has-medium-font-size">Or: How to generate dynamic html tags inside lit-html templates? <code>eval</code> is sometimes mixed up with <code>evil</code>. We also hear sometimes that there are cases in which it is needed. This is one such case&#8230;</p>
 

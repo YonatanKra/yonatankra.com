@@ -12,7 +12,13 @@ categories:
   - name: devops
     slug: devops
     path: devops
-tags: []
+  - name: docker
+    slug: docker
+    path: docker
+tags:
+  - continuous integration
+  - docker
+  - github actions
 canonical: https://yonatankra.com/2-ways-to-use-your-docker-image-in-github-actions/
 comments:
   - author: Anony Mouse
@@ -26,7 +32,6 @@ comments:
       <p>Good points. Thanks!<br />
       Added to my to-do list!</p>
 ---
-
 
 <p class="has-medium-font-size">How to use the docker image to run Github Actions? How to use them to speed up the flows and stabilize tests? And when you should not use them?</p>
 

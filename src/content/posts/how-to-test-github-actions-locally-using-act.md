@@ -9,14 +9,18 @@ categories:
   - name: devops
     slug: devops
     path: devops
+  - name: Github
+    slug: github
+    path: github
   - name: github actions
     slug: github-actions
     path: devops/github-actions
-tags: []
+tags:
+  - devops
+  - github actions
 canonical: https://yonatankra.com/how-to-test-github-actions-locally-using-act/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Github actions are taking a considerable part of the devops world.  Developers find them super friendly for most use cases.  Developing your flow can be much faster if you can run them locally. This article will show you how.</p>
 

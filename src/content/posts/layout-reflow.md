@@ -9,14 +9,19 @@ categories:
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: javascript engine
+    slug: javascript-engine
+    path: javascript/javascript-engine
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - javascript
+  - layout
+  - performance
 canonical: https://yonatankra.com/layout-reflow/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">Force reflow (or Layout Reflow) is a major performance bottleneck. It happens when a measurement of the DOM happens after a DOM mutation. With this knowledge, I was able to improve performance of an app in my workplace by 75%.  Read on to understand how. </p>
 

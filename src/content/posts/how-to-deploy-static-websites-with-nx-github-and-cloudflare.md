@@ -6,6 +6,9 @@ updated: 2024-06-23T13:19:28
 author: Yonatan Kra
 description: A question was raised in a forum asking how to deploy static websites for free. Then, more specifically, it was mentioned they were using Nx to generate multiple websites. In this article, we will create a new Nx project with a few apps, publish our code to github, deploy all the websites to GitHub actions, [&hellip;]
 categories:
+  - name: Github
+    slug: github
+    path: github
   - name: devops
     slug: devops
     path: devops
@@ -15,11 +18,15 @@ categories:
   - name: nx
     slug: nx
     path: javascript/nx
-tags: []
+tags:
+  - angular
+  - github
+  - github actions
+  - nx
+  - vue
 canonical: https://yonatankra.com/how-to-deploy-static-websites-with-nx-github-and-cloudflare/
 comments: []
 ---
-
 
 <p class="has-medium-font-size">A question was raised in a forum asking how to deploy static websites for free. Then, more specifically, it was mentioned they were using Nx to generate multiple websites. In this article, we will create a new Nx project with a few apps, publish our code to github, deploy all the websites to GitHub actions, and set up Cloudflare to share our custom domain. Prerequisites: git and nodejs installed.</p>
 

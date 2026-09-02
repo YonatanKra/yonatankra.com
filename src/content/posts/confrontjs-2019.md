@@ -9,11 +9,16 @@ categories:
   - name: Conferences
     slug: conferences
     path: conferences
-tags: []
+  - name: ConfrontJS 2019
+    slug: confrontjs-2019
+    path: conferences/confrontjs-2019
+tags:
+  - ConfrontJS
+  - public speaking
+  - warsawJS
 canonical: https://yonatankra.com/confrontjs-2019/
 comments: []
 ---
-
 
 <div class="wp-block-image"><figure class="aligncenter"><img decoding="async" src="https://scontent.fhfa1-2.fna.fbcdn.net/v/t1.0-9/80058778_1443858705781151_4613781739129536512_o.jpg?_nc_cat=100&amp;_nc_ohc=pTRZwKYqr0kAQnIm-GYaFHZFhuaHBci5p2xRO_fEneSxyDiIx6gk9mJdA&amp;_nc_ht=scontent.fhfa1-2.fna&amp;oh=07b894824606ea11ea2c66edc11694e7&amp;oe=5E9E163D" alt="Image may contain: 61 people, people smiling, people standing"/><figcaption>The ConfrontJS 2019 Photo Finish &#8211; great people, great vibe!</figcaption></figure></div>
 

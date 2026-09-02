@@ -6,17 +6,26 @@ updated: 2021-08-10T16:53:39
 author: Yonatan Kra
 description: "After the Object Pool article went online, I was asked this on Facebook: What I take from here is 2 fold: The one paragraph spent explaining about use cases might not be enough – we need an example that is somewhat like real life. From the article, it might seem that Object Pool is the [&hellip;]"
 categories:
+  - name: Design Patterns
+    slug: design-patterns
+    path: design-patterns
   - name: Javascript
     slug: javascript
     path: javascript
+  - name: Memory
+    slug: memory
+    path: javascript/memory
   - name: Performance
     slug: performance
     path: performance
-tags: []
+tags:
+  - design patterns
+  - javascript
+  - object pool
+  - performance
 canonical: https://yonatankra.com/object-pool-use-case/
 comments: []
 ---
-
 
 <p>After the <a href="/improve-performance-with-object-pool/">Object Pool article</a> went online, I was asked this on Facebook:</p>
 

@@ -9,7 +9,13 @@ categories:
   - name: nx
     slug: nx
     path: javascript/nx
-tags: []
+  - name: webpack
+    slug: webpack
+    path: javascript/webpack
+tags:
+  - typescript
+  - web components
+  - webpack
 canonical: https://yonatankra.com/how-to-solve-ts2307-cannot-find-module-when-using-inline-webpack-loaders-with-typescript/
 comments:
   - author: Jim Keller
@@ -22,7 +28,6 @@ comments:
       <p>Thanks for the heads up.<br />
       Mind sharing your use case? I could not reproduce the error while using this, but it might be our <code>tsconfig</code> files differ in some way.</p>
 ---
-
 
 <p class="has-medium-font-size">Trying to use a webpack <code>raw-loader</code> for an HTML file inline resulted in an error: <code>TS2307: Cannot find module</code>. Here&#8217;s how to fix it!</p>
 

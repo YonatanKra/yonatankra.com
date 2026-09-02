@@ -6,13 +6,19 @@ updated: 2021-08-10T16:53:37
 author: Yonatan Kra
 description: Generating a random map on a canvas is fun. In this article you will learn how to generate a random map or maze on an HTML5 canvas. We will use a model called Cellular Automaton. While there are many ways to create a maze (or a map), what I’d like to create is a map [&hellip;]
 categories:
+  - name: Algorithms
+    slug: algorithms
+    path: coding/algorithms
   - name: Coding
     slug: coding
     path: coding
   - name: Javascript
     slug: javascript
     path: javascript
-tags: []
+tags:
+  - algorithms
+  - html5
+  - javascript
 canonical: https://yonatankra.com/how-to-generate-a-maze-using-javascript-and-html5-canvas-and-a-cellular-automaton-algorithm/
 comments:
   - author: Viren Mane
@@ -24,7 +30,6 @@ comments:
     content: |
       <p>Isn&#8217;t the <a href="https://codepen.io/yonatankra/pen/LYyQZdO" target="_blank" rel="noopener nofollow ugc">codepen</a> enough?</p>
 ---
-
 
 <p class="has-medium-font-size">Generating a random map on a canvas is fun. In this article you will learn how to generate a random map or maze on an HTML5 canvas. We will use a model called Cellular Automaton.</p>
 

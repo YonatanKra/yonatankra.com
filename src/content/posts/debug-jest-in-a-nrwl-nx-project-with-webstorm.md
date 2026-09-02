@@ -12,11 +12,16 @@ categories:
   - name: Testing
     slug: testing
     path: testing
-tags: []
+  - name: Uncategorized
+    slug: uncategorized
+    path: uncategorized
+tags:
+  - jest
+  - monorepo
+  - nx
 canonical: https://yonatankra.com/debug-jest-in-a-nrwl-nx-project-with-webstorm/
 comments: []
 ---
-
 
 <p>Lately I&#8217;ve started a to migrate our 5 y/o code base into a <a rel="noreferrer noopener" href="https://nx.dev/" target="_blank">NRWL/nx monorepo</a>.  I&#8217;d might write the process of choosing NRWL/nx as our tech of choice in a different post (write in the comments or message me so I can see if there&#8217;s any demand for that 🙂 ).</p>
 
