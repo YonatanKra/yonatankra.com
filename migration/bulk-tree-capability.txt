@@ -1,0 +1,1 @@
+If this file exists, standard contents writes are available; the actual bulk import will use Git tree batching where possible.
