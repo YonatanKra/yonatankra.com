@@ -1,0 +1,23 @@
+<style>
+    .inputWrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 450px;
+        margin: 5px;
+        padding: 5px;
+        outline: 2px black solid;
+    }
+</style>
+<div class="inputWrapper">
+    <label for="demoSize">Demo Class Size</label>
+    <input type="number" id="demoSize" min="0"/>
+</div>
+<div class="inputWrapper">
+    <label for="nIterations">Number of messages from the "Server"</label>
+    <input type="number" id="nIterations" min="0"/>
+</div>
+
+<button onclick="createAndDestroy()">Create and Destroy</button>
+<button onclick="createWithAPool()">Create with a Pool</button>
+
+<script src="objectPool.js"></script>

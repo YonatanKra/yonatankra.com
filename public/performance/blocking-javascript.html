@@ -1,0 +1,24 @@
+<html>
+<body>
+<h1>Hello Test!</h1>
+<div id="stars"></div>
+<button onclick="setSomething()">Set Something</button>
+<button onclick="setSomethingBlocked()">Set Something Blocked</button>
+<input id="cycles" placeholder="cycles to run..." value="50000"/>
+</body>
+<script>
+    function setSomething() {
+        const newElement = document.createElement('h1');
+        newElement.innerText = new Date().toLocaleString();
+        document.body.appendChild(newElement);
+    }
+    function setSomethingBlocked() {
+        const cycles = document.getElementById('cycles').value;
+        for (let index = 0; index < cycles; index++) {
+            setTimeout(() => {
+            }, index * 1000);
+        }
+        setSomething();
+    }
+</script>
+</html>

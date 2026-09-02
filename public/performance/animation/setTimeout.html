@@ -1,0 +1,58 @@
+<div style="height: 5em">
+    <h1 id="some-element-you-want-to-animate" style="position: absolute;">Hello JS Developer!</h1>
+</div>
+<button onclick="doAnimation(document.querySelector('h1'), naiveAnimate)">Try to animate</button>
+<button onclick="doAnimation(document.querySelector('h1'), animateElement)">
+    Animate with setTimeout
+</button>
+<button onclick="doAnimation(document.querySelector('h1'), optimizedAnimateElement)">Animate with optimized setTimeout
+</button>
+<div><label>Number of pixels to move: </label><input id="animation-pixels" type="input"/></div>
+<div><label>Use transform?</label><input id="use-translate" type="checkbox"/></div>
+<script>
+  const animationPixels = document.getElementById('animation-pixels');
+  const useTranslateInput = document.getElementById('use-translate');
+
+  function doAnimation(element, animationCallback) {
+    element.style.transform = `translateX(0px)`;
+    element.style.left = 0;
+    animationCallback(element, animationPixels.value ? animationPixels.value : undefined);
+  }
+
+  function moveElement(element, pixels) {
+    if (useTranslateInput.checked) return element.style.transform = `translateX(${pixels}px)`;
+    element.style.left = `${pixels}px`;
+  }
+
+  let i = 0;
+
+  function animateElement(element, pixels = 200) {
+    setTimeout(() => {
+      if (i++ >= pixels) {
+        i = 0;
+        return;
+      }
+
+      moveElement(element, i);
+      animateElement(element, pixels);
+    }, 0);
+  }
+
+  function optimizedAnimateElement(element, pixels = 200) {
+    setTimeout(() => {
+      if (i++ >= pixels) {
+        i = 0;
+        return;
+      }
+
+      moveElement(element, i);
+      animateElement(element, pixels);
+    }, 1000 / 60);
+  }
+
+  function naiveAnimate(element, pixels = 200) {
+    for (let i = 1; i <= pixels; i++) {
+      moveElement(element, i);
+    }
+  }
+</script>
