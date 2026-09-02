@@ -2,30 +2,35 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const allPosts = await getCollection('posts', ({ data }) => !data.draft);
-
-const categoryEntries = new Map();
-for (const post of allPosts) {
-  for (const category of post.data.categories) {
-    const normalized = typeof category === 'string'
-      ? { name: category, path: category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
-      : category;
-    if (!categoryEntries.has(normalized.path)) categoryEntries.set(normalized.path, normalized.name);
-  }
+function normalizeCategory(category) {
+  return typeof category === 'string'
+    ? { name: category, path: category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
+    : category;
 }
 
-export function getStaticPaths() {
-  return [...categoryEntries].map(([path, name]) => ({ params: { category: path }, props: { path, name } }));
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const categoryEntries = new Map();
+
+  for (const post of posts) {
+    for (const category of post.data.categories) {
+      const normalized = normalizeCategory(category);
+      if (!categoryEntries.has(normalized.path)) {
+        categoryEntries.set(normalized.path, normalized.name);
+      }
+    }
+  }
+
+  return [...categoryEntries].map(([path, name]) => ({
+    params: { category: path },
+    props: { path, name },
+  }));
 }
 
 const { path, name } = Astro.props;
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts
-  .filter((post) => post.data.categories.some((category) => {
-    const categoryPath = typeof category === 'string'
-      ? category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-      : category.path;
-    return categoryPath === path;
-  }))
+  .filter((post) => post.data.categories.some((category) => normalizeCategory(category).path === path))
   .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
 ---
 <BaseLayout title={`${name} | Yonatan Kra`} description={`Posts in ${name}`} canonical={new URL(`/category/${path}/`, Astro.site).href}>
