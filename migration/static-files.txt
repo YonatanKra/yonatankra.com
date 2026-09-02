@@ -8,7 +8,6 @@ performance/layout-reflow/index.html
 performance/layout-reflow/main.js
 performance/layout-thrashing/index.html
 performance/layout-thrashing/main.js
-performance/memory/demos/.ftpquota
 performance/memory/demos/allocation/DmitrySquares.js
 performance/memory/demos/allocation/allocation.js
 performance/memory/demos/allocation/index.html
