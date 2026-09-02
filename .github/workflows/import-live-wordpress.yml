@@ -1,0 +1,64 @@
+name: Import live WordPress site
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-live-wordpress.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-wordpress-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Import public WordPress content
+        run: node scripts/import-live-wordpress.mjs
+
+      - name: Download WordPress media variants
+        run: node scripts/download-live-media.mjs migration/media-urls.json
+
+      - name: Remove temporary migration payloads
+        run: |
+          rm -rf migration/import-chunks migration/import-pack
+          rm -f .github/workflows/materialize-wordpress-content.yml
+
+      - name: Verify imported corpus
+        run: |
+          test "$(find src/content/posts -maxdepth 1 -name '*.md' | wc -l)" -eq 85
+          test -f migration/legacy-posts.json
+          test -d public/wp-content/uploads
+          echo "Posts: $(find src/content/posts -maxdepth 1 -name '*.md' | wc -l)"
+          echo "Media: $(find public/wp-content/uploads -type f | wc -l)"
+          du -sh public/wp-content/uploads
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Validate legacy URLs
+        run: npm run test:legacy
+
+      - name: Commit imported site
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/content/posts src/content/pages public/wp-content/uploads migration/legacy-posts.json migration/media-urls.json migration/import-chunks migration/import-pack .github/workflows/materialize-wordpress-content.yml
+          git commit -m 'content: import live WordPress posts and media'
+          git push
