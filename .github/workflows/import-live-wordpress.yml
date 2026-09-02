@@ -5,6 +5,8 @@ on:
   push:
     paths:
       - '.github/workflows/import-live-wordpress.yml'
+      - 'scripts/import-live-wordpress.mjs'
+      - 'scripts/download-live-media.mjs'
 
 permissions:
   contents: write
