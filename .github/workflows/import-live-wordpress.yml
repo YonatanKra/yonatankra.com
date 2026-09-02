@@ -2,6 +2,9 @@ name: Import live WordPress site
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/full-migration-trigger'
 
 permissions:
   contents: write
@@ -56,6 +59,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add src/content/posts src/content/pages public/wp-content/uploads migration/legacy-posts.json migration/media-urls.json migration/import-chunks migration/import-pack .github/workflows/materialize-wordpress-content.yml
+          git add src/content/posts src/content/pages public/wp-content/uploads migration/legacy-posts.json migration/media-urls.json
+          git add -A -- migration/import-chunks migration/import-pack .github/workflows/materialize-wordpress-content.yml || true
           git commit -m 'content: import live WordPress posts and media'
           git push
