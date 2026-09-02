@@ -10,6 +10,8 @@ const {
   description = 'Family, Code, Run',
   canonical = Astro.url.href,
 } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const withBase = (pathname: string) => `${base}${pathname.replace(/^\/+/, '')}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -18,12 +20,24 @@ const {
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" type="application/rss+xml" title="Yonatan Kra" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Yonatan Kra" href={withBase('feed.xml')} />
     <title>{title}</title>
+    <style>
+      :root { font-family: system-ui, sans-serif; color-scheme: light; }
+      body { margin: 0; color: #1f2933; background: #fff; line-height: 1.65; }
+      header, main { width: min(900px, calc(100% - 2rem)); margin-inline: auto; }
+      header { padding: 1.5rem 0 1rem; border-bottom: 1px solid #ddd; }
+      header p { margin: .25rem 0 0; color: #667; }
+      main { padding: 2rem 0 4rem; }
+      a { color: #1558a6; }
+      img { max-width: 100%; height: auto; }
+      pre { overflow-x: auto; padding: 1rem; background: #f5f5f5; }
+      .featured-image { display: block; width: 100%; max-height: 520px; object-fit: cover; margin: 0 0 1.5rem; }
+    </style>
   </head>
   <body>
     <header>
-      <a href="/"><strong>Yonatan Kra</strong></a>
+      <a href={base}><strong>Yonatan Kra</strong></a>
       <p>Family, Code, Run</p>
     </header>
     <main><slot /></main>
