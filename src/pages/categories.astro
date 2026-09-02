@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { normalizeCategory } from '../utils/category';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const base = import.meta.env.BASE_URL;
+const categoryUrl = (path) => `${base}category/${path}/`;
+
+const categoryCounts = new Map();
+for (const post of posts) {
+  for (const category of post.data.categories) {
+    const normalized = normalizeCategory(category);
+    const current = categoryCounts.get(normalized.path) ?? { name: normalized.name, path: normalized.path, count: 0 };
+    current.count += 1;
+    categoryCounts.set(normalized.path, current);
+  }
+}
+
+const categories = [...categoryCounts.values()].sort((a, b) => a.name.localeCompare(b.name));
+---
+<BaseLayout title="Categories — Yonatan Kra" description="Browse all article categories on Yonatan Kra's archive.">
+  <main class="archive-index">
+    <div class="eyebrow">Explore the archive</div>
+    <h1>All categories</h1>
+    <div class="archive-list">
+      {categories.map((category) => (
+        <a class="archive-row" href={categoryUrl(category.path)}>
+          <span>{category.name}</span>
+          <span class="count">{category.count}</span>
+        </a>
+      ))}
+    </div>
+  </main>
+
+  <style>
+    .archive-index { width: min(var(--page), calc(100% - 40px)); margin: 0 auto; padding: 52px 0 64px; }
+    h1 { margin: 6px 0 24px; font-size: 2rem; letter-spacing: -.035em; }
+    .archive-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 28px; }
+    .archive-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 12px; border-radius: 8px; color: #334155; }
+    .archive-row:hover { background: #f8fafc; color: var(--blue); }
+    .count { min-width: 27px; padding: 2px 7px; border-radius: 999px; color: #64748b; background: #f1f5f9; text-align: center; font-size: .72rem; }
+    @media (max-width: 700px) {
+      .archive-index { width: calc(100% - 28px); padding-top: 36px; }
+      .archive-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</BaseLayout>
