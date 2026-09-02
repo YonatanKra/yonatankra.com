@@ -10,21 +10,29 @@ const pageDir = path.resolve('src/content/pages');
 fs.mkdirSync(postDir, { recursive: true });
 fs.mkdirSync(pageDir, { recursive: true });
 
+async function request(url, optional) {
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(15000), headers: { 'user-agent': 'Mozilla/5.0 yonatankra.com Astro migration', accept: 'application/json' } });
+    const type = res.headers.get('content-type') || '';
+    if (!res.ok || !type.includes('json')) throw new Error(`${res.status} ${res.statusText}, content-type=${type}`);
+    return res;
+  } catch (e) {
+    if (optional) { console.warn(`WARN ${url}: ${e}`); return null; }
+    throw e;
+  }
+}
+
 async function all(resource, params = {}, optional = false) {
   const out = [];
   for (let page = 1; ; page++) {
-    const q = new URLSearchParams({ per_page: '100', page: String(page), ...params });
-    const res = await fetch(`${API}/${resource}?${q}`, { headers: { 'user-agent': 'Mozilla/5.0 yonatankra.com Astro migration', accept: 'application/json' } });
-    if (res.status === 400 && page > 1) break;
-    const type = res.headers.get('content-type') || '';
-    if (!res.ok || !type.includes('json')) {
-      const msg = `${resource}: ${res.status} ${res.statusText}, content-type=${type}`;
-      if (optional) { console.warn(`WARN ${msg}`); return out; }
-      throw new Error(msg);
-    }
+    const q = new URLSearchParams({ per_page: '20', page: String(page), ...params });
+    const url = `${API}/${resource}?${q}`;
+    const res = await request(url, optional);
+    if (!res) return out;
     const rows = await res.json();
     out.push(...rows);
     const totalPages = Number(res.headers.get('x-wp-totalpages') || 1);
+    console.log(`${resource}: page ${page}/${totalPages}, ${out.length} items`);
     if (page >= totalPages) break;
   }
   return out;
@@ -37,7 +45,6 @@ function decodeHtml(s = '') {
     .replaceAll('&amp;', '&').replaceAll('&lt;', '<').replaceAll('&gt;', '>')
     .replaceAll('&quot;', '"').replaceAll('&#039;', "'").replaceAll('&nbsp;', ' ').trim();
 }
-
 function uploadPath(url) {
   if (!url) return undefined;
   try {
@@ -48,11 +55,8 @@ function uploadPath(url) {
   } catch { return undefined; }
 }
 function categoryPath(term) {
-  try {
-    const u = new URL(term.link);
-    const m = u.pathname.match(/\/category\/(.+?)\/?$/);
-    return m?.[1] || term.slug;
-  } catch { return term.slug; }
+  try { return new URL(term.link).pathname.match(/\/category\/(.+?)\/?$/)?.[1] || term.slug; }
+  catch { return term.slug; }
 }
 function terms(post) { return (post._embedded?.['wp:term'] || []).flat(); }
 function mediaUrlsFromHtml(html = '') {
@@ -74,7 +78,6 @@ for (const c of comments) {
   if (!commentsByPost.has(c.post)) commentsByPost.set(c.post, []);
   commentsByPost.get(c.post).push({ author: c.author_name || 'Anonymous', date: c.date, content: c.content?.rendered || '' });
 }
-
 const mediaMap = new Map();
 function registerMedia(url) { const dest = uploadPath(url); if (dest) mediaMap.set(dest, url.startsWith('/') ? `${SITE}${url}` : url); }
 
@@ -107,7 +110,6 @@ for (const p of pages.filter(p => keepPages.has(p.slug))) {
   fs.writeFileSync(path.join(pageDir, `${p.slug}.md`), `---\n${YAML.stringify(fm, { lineWidth: 0 }).trim()}\n---\n\n${body}\n`);
   for (const url of mediaUrlsFromHtml(body)) registerMedia(url);
 }
-
 fs.mkdirSync('migration', { recursive: true });
 fs.writeFileSync('migration/legacy-posts.json', JSON.stringify(posts.map(p => ({ id: p.id, url: `/${p.slug}/`, title: decodeHtml(p.title?.rendered) })), null, 2) + '\n');
 fs.writeFileSync('migration/media-urls.json', JSON.stringify([...mediaMap].map(([dest, url]) => ({ dest, url })), null, 2) + '\n');
