@@ -14,11 +14,9 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: preview-two-posts-pages
+  group: preview-two-posts-build
   cancel-in-progress: true
 
 jobs:
@@ -38,20 +36,9 @@ jobs:
         run: npm run build
       - name: Validate preview legacy URLs
         run: npm run test:legacy
-      - uses: actions/configure-pages@v5
+      - name: Upload preview site
+        uses: actions/upload-artifact@v4
         with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
+          name: preview-two-posts-site
           path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy preview
-        id: deployment
-        uses: actions/deploy-pages@v4
+          if-no-files-found: error
