@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: live-wordpress-import
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   import:
