@@ -8,7 +8,10 @@ on:
       - 'public/**'
       - 'migration/legacy-posts.json'
       - 'migration/media-urls.json'
+      - 'scripts/repair-taxonomy.mjs'
       - 'scripts/repair-featured-images.mjs'
+      - 'scripts/wordpress-migration-utils.mjs'
+      - 'scripts/import-live-wordpress.mjs'
       - 'scripts/download-live-media.mjs'
       - 'scripts/validate-legacy-urls.mjs'
       - '.github/workflows/preview-two-posts.yml'
@@ -17,7 +20,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -37,6 +40,19 @@ jobs:
         with:
           node-version: 22
       - run: npm install
+      - name: Restore WordPress categories and tags
+        run: node scripts/repair-taxonomy.mjs
+      - name: Persist repaired taxonomy
+        run: |
+          if git diff --quiet -- src/content/posts; then
+            echo "Taxonomy already persisted."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/content/posts
+            git commit -m "Restore WordPress taxonomy metadata"
+            git push
+          fi
       - name: Restore featured image metadata
         run: node scripts/repair-featured-images.mjs
       - name: Download restored featured media
