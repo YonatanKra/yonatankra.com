@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { normalizeCategory } from '../utils/category';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -18,8 +19,13 @@ const { Content } = rendered;
 const description = entry.data.description ?? (kind === 'post' ? entry.data.excerpt : undefined) ?? '';
 const canonical = entry.data.canonical ?? new URL(`/${entry.data.slug}/`, Astro.site).href;
 const isPost = kind === 'post';
-const categoryName = (category) => typeof category === 'string' ? category : category.name;
+const base = import.meta.env.BASE_URL;
 const categories = isPost ? entry.data.categories : [];
+const tags = isPost ? entry.data.tags : [];
+const categoryInfo = (category) => normalizeCategory(category);
+const slugifyTag = (tag) => tag.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const categoryUrl = (category) => `${base}category/${categoryInfo(category).path}/`;
+const tagUrl = (tag) => `${base}tag/${slugifyTag(tag)}/`;
 const displayDate = isPost && entry.data.published
   ? entry.data.published.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
   : '';
@@ -31,7 +37,11 @@ const shareUrl = encodeURIComponent(canonical);
       <div class="post-main" data-pagefind-body>
         <header class="post-header">
           {categories.length > 0 && (
-            <div class="post-categories">{categories.slice(0, 4).map((category) => <span>{categoryName(category)}</span>)}</div>
+            <div class="post-categories">
+              {categories.slice(0, 4).map((category) => (
+                <a href={categoryUrl(category)}>{categoryInfo(category).name}</a>
+              ))}
+            </div>
           )}
           <h1>{entry.data.title}</h1>
           <div class="author-line">
@@ -43,6 +53,12 @@ const shareUrl = encodeURIComponent(canonical);
           {entry.data.featuredImage && <img class="featured-image" src={entry.data.featuredImage} alt="" />}
         </header>
         <div class="article-content"><Content /></div>
+        {tags.length > 0 && (
+          <nav class="post-tags" aria-label="Article tags">
+            <span>Tagged:</span>
+            {tags.map((tag) => <a class="chip" href={tagUrl(tag)}>#{tag}</a>)}
+          </nav>
+        )}
         {entry.data.comments.length > 0 && (
           <section class="comments" aria-labelledby="comments-title">
             <h2 id="comments-title">Comments</h2>
@@ -60,7 +76,24 @@ const shareUrl = encodeURIComponent(canonical);
       <aside class="article-info">
         <div class="aside-label">About this article</div>
         <div class="info-row">◷ <span>{displayDate}</span></div>
-        {categories.length > 0 && <div class="info-chips">{categories.slice(0, 5).map((category) => <span class="chip">{categoryName(category)}</span>)}</div>}
+        {categories.length > 0 && (
+          <>
+            <div class="taxonomy-label">Categories</div>
+            <div class="info-chips">
+              {categories.slice(0, 5).map((category) => (
+                <a class="chip" href={categoryUrl(category)}>{categoryInfo(category).name}</a>
+              ))}
+            </div>
+          </>
+        )}
+        {tags.length > 0 && (
+          <>
+            <div class="taxonomy-label">Tags</div>
+            <div class="info-chips">
+              {tags.slice(0, 10).map((tag) => <a class="chip tag-chip" href={tagUrl(tag)}>#{tag}</a>)}
+            </div>
+          </>
+        )}
         <hr />
         <div class="aside-label">Share</div>
         <a href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(entry.data.title)}`}>Twitter / X</a>
@@ -79,10 +112,13 @@ const shareUrl = encodeURIComponent(canonical);
     .post-shell { width: min(1080px, calc(100% - 40px)); margin: 0 auto; padding: 42px 0 20px; display: grid; grid-template-columns: minmax(0,760px) 180px; justify-content: center; gap: 64px; align-items: start; }
     .article-info { position: sticky; top: 110px; color: #475569; font-size: .8rem; }
     .aside-label { margin-bottom: 14px; color: #1e293b; text-transform: uppercase; letter-spacing: .055em; font-size: .68rem; font-weight: 800; }
+    .taxonomy-label { margin-top: 5px; color: #64748b; text-transform: uppercase; letter-spacing: .05em; font-size: .62rem; font-weight: 750; }
     .post-main { min-width: 0; }
     .post-header { margin-bottom: 30px; }
     .post-categories { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; color: var(--blue); text-transform: uppercase; font-size: .72rem; font-weight: 800; letter-spacing: .035em; }
-    .post-categories span + span::before { content: '•'; margin-right: 8px; color: #94a3b8; }
+    .post-categories a { color: var(--blue); }
+    .post-categories a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .post-categories a + a::before { content: '•'; margin-right: 8px; color: #94a3b8; text-decoration: none; }
     .post-header h1 { margin: 0; font-size: clamp(2.3rem, 4.6vw, 4rem); line-height: 1.03; letter-spacing: -.055em; }
     .author-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 20px 0 22px; color: var(--muted); font-size: .82rem; }
     .author-line strong { color: #1e293b; }
@@ -103,10 +139,14 @@ const shareUrl = encodeURIComponent(canonical);
     .article-content :global(pre) { margin: 1.8rem 0; font-family: "SFMono-Regular", Consolas, monospace; }
     .article-content :global(table) { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: .88rem; }
     .article-content :global(th), .article-content :global(td) { padding: 9px 12px; border: 1px solid var(--line); text-align: left; }
+    .post-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 42px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: .78rem; }
     .article-info { display: flex; flex-direction: column; gap: 11px; }
     .article-info hr { width: 100%; margin: 12px 0; border: 0; border-top: 1px solid var(--line); }
     .info-row { display: flex; gap: 8px; align-items: center; }
-    .info-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; }
+    .info-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 6px; }
+    .info-chips .chip, .post-tags .chip { text-decoration: none; }
+    .info-chips .chip:hover, .post-tags .chip:hover { background: #dbeafe; color: #1d4ed8; }
+    .tag-chip { background: #f8fafc; color: #475569; border: 1px solid var(--line); }
     .article-info > a { color: #334155; }
     .article-info > a:hover { color: var(--blue); }
     .comments { margin-top: 54px; padding-top: 28px; border-top: 1px solid var(--line); }
