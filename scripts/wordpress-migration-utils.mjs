@@ -1,0 +1,146 @@
+const SITE = 'https://yonatankra.com';
+
+const TAG_SLUG_ALIASES = new Map([
+  ['perofrmance', 'performance'],
+  ['chrome-developer-tools', 'chrome-devtools'],
+  ['the-event-loop', 'event-loop'],
+  ['ecmascript-modules', 'es-modules'],
+]);
+
+function normalizedBasePath() {
+  const raw = (process.env.PUBLIC_BASE_PATH || '').trim();
+  if (!raw || raw === '/') return '';
+  return `/${raw.replace(/^\/+|\/+$/g, '')}`;
+}
+
+function alternateRestUrl(url) {
+  try {
+    const source = new URL(url);
+    if (!source.pathname.startsWith('/wp-json/')) return url;
+    const alternate = new URL(SITE);
+    alternate.searchParams.set('rest_route', source.pathname.slice('/wp-json'.length));
+    for (const [key, value] of source.searchParams) alternate.searchParams.append(key, value);
+    return alternate.href;
+  } catch {
+    return url;
+  }
+}
+
+export async function fetchWordPress(url, { attempts = 4, timeout = 30000, userAgent = 'Mozilla/5.0 yonatankra.com Astro migration' } = {}) {
+  let lastResponse;
+  let lastError;
+  const alternate = alternateRestUrl(url);
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    const requestUrl = attempt % 2 === 0 ? alternate : url;
+    try {
+      const res = await fetch(requestUrl, {
+        signal: AbortSignal.timeout(timeout),
+        headers: { 'user-agent': userAgent, accept: 'application/json', 'cache-control': 'no-cache' },
+      });
+      lastResponse = res;
+      const type = res.headers.get('content-type') || '';
+      if (res.ok && type.includes('json')) return res;
+      if (attempt === attempts || (res.status < 500 && res.status !== 403 && res.status !== 429)) return res;
+    } catch (error) {
+      lastError = error;
+      if (attempt === attempts) throw error;
+    }
+    const delayMs = [1000, 3000, 8000][attempt - 1] ?? 8000;
+    console.warn(`WordPress request retry ${attempt}/${attempts - 1} after ${lastResponse ? `${lastResponse.status} ${lastResponse.statusText}` : lastError}`);
+    await new Promise(resolve => setTimeout(resolve, delayMs));
+  }
+  if (lastResponse) return lastResponse;
+  throw lastError ?? new Error(`WordPress request failed: ${url}`);
+}
+
+export function decodeHtml(s = '') {
+  return s.replace(/<[^>]+>/g, '')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replaceAll('&amp;', '&').replaceAll('&lt;', '<').replaceAll('&gt;', '>')
+    .replaceAll('&quot;', '"').replaceAll('&#039;', "'").replaceAll('&nbsp;', ' ').trim();
+}
+
+export function uploadPath(url) {
+  if (!url) return undefined;
+  try {
+    const u = new URL(url.startsWith('//') ? `https:${url}` : url, SITE);
+    const marker = '/wp-content/uploads/';
+    const i = u.pathname.indexOf(marker);
+    return i >= 0 ? decodeURIComponent(u.pathname.slice(i)) : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+export function publicPath(pathname) {
+  if (!pathname) return pathname;
+  const path = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  return `${normalizedBasePath()}${path}` || '/';
+}
+
+export function categoryPath(term) {
+  try {
+    return new URL(term.link).pathname.match(/\/category\/(.+?)\/?$/)?.[1] || term.slug;
+  } catch {
+    return term.slug;
+  }
+}
+
+export function normalizeTagSlug(slug = '') {
+  const normalized = slug.toLowerCase().trim();
+  return TAG_SLUG_ALIASES.get(normalized) ?? normalized;
+}
+
+export function normalizeTagTerm(term, termsBySlug = new Map()) {
+  if (!term) return null;
+  const canonicalSlug = normalizeTagSlug(term.slug);
+  const canonicalTerm = termsBySlug.get(canonicalSlug);
+  return {
+    name: decodeHtml(canonicalTerm?.name ?? term.name),
+    slug: canonicalSlug,
+  };
+}
+
+export function normalizeTagTerms(terms = []) {
+  const termsBySlug = new Map(terms.filter(Boolean).map(term => [term.slug, term]));
+  const out = [];
+  const seen = new Set();
+  for (const term of terms) {
+    const normalized = normalizeTagTerm(term, termsBySlug);
+    if (!normalized || seen.has(normalized.slug)) continue;
+    seen.add(normalized.slug);
+    out.push(normalized);
+  }
+  return out;
+}
+
+export function normalizeMediaUrl(rawUrl) {
+  if (!rawUrl) return rawUrl;
+  return rawUrl.startsWith('/') ? `${SITE}${rawUrl}` : rawUrl.startsWith('//') ? `https:${rawUrl}` : rawUrl;
+}
+
+export function mediaUrlsFromHtml(html = '') {
+  const found = new Set();
+  for (const m of html.matchAll(/(?:https?:)?\/\/[^"'\s<>,]+|\/wp-content\/uploads\/[^"'\s<>,]+/g)) {
+    const raw = m[0].replaceAll('&amp;', '&');
+    if (uploadPath(raw)) found.add(normalizeMediaUrl(raw));
+  }
+  return found;
+}
+
+export function rewriteImportedHtml(html = '') {
+  const withLocalMedia = html.replace(/(?:https?:)?\/\/[^"'\s<>,]+|\/wp-content\/uploads\/[^"'\s<>,]+/g, (raw) => {
+    const decoded = raw.replaceAll('&amp;', '&');
+    const dest = uploadPath(decoded);
+    return dest ? publicPath(dest) : raw;
+  });
+
+  return withLocalMedia.replace(
+    /(\b(?:href|src|poster)=["'])(?:https?:)?\/\/(?:www\.)?yonatankra\.com(\/[^"']*)/gi,
+    (_, prefix, pathname) => `${prefix}${publicPath(pathname)}`,
+  );
+}
+
+export const WORDPRESS_SITE = SITE;
+export const TAG_ALIASES = Object.freeze(Object.fromEntries(TAG_SLUG_ALIASES));

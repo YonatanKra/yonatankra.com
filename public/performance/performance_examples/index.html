@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Perf Examples — Presenter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<!-- ============================================================= -->
+<!-- Example sources (text/plain: not executed by the page itself, -->
+<!-- read via textContent for both display + sandboxed execution). -->
+<!-- ============================================================= -->
+
+<script type="text/plain" id="src-objectpool">class Demo {
+    constructor(counter) {
+        this.counter = counter;
+    }
+
+    setMe() {
+        this.counter.count += 1;
+    }
+}
+
+function createAndDestroy() {
+    function test() {
+        const objs = [];
+        const counter = {
+            count: 0
+        }
+
+        for (let i = 0; i < 1000; i++) {
+            for (let boom = 0; boom < 1000; boom++) {
+                const currBoom = objs[objs.push(new Demo(counter)) - 1];
+                currBoom.setMe();
+            }
+        }
+
+        console.log(`Counter is: ${counter.count}`);
+    }
+
+    repeat(test, 10, 'Create and Destroy');
+}
+
+function createWithAPool() {
+    function test() {
+        const counter = {
+            count: 0
+        }
+
+        const pool = new Pool(() => new Demo(counter),
+            (item) => {},
+            1000);
+
+        for (let i = 0; i < 1000; i++) {
+            for (let demo = 0; demo < 1000; demo++) {
+                const currDemo = pool.getFree();
+                currDemo.data.setMe();
+            }
+            // release all booms
+            pool.releaseAll();
+        }
+
+        console.log(`Counter is: ${counter.count}`);
+    }
+
+    repeat(test, 10, 'Create with a Pool');
+}
+
+class PoolObject {
+    constructor(data) {
+        this.data = data;
+        this.nextFree = null;
+        this.previousFree = null;
+    }
+}
+
+class Pool {
+    constructor(objCreator, objReseter, initialSize = 5000) {
+        this._pool = [];
+        this.objCreator = objCreator;
+        this.objReseter = objReseter;
+        for (let i = 0; i < initialSize; i++) {
+            this.addNewObject(this.newPoolObject());
+        }
+    }
+
+    addNewObject(obj) {
+        this._pool.push(obj);
+        this.release(obj);
+        return obj;
+    }
+
+    release(poolObject) {
+        // flag as free
+        poolObject.free = true;
+
+        // set in the dequeue
+        poolObject.nextFree = null;
+        poolObject.previousFree = this.lastFree;
+
+        // if we had a last free, set the last free's next as the new poolObject
+        // otherwise, this is the first free!
+        if (poolObject.previousFree) {
+            this.lastFree.nextFree = poolObject;
+        } else {
+            this.nextFree = poolObject;
+        }
+
+        // set the new object as the last in the dequeue
+        this.lastFree = poolObject;
+
+        // reset the object if needed
+        this.objReseter(poolObject);
+    }
+
+    getFree() {
+        // if we have a free one, get it - otherwise create it
+        const freeObject = this.nextFree ? this.nextFree : this.addNewObject(this.newPoolObject());
+
+        // flag as used
+        freeObject.free = false;
+
+        // the next free is the object's next free
+        this.nextFree = freeObject.nextFree;
+
+        // if there's nothing afterwards, the lastFree is null as well
+        if (!this.nextFree) this.lastFree = null;
+
+        // return the now not free object
+        return freeObject;
+    }
+
+    newPoolObject() {
+        const data = this.objCreator();
+        return new PoolObject(data, this.lastFree, this.nextFree);
+    }
+
+    releaseAll() {
+        this._pool.forEach(item => this.release(item));
+    }
+}
+
+function repeat(cb, repeats, testName) {
+    console.log(`%c Started ${testName} test`, 'color: red');
+    const start = performance.now();
+
+    for (let i = 0; i < repeats; i++) {
+        cb();
+    }
+
+    const end = performance.now();
+    console.log(`%c Finished ${testName} test run in ${((end - start) / 1000).toFixed(4)} seconds`, 'color: red');
+    return end - start;
+}</script>
+
+<script type="text/plain" id="src-locality">// boom.js — the element type stored in the 1000x1000 array.
+class Boom {
+    constructor(i) {
+        this.i = i;
+        this.x = i;
+        this.y = i * 2;
+        this.z = i * 3;
+    }
+}
+
+function dataLocality() {
+    const ROWS = 1000;
+    const COLS = 1000;
+    const repeats = 100;
+    const arr = new Array(ROWS * COLS).fill(0).map((a, i) => new Boom(i));
+
+    function localAccess() {
+        for (let i = 0; i < ROWS; i++) {
+            for (let j = 0; j < COLS; j++) {
+                arr[i * ROWS + j].x = 0;
+            }
+        }
+    }
+
+    function farAccess(array) {
+        let data = arr;
+        if (array) {
+            data = array;
+        }
+        for (let i = 0; i < COLS; i++) {
+            for (let j = 0; j < ROWS; j++) {
+                data[j * ROWS + i].x = 0;
+            }
+        }
+    }
+
+    function repeat(cb, type) {
+        console.log(`%c Started data ${type}`, 'color: red');
+        const start = performance.now();
+
+        for (let i = 0; i < repeats; i++) {
+            cb();
+        }
+
+        const end = performance.now();
+        console.log('Finished data locality test run in ', ((end - start) / 1000).toFixed(4), ' seconds');
+        return end - start;
+    }
+
+    const diffArr = new Array(ROWS * COLS).fill(0);
+    for (let col = 0; col < COLS; col++) {
+        for (let row = 0; row < ROWS; row++) {
+            diffArr[row * ROWS + col] = arr[col * COLS + row];
+        }
+    }
+
+    repeat(localAccess, 'Local');
+    setTimeout(() => {
+        repeat(farAccess, 'Non Local')
+        setTimeout(() => {
+            repeat(() => farAccess(diffArr), 'Non Local Sorted')
+        }, 2000);
+    }, 2000);
+}</script>
+
+<style>
+:root{
+  --bg:#16161a;
+  --panel:#1c1c21;
+  --panel-2:#212127;
+  --panel-3:#26262d;
+  --border:#2e2e36;
+  --border-soft:#26262d;
+  --text:#d8d8dd;
+  --muted:#80808c;
+  --muted-2:#5a5a64;
+  --cyan:#22d3ee;
+  --cyan-dim:#0e7490;
+  --amber:#f5a623;
+  --red:#f76d6d;
+  --green:#52d486;
+  /* code tokens */
+  --cm-kw:#c792ea;
+  --cm-str:#9ece6a;
+  --cm-num:#ff9e64;
+  --cm-fn:#7dcfff;
+  --cm-cls:#2dd4bf;
+  --cm-com:#5b6168;
+  --cm-punct:#9aa0a8;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(34,211,238,.05), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Inter",system-ui,sans-serif;
+  font-size:14px;
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* ---------- header / tabs ---------- */
+header{
+  display:flex;align-items:center;gap:20px;
+  padding:0 18px;height:52px;flex:0 0 auto;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg, var(--panel-2), var(--panel));
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.brand small{color:var(--muted);font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.tabs{display:flex;gap:4px;margin-left:8px}
+.tab{
+  appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);
+  font-family:"JetBrains Mono",monospace;font-size:12.5px;font-weight:500;
+  padding:7px 14px;border-radius:8px;cursor:pointer;transition:.14s;display:flex;align-items:center;gap:8px;
+}
+.tab:hover{color:var(--text);background:var(--panel-3)}
+.tab.active{color:var(--cyan);background:var(--panel-3);border-color:var(--border)}
+.tab .tnum{color:var(--muted-2);font-size:11px}
+.tab.active .tnum{color:var(--cyan-dim)}
+.spacer{flex:1}
+.hint{color:var(--muted-2);font-size:11px;font-family:"JetBrains Mono",monospace}
+
+/* ---------- main ---------- */
+main{flex:1 1 auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);min-height:0}
+.pane{display:flex;flex-direction:column;min-height:0;min-width:0}
+.pane.code{border-right:1px solid var(--border)}
+.pane-head{
+  display:flex;align-items:center;gap:10px;height:42px;padding:0 14px;flex:0 0 auto;
+  border-bottom:1px solid var(--border-soft);background:var(--panel);
+}
+.pane-head .label{
+  font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.pane-head .file{color:var(--text);font-family:"JetBrains Mono",monospace;font-size:12px}
+.pane-head .file .ext{color:var(--muted)}
+
+/* run buttons */
+.runs{display:flex;gap:8px;margin-left:auto}
+.btn{
+  appearance:none;cursor:pointer;border-radius:7px;font-family:"JetBrains Mono",monospace;
+  font-size:12px;font-weight:500;padding:6px 12px;display:flex;align-items:center;gap:7px;transition:.14s;
+}
+.btn-run{border:1px solid var(--cyan-dim);background:rgba(34,211,238,.08);color:var(--cyan)}
+.btn-run:hover{background:rgba(34,211,238,.16)}
+.btn-run .tri{width:0;height:0;border-left:7px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.btn-ghost{border:1px solid var(--border);background:transparent;color:var(--muted)}
+.btn-ghost:hover{color:var(--text);background:var(--panel-3)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ---------- code panel ---------- */
+.code-scroll{flex:1;overflow:auto;background:var(--panel)}
+pre.code{
+  margin:0;padding:14px 0;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.55;
+  counter-reset:ln;tab-size:4;
+}
+.ln{display:flex;white-space:pre;padding:0 16px 0 0}
+.ln:hover{background:rgba(255,255,255,.025)}
+.ln .gutter{
+  counter-increment:ln;flex:0 0 46px;text-align:right;padding-right:16px;margin-right:14px;
+  color:var(--muted-2);user-select:none;border-right:1px solid var(--border-soft);
+}
+.ln .gutter::before{content:counter(ln)}
+.ln .src{flex:1;white-space:pre}
+.cm-kw{color:var(--cm-kw)}
+.cm-str{color:var(--cm-str)}
+.cm-num{color:var(--cm-num)}
+.cm-fn{color:var(--cm-fn)}
+.cm-cls{color:var(--cm-cls)}
+.cm-com{color:var(--cm-com);font-style:italic}
+
+/* ---------- console panel ---------- */
+.pane.console{background:#141417}
+.console-scroll{flex:1;overflow:auto;padding:8px 0 14px;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.5}
+.log{display:flex;gap:12px;padding:2px 16px;align-items:baseline;white-space:pre-wrap;word-break:break-word}
+.log:hover{background:rgba(255,255,255,.02)}
+.log .ts{flex:0 0 auto;color:var(--muted-2);font-size:11px;user-select:none}
+.log .msg{flex:1;min-width:0}
+.log.lvl-error .msg{color:var(--red)}
+.log.lvl-warn .msg{color:var(--amber)}
+.log.sys .msg{color:var(--muted)}
+.log.sys .ts{color:var(--muted-2)}
+.t-amber{color:var(--amber);font-weight:500}
+.empty{padding:18px 16px;color:var(--muted-2);font-style:italic}
+.run-sep{display:flex;align-items:center;gap:10px;padding:8px 16px 4px;color:var(--cyan);font-size:11px;letter-spacing:.06em}
+.run-sep::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+/* ---------- status bar ---------- */
+footer{
+  flex:0 0 auto;height:30px;display:flex;align-items:center;gap:14px;padding:0 16px;
+  border-top:1px solid var(--border);background:var(--panel-2);
+  font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--muted);
+}
+.status{display:flex;align-items:center;gap:8px}
+.status .sdot{width:8px;height:8px;border-radius:50%;background:var(--muted-2);transition:.2s}
+.status.idle .sdot{background:var(--muted-2)}
+.status.running .sdot{background:var(--amber);animation:pulse 1s ease-in-out infinite}
+.status.done .sdot{background:var(--green);box-shadow:0 0 8px var(--green)}
+.status.error .sdot{background:var(--red);box-shadow:0 0 8px var(--red)}
+.status .stext{color:var(--text)}
+.status.running .stext{color:var(--amber)}
+.status.done .stext{color:var(--green)}
+.status.error .stext{color:var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.foot-spacer{flex:1}
+.foot-meta{color:var(--muted-2)}
+.foot-meta b{color:var(--muted);font-weight:500}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#33333c;border-radius:8px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:#43434e;background-clip:content-box}
+::-webkit-scrollbar-track{background:transparent}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><span class="dot"></span>perf.examples<small>presenter</small></div>
+  <nav class="tabs" id="tabs"></nav>
+  <div class="spacer"></div>
+  <div class="hint">web worker runner · off main thread · live console</div>
+</header>
+
+<main>
+  <section class="pane code">
+    <div class="pane-head">
+      <span class="label">Source</span>
+      <span class="file" id="fileName"></span>
+      <div class="runs" id="runs"></div>
+    </div>
+    <div class="code-scroll" id="codeScroll">
+      <pre class="code" id="code"></pre>
+    </div>
+  </section>
+
+  <section class="pane console">
+    <div class="pane-head">
+      <span class="label">Console</span>
+      <span class="file" id="consoleHint" style="color:var(--muted-2)"></span>
+      <div class="runs">
+        <button class="btn btn-ghost" id="clearBtn">clear</button>
+      </div>
+    </div>
+    <div class="console-scroll" id="console">
+      <div class="empty">No output yet — run a test to stream results here.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="status idle" id="status">
+    <span class="sdot"></span><span class="stext">idle</span>
+  </div>
+  <div class="foot-spacer"></div>
+  <div class="foot-meta" id="footMeta"><b>tip</b> — runs execute in a throwaway Web Worker (off the main thread)</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- example registry ---------------- */
+  var EXAMPLES = {
+    objectpool: {
+      file: "objectPool.js",
+      title: "Object Pool",
+      blurb: "1M alloc/free vs pooled reuse · 10×",
+      srcId: "src-objectpool",
+      runs: [
+        { label: "Create & Destroy", call: "createAndDestroy()" },
+        { label: "Create with Pool", call: "createWithAPool()" }
+      ]
+    },
+    locality: {
+      file: "locality.js",
+      title: "Data Locality",
+      blurb: "row-major vs column-major · 1000×1000 · 100 reps",
+      srcId: "src-locality",
+      runs: [
+        { label: "Run Locality", call: "dataLocality()" }
+      ]
+    }
+  };
+  var ORDER = ["objectpool", "locality"];
+  var active = ORDER[0];
+
+  /* ---------------- dom refs ---------------- */
+  var $ = function(id){ return document.getElementById(id); };
+  var tabsEl = $("tabs"), runsEl = $("runs"), codeEl = $("code"),
+      fileNameEl = $("fileName"), consoleEl = $("console"),
+      consoleHintEl = $("consoleHint"), statusEl = $("status"),
+      footMetaEl = $("footMeta"), clearBtn = $("clearBtn");
+
+  function srcOf(key){ return $(EXAMPLES[key].srcId).textContent.replace(/^\n/, ""); }
+
+  /* ---------------- syntax highlighter ---------------- */
+  var KW = ("const|let|var|function|return|for|if|else|new|this|class|extends|" +
+            "constructor|true|false|null|undefined|typeof|instanceof|of|in|" +
+            "while|do|break|continue|switch|case|default|try|catch|finally|" +
+            "throw|void|delete|yield|async|await|super").split("|");
+  var kwSet = {}; KW.forEach(function(k){ kwSet[k] = 1; });
+
+  function esc(s){
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  // Per-line tokenizer (these sources have no multi-line tokens).
+  var TOK = /(\/\/.*$)|(`(?:\\.|[^`\\])*`|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*")|(\b\d[\d_.]*\b)|([A-Za-z_$][\w$]*)/g;
+
+  function highlightLine(line){
+    var out = "", last = 0, m;
+    TOK.lastIndex = 0;
+    while ((m = TOK.exec(line))){
+      out += esc(line.slice(last, m.index));
+      var t = m[0], cls;
+      if (m[1]) cls = "cm-com";
+      else if (m[2]) cls = "cm-str";
+      else if (m[3]) cls = "cm-num";
+      else {
+        if (kwSet[t]) cls = "cm-kw";
+        else if (/^[A-Z]/.test(t)) cls = "cm-cls";
+        else if (line[TOK.lastIndex] === "(") cls = "cm-fn";
+        else cls = null;
+      }
+      out += cls ? '<span class="' + cls + '">' + esc(t) + "</span>" : esc(t);
+      last = m.index + t.length;
+    }
+    out += esc(line.slice(last));
+    return out;
+  }
+
+  function renderCode(src){
+    var lines = src.replace(/\s+$/, "").split("\n");
+    var html = "";
+    for (var i = 0; i < lines.length; i++){
+      html += '<div class="ln"><span class="gutter"></span><span class="src">' +
+              (highlightLine(lines[i]) || "&nbsp;") + "</span></div>";
+    }
+    codeEl.innerHTML = html;
+  }
+
+  /* ---------------- tabs / panel ---------------- */
+  function renderTabs(){
+    tabsEl.innerHTML = "";
+    ORDER.forEach(function(key, i){
+      var ex = EXAMPLES[key];
+      var b = document.createElement("button");
+      b.className = "tab" + (key === active ? " active" : "");
+      b.innerHTML = '<span class="tnum">0' + (i + 1) + '</span>' + ex.title;
+      b.onclick = function(){ if (key !== active){ active = key; renderActive(); } };
+      tabsEl.appendChild(b);
+    });
+  }
+
+  function renderRuns(){
+    runsEl.innerHTML = "";
+    EXAMPLES[active].runs.forEach(function(r){
+      var b = document.createElement("button");
+      b.className = "btn btn-run run-btn";
+      b.innerHTML = '<span class="tri"></span>' + r.label;
+      b.disabled = running;
+      b.onclick = function(){ startRun(r); };
+      runsEl.appendChild(b);
+    });
+  }
+
+  function renderActive(){
+    var ex = EXAMPLES[active];
+    fileNameEl.innerHTML = ex.file.replace(/\.js$/, '<span class="ext">.js</span>');
+    consoleHintEl.textContent = ex.blurb;
+    renderCode(srcOf(active));
+    renderTabs();
+    renderRuns();
+    $("codeScroll").scrollTop = 0;
+  }
+
+  /* ---------------- console output ---------------- */
+  var consoleEmpty = true;
+  function clearEmpty(){
+    if (consoleEmpty){ consoleEl.innerHTML = ""; consoleEmpty = false; }
+  }
+  function atBottom(){
+    return consoleEl.scrollHeight - consoleEl.scrollTop - consoleEl.clientHeight < 40;
+  }
+  function scrollDown(stick){ if (stick) consoleEl.scrollTop = consoleEl.scrollHeight; }
+
+  function ts(){
+    var d = new Date();
+    function p(n, w){ n = "" + n; while (n.length < w) n = "0" + n; return n; }
+    return p(d.getHours(),2)+":"+p(d.getMinutes(),2)+":"+p(d.getSeconds(),2)+"."+p(d.getMilliseconds(),3);
+  }
+
+  // timing highlight inside an already-escaped text segment
+  function amber(escText){
+    return escText.replace(/(\d+\.\d+)(\s*(?:seconds|secs|sec|ms|s)\b)/g,
+      '<span class="t-amber">$1$2</span>');
+  }
+  function styled(escText, css){
+    var inner = amber(escText);
+    if (!css) return inner;
+    // keep within theme: map literal "red" used by the demos to the theme token
+    var safe = String(css).replace(/red/gi, "var(--red)").replace(/"/g, "'");
+    return '<span style="' + safe + '">' + inner + "</span>";
+  }
+
+  function fmtScalar(v){
+    if (typeof v === "string") return v;
+    if (typeof v === "number" || typeof v === "boolean" || v == null) return String(v);
+    try { return JSON.stringify(v); } catch (e){ return String(v); }
+  }
+
+  function formatArgs(args){
+    if (!args || !args.length) return "";
+    var first = args[0];
+    if (typeof first === "string" && /%[csdo%]/.test(first)){
+      var html = "", i = 1, last = 0, curCss = "", re = /%[csdo%]/g, m;
+      while ((m = re.exec(first))){
+        html += styled(esc(first.slice(last, m.index)), curCss);
+        var tok = m[0];
+        if (tok === "%c") curCss = String(args[i++] != null ? args[i-1] : "");
+        else if (tok === "%%") html += "%";
+        else html += styled(esc(fmtScalar(args[i++])), curCss);
+        last = m.index + 2;
+      }
+      html += styled(esc(first.slice(last)), curCss);
+      for (; i < args.length; i++) html += " " + styled(esc(fmtScalar(args[i])), "");
+      return html;
+    }
+    return args.map(function(a){ return styled(esc(fmtScalar(a)), ""); }).join(" ");
+  }
+
+  function appendLog(level, args, sys){
+    clearEmpty();
+    var stick = atBottom();
+    var row = document.createElement("div");
+    row.className = "log lvl-" + level + (sys ? " sys" : "");
+    var html = sys ? esc(args[0]) : formatArgs(args);
+    row.innerHTML = '<span class="ts">' + ts() + '</span><span class="msg">' + html + "</span>";
+    consoleEl.appendChild(row);
+    scrollDown(stick);
+  }
+
+  function appendSep(text){
+    clearEmpty();
+    var stick = atBottom();
+    var d = document.createElement("div");
+    d.className = "run-sep";
+    d.textContent = text;
+    consoleEl.appendChild(d);
+    scrollDown(stick);
+  }
+
+  clearBtn.onclick = function(){
+    consoleEl.innerHTML = '<div class="empty">No output yet — run a test to stream results here.</div>';
+    consoleEmpty = true;
+  };
+
+  /* ---------------- status bar ---------------- */
+  function setStatus(state, text){
+    statusEl.className = "status " + state;
+    statusEl.querySelector(".stext").textContent = text;
+  }
+
+  /* ---------------- sandboxed runner ---------------- */
+  var running = false, runSeq = 0, currentRunId = -1,
+      currentWorker = null, currentWorkerUrl = null, runStart = 0, runLabel = "";
+
+  var SHIM = [
+    "(function(){",
+    "  var RID = __RID__, pending = 0, entryDone = false;",
+    "  function post(level, args){ try{ self.postMessage({__perf:1, id:RID, level:level, args:args}); }catch(e){} }",
+    "  self.__post = post;",
+    "  function maybeDone(){ if(entryDone && pending===0) post('done', []); }",
+    "  self.__entryDone = function(){ entryDone = true; maybeDone(); };",
+    "  if(!self.console) self.console = {};",
+    "  var _st = self.setTimeout;",
+    "  self.setTimeout = function(fn, ms){",
+    "    var rest = [].slice.call(arguments, 2); pending++;",
+    "    return _st(function(){ try{ fn.apply(null, rest); }catch(e){ post('error',[String(e && e.message || e)]); } finally { pending--; maybeDone(); } }, ms);",
+    "  };",
+    "  ['log','info','warn','error'].forEach(function(k){ self.console[k] = function(){ post(k==='info'?'log':k, [].slice.call(arguments)); }; });",
+    "  self.onerror = function(m){ post('error', [String(m)]); return true; };",
+    "})();"
+  ].join("\n");
+
+  function buildWorkerSource(runId, bundle, entry){
+    var shim = SHIM.replace("__RID__", String(runId));
+    return shim + "\n" +
+      bundle + "\n" +
+      ";(function(){ try { " + entry + " } catch(e){ __post('error',[String(e && e.message || e)]); } __entryDone(); })();\n";
+  }
+
+  function teardownWorker(){
+    if (currentWorker){ try{ currentWorker.terminate(); }catch(e){} }
+    if (currentWorkerUrl){ try{ URL.revokeObjectURL(currentWorkerUrl); }catch(e){} currentWorkerUrl = null; }
+    currentWorker = null;
+  }
+
+  function startRun(run){
+    if (running) return;
+    running = true;
+    currentRunId = ++runSeq;
+    runStart = performance.now();
+    runLabel = run.label;
+
+    appendSep("RUN · " + EXAMPLES[active].title + " · " + run.label);
+    setStatus("running", "running · " + run.label);
+    renderRuns(); // disable buttons
+
+    teardownWorker();
+    var src = buildWorkerSource(currentRunId, srcOf(active), run.call);
+    var url = URL.createObjectURL(new Blob([src], { type: "application/javascript" }));
+    var worker = new Worker(url);
+    worker.onmessage = onWorkerMessage;
+    worker.onerror = function(e){
+      appendLog("error", [(e && e.message) || "worker error"]);
+      finishRun(false);
+    };
+    currentWorker = worker;
+    currentWorkerUrl = url;
+  }
+
+  function finishRun(ok){
+    running = false;
+    var secs = ((performance.now() - runStart) / 1000);
+    if (ok === false){
+      setStatus("error", "error · " + runLabel);
+    } else {
+      setStatus("done", "done · " + runLabel + " · " + secs.toFixed(3) + "s");
+    }
+    footMetaEl.innerHTML = '<b>last run</b> — ' + EXAMPLES[active].title + ' / ' + runLabel +
+                           ' · wall ' + secs.toFixed(3) + 's';
+    renderRuns(); // re-enable buttons
+    setTimeout(teardownWorker, 0);
+  }
+
+  function onWorkerMessage(ev){
+    var d = ev.data;
+    if (!d || d.__perf !== 1 || d.id !== currentRunId) return;
+    if (d.level === "done"){ finishRun(true); return; }
+    if (d.level === "error"){ appendLog("error", d.args); /* keep streaming; finish on done */ }
+    else appendLog(d.level, d.args);
+  }
+
+  /* ---------------- keyboard: 1/2 switch tabs ---------------- */
+  document.addEventListener("keydown", function(e){
+    if (e.target && /input|textarea/i.test(e.target.tagName)) return;
+    if (e.key === "1"){ active = ORDER[0]; renderActive(); }
+    else if (e.key === "2"){ active = ORDER[1]; renderActive(); }
+  });
+
+  /* ---------------- boot ---------------- */
+  renderActive();
+  setStatus("idle", "idle");
+})();
+</script>
+</body>
+</html>

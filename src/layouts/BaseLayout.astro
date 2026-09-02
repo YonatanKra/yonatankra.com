@@ -5,11 +5,16 @@ interface Props {
   canonical?: string;
 }
 
+const base = import.meta.env.BASE_URL;
+const productionPath = base !== '/' && Astro.url.pathname.startsWith(base)
+  ? `/${Astro.url.pathname.slice(base.length)}`
+  : Astro.url.pathname;
 const {
   title = 'Yonatan Kra',
   description = 'Family, Code, Run',
-  canonical = Astro.url.href,
+  canonical = new URL(productionPath || '/', 'https://yonatankra.com').href,
 } = Astro.props;
+const withBase = (pathname: string) => `${base}${pathname.replace(/^\/+/, '')}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -18,14 +23,192 @@ const {
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" type="application/rss+xml" title="Yonatan Kra" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Yonatan Kra" href={withBase('feed.xml')} />
     <title>{title}</title>
+    <style is:global>
+      :root {
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #0f172a;
+        background: #fff;
+        font-synthesis: none;
+        --ink: #0f172a;
+        --muted: #64748b;
+        --line: #e2e8f0;
+        --soft: #f8fafc;
+        --blue: #1457d9;
+        --blue-soft: #eff6ff;
+        --page: 1180px;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; color: var(--ink); background: #fff; line-height: 1.65; }
+      body.search-open { overflow: hidden; }
+      a { color: inherit; text-decoration: none; }
+      a:hover { color: var(--blue); }
+      img { max-width: 100%; height: auto; }
+      .site-header { border-bottom: 1px solid var(--line); background: rgba(255,255,255,.96); position: sticky; top: 0; z-index: 20; backdrop-filter: blur(10px); }
+      .header-inner { width: min(var(--page), calc(100% - 40px)); min-height: 74px; margin: auto; display: flex; align-items: center; gap: 32px; }
+      .brand { margin-right: auto; line-height: 1.1; }
+      .brand strong { display: block; font-size: 1.12rem; letter-spacing: -.02em; }
+      .brand small { display: block; margin-top: 4px; color: var(--muted); font-size: .76rem; }
+      .nav { display: flex; align-items: center; gap: 28px; font-size: .92rem; font-weight: 600; }
+      .nav a { color: #334155; }
+      .nav a:hover { color: var(--blue); }
+      .search-pill { display: flex; align-items: center; gap: 9px; min-width: 180px; padding: 9px 13px; border: 1px solid var(--line); border-radius: 10px; color: #64748b; font: inherit; font-size: .82rem; background: #fff; box-shadow: 0 1px 2px rgba(15,23,42,.03); cursor: pointer; }
+      .search-pill:hover { border-color: #bfdbfe; color: var(--blue); }
+      .site-main { min-height: 65vh; }
+      .site-footer { border-top: 1px solid var(--line); margin-top: 64px; }
+      .footer-inner { width: min(var(--page), calc(100% - 40px)); margin: auto; padding: 34px 0 48px; display: flex; justify-content: space-between; gap: 24px; color: var(--muted); font-size: .85rem; }
+      .footer-inner strong { color: var(--ink); }
+      .eyebrow { color: var(--blue); text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; font-weight: 800; }
+      .chip { display: inline-flex; align-items: center; padding: 4px 9px; border-radius: 999px; color: #1d4ed8; background: var(--blue-soft); font-size: .72rem; font-weight: 700; }
+      .muted { color: var(--muted); }
+      .button-link { color: var(--blue); font-weight: 750; }
+      pre { overflow-x: auto; padding: 18px 20px; border-radius: 12px; background: #111827; color: #e5e7eb; font-size: .9rem; line-height: 1.55; }
+      code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      :not(pre) > code { background: #f1f5f9; padding: .12em .32em; border-radius: 5px; font-size: .9em; }
+      blockquote { margin: 1.6rem 0; padding: .25rem 0 .25rem 1.2rem; border-left: 3px solid #93c5fd; color: #475569; }
+      .search-dialog { width: min(760px, calc(100% - 28px)); max-height: min(720px, calc(100vh - 48px)); padding: 0; border: 0; border-radius: 16px; box-shadow: 0 24px 80px rgba(15,23,42,.25); overflow: hidden; }
+      .search-dialog::backdrop { background: rgba(15,23,42,.48); backdrop-filter: blur(3px); }
+      .search-box { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+      .search-box input { flex: 1; min-width: 0; border: 0; outline: 0; font: inherit; font-size: 1rem; color: var(--ink); }
+      .search-close { border: 0; background: transparent; color: var(--muted); font-size: 1.3rem; cursor: pointer; padding: 4px 7px; }
+      .search-status { padding: 14px 18px 8px; color: var(--muted); font-size: .8rem; }
+      .search-results { padding: 0 10px 12px; overflow-y: auto; max-height: 560px; }
+      .search-result { display: block; padding: 14px 12px; border-radius: 10px; }
+      .search-result:hover, .search-result:focus-visible { background: var(--soft); outline: none; }
+      .search-result-title { display: block; margin-bottom: 4px; color: var(--ink); font-weight: 750; line-height: 1.3; }
+      .search-result-excerpt { display: block; color: var(--muted); font-size: .86rem; line-height: 1.45; }
+      .search-result-excerpt mark { background: #fef3c7; color: inherit; }
+      .search-empty { padding: 26px 12px 32px; color: var(--muted); text-align: center; }
+      @media (max-width: 800px) {
+        .header-inner { width: min(100% - 28px, var(--page)); min-height: 66px; }
+        .nav { gap: 16px; }
+        .nav .optional { display: none; }
+        .search-pill { min-width: 0; padding: 8px 10px; }
+        .search-pill .search-label { display: none; }
+        .footer-inner { width: min(100% - 28px, var(--page)); }
+      }
+      @media (max-width: 520px) {
+        .nav { gap: 12px; font-size: .82rem; }
+        .brand small { display: none; }
+        .search-dialog { width: calc(100% - 16px); max-height: calc(100vh - 16px); border-radius: 12px; }
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <a href="/"><strong>Yonatan Kra</strong></a>
-      <p>Family, Code, Run</p>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href={base} aria-label="Yonatan Kra home">
+          <strong>Yonatan Kra</strong>
+          <small>Family, Code, Run</small>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href={base}>Articles</a>
+          <a class="optional" href={withBase('publications/')}>Publications</a>
+          <a class="optional" href={withBase('about-me/')}>About</a>
+          <a class="optional" href={withBase('feed.xml')}>RSS</a>
+        </nav>
+        <button class="search-pill" id="search-trigger" type="button" aria-haspopup="dialog" aria-controls="search-dialog">
+          <span aria-hidden="true">⌕</span><span class="search-label">Search articles…</span>
+        </button>
+      </div>
     </header>
-    <main><slot /></main>
+    <main class="site-main"><slot /></main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div><strong>Yonatan Kra</strong><br />Family, Code, Run</div>
+        <div>Software engineering, testing, performance and the occasional long run.</div>
+      </div>
+    </footer>
+
+    <dialog class="search-dialog" id="search-dialog" aria-label="Search articles">
+      <div class="search-box">
+        <span aria-hidden="true">⌕</span>
+        <input id="search-input" type="search" autocomplete="off" placeholder="Search articles…" aria-label="Search articles" />
+        <button class="search-close" id="search-close" type="button" aria-label="Close search">×</button>
+      </div>
+      <div class="search-status" id="search-status">Type to search articles</div>
+      <div class="search-results" id="search-results" role="listbox"></div>
+    </dialog>
+
+    <script is:inline define:vars={{ base }}>
+      const trigger = document.getElementById('search-trigger');
+      const dialog = document.getElementById('search-dialog');
+      const input = document.getElementById('search-input');
+      const close = document.getElementById('search-close');
+      const results = document.getElementById('search-results');
+      const status = document.getElementById('search-status');
+      let pagefindPromise;
+
+      const escapeHtml = (value) => String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+
+      const loadPagefind = async () => {
+        if (!pagefindPromise) {
+          pagefindPromise = import(`${base}pagefind/pagefind.js`).then(async (pagefind) => {
+            await pagefind.options({ baseUrl: base, excerptLength: 24 });
+            await pagefind.init();
+            return pagefind;
+          });
+        }
+        return pagefindPromise;
+      };
+
+      const openSearch = async () => {
+        if (!dialog.open) dialog.showModal();
+        document.body.classList.add('search-open');
+        input.focus();
+        try { await loadPagefind(); } catch (error) { status.textContent = 'Search index could not be loaded.'; }
+      };
+
+      const closeSearch = () => {
+        dialog.close();
+        document.body.classList.remove('search-open');
+      };
+
+      trigger?.addEventListener('click', openSearch);
+      close?.addEventListener('click', closeSearch);
+      dialog?.addEventListener('click', (event) => { if (event.target === dialog) closeSearch(); });
+      dialog?.addEventListener('close', () => document.body.classList.remove('search-open'));
+      document.addEventListener('keydown', (event) => {
+        if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+          event.preventDefault();
+          openSearch();
+        }
+      });
+
+      input?.addEventListener('input', async () => {
+        const term = input.value.trim();
+        if (!term) {
+          results.innerHTML = '';
+          status.textContent = 'Type to search articles';
+          return;
+        }
+
+        status.textContent = 'Searching…';
+        try {
+          const pagefind = await loadPagefind();
+          const search = await pagefind.debouncedSearch(term, {}, 160);
+          if (!search) return;
+          const loaded = await Promise.all(search.results.slice(0, 8).map((result) => result.data()));
+          status.textContent = `${search.results.length} result${search.results.length === 1 ? '' : 's'}`;
+          results.innerHTML = loaded.length
+            ? loaded.map((result) => `
+                <a class="search-result" role="option" href="${escapeHtml(result.url)}">
+                  <span class="search-result-title">${escapeHtml(result.meta?.title || 'Untitled')}</span>
+                  <span class="search-result-excerpt">${result.excerpt || ''}</span>
+                </a>`).join('')
+            : '<div class="search-empty">No matching articles found.</div>';
+        } catch (error) {
+          status.textContent = 'Search is temporarily unavailable.';
+          results.innerHTML = '';
+        }
+      });
+    </script>
   </body>
 </html>

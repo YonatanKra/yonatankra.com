@@ -1,0 +1,88 @@
+name: Preview migrated WordPress site
+
+on:
+  push:
+    branches: [preview-two-posts-fix]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'migration/legacy-posts.json'
+      - 'migration/media-urls.json'
+      - 'migration/static-files.txt'
+      - 'scripts/repair-featured-images.mjs'
+      - 'scripts/download-live-media.mjs'
+      - 'scripts/validate-legacy-urls.mjs'
+      - '.github/workflows/preview-two-posts.yml'
+      - 'astro.config.mjs'
+      - 'package.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: preview-two-posts-pages
+  cancel-in-progress: true
+
+env:
+  PUBLIC_BASE_PATH: /yonatankra.com
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Restore static presentation folders
+        run: |
+          while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            target="public/$rel"
+            if [ -s "$target" ]; then
+              continue
+            fi
+            mkdir -p "$(dirname "$target")"
+            echo "Downloading /$rel"
+            curl -fL --retry 3 --retry-delay 2 "https://yonatankra.com/$rel" -o "$target"
+          done < migration/static-files.txt
+      - name: Persist static presentation folders
+        run: |
+          if [ -z "$(git status --porcelain -- public/performance public/ykdemos)" ]; then
+            echo "Static folders already persisted."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/performance public/ykdemos
+            git commit -m "Restore performance and ykdemos static folders"
+            git push
+          fi
+      - name: Restore featured image metadata
+        run: node scripts/repair-featured-images.mjs
+      - name: Download restored featured media
+        run: node scripts/download-live-media.mjs
+      - name: Build Astro and search index
+        run: npm run build
+      - name: Validate migrated URLs and local media
+        run: npm run test:legacy
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages-preview
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

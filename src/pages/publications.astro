@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const talks = [
+  { year:'2025', event:'JavaScript Israel', date:'Jan 23, 2025', title:'Runtime Performance Optimization in Production', subtitle:'With Keren Kenzi · JavaScript Israel', video:'6dNPOu-HRWk', tags:['JavaScript','Performance','Production'] },
+  { year:'2024', event:'ConfrontJS', date:'Apr 12, 2024', title:'Test Your Frontend Like a Pro', subtitle:'ConfrontJS · Warsaw', tags:['Testing','Frontend','JavaScript'] },
+  { year:'2024', event:'JavaScript Israel', title:'Neural Networks in Plain JavaScript', subtitle:'JavaScript Israel', video:'lZ_-lHVToZw', tags:['JavaScript','AI','Neural Networks'] },
+  { year:'2023', event:'Jfokus', date:'Feb 8, 2023', title:'GitHub Actions — From Zero to Hero', subtitle:'Jfokus · Stockholm', video:'e3xN6p5RB98', tags:['DevOps','CI/CD','GitHub Actions'] },
+  { year:'2023', event:'ConfrontJS', date:'Mar 2023', title:'Test Drive Your Code — Keynote', subtitle:'ConfrontJS · Warsaw', video:'zmjBc_jhRfA', tags:['Testing','Professionalism','JavaScript'] },
+  { year:'2022', event:'ConfrontJS', title:'How to Optimize JavaScript Performance', subtitle:'ConfrontJS · Warsaw', video:'DsnxUcyo0-4', tags:['JavaScript','Performance'] },
+  { year:'2021', event:'WarsawJS', date:'Feb 10, 2021', title:'CI/CD with GitHub Actions', subtitle:'WarsawJS Meetup #78', video:'-rLE4LDZjKc', tags:['DevOps','CI/CD','GitHub Actions'] },
+  { year:'2021', event:'Node Congress', title:'Node.js Runtime Performance Tips', subtitle:'Node Congress 2021', video:'avKyuSCDHyM', tags:['Node.js','Performance'] },
+  { year:'2021', event:'Nx Conf', title:'Custom Webpack Config in an Nx Workspace', subtitle:'Nx Conf 2021', video:'V0GL2rDWbD0', tags:['Nx','Webpack','JavaScript'] },
+  { year:'2020', event:'WarsawJS', title:'The Event Loop and Your Code', subtitle:'WarsawJS', video:'Nqx3rtv_dko', tags:['JavaScript','Event Loop'] },
+  { year:'2019', event:'CodeTalks', date:'Hamburg', title:'Runtime Optimization Patterns — From Games to Your Application', subtitle:'CodeTalks · Hamburg', video:'gBoBUSB-sNU', tags:['JavaScript','Performance','Patterns'] },
+];
+
+const earlier = [
+  ['Memory Allocation in JavaScript','ConfrontJS 2019','https://www.youtube.com/watch?v=gLj-p7gHwj8'],
+  ['Optimization Design Patterns in JavaScript','JavaScript Israel','https://www.youtube.com/watch?v=sGJtMnY5PtA'],
+  ['Optimization Design Patterns — From Games to Web','JSBangkok','https://creatorsgarten.org/videos/jsbkk1/design-patterns'],
+  ['The Frontend TDD Challenge','ConfrontJS','https://www.youtube.com/watch?v=TCrVRMI2c_U'],
+  ['The Sixth Element — Angular Elements in Action','JavaScript Israel','https://www.youtube.com/watch?v=eYIGTyE62DU'],
+  ['Test Driven (Micro) Architecture','Modern Web Online','https://youtu.be/ONaRbIW6OMs?t=1312'],
+  ['Web App Performance','WalkMe Tech Talks','https://www.youtube.com/watch?v=KwDIuNrmYMk&t=89s'],
+  ['V8 Performance Optimizations','WalkMe Tech Talks','https://www.youtube.com/watch?v=tL-sE4JIP-c'],
+];
+
+const articles = [
+  ['Performance','Entity API Performance','Cesium','https://cesium.com/blog/2018/06/21/entity-api-performance/'],
+  ['Web Components','Publishing a Web Components Library','WalkMe Engineering','https://medium.com/walkme-engineering/publishing-a-web-components-library-7a0670e3939f'],
+  ['CI/CD','Setting Up a CI/CD Process on GitHub','Travis CI','https://www.travis-ci.com/blog/2019-05-30-setting-up-a-ci-cd-process-on-github/'],
+  ['Performance','Memory in JavaScript — Beyond Leaks','WalkMe Engineering','https://medium.com/walkme-engineering/memory-in-javascript-beyond-leaks-8c1d697c655c'],
+  ['JavaScript','Bitwise Operators','WarsawJS','https://medium.com/warsawjs/bitwise-operators-45e4d8b393db'],
+  ['Performance','Data Locality in JavaScript','Polish translation','https://bulldogjob.pl/readme/data-locality-w-javascript'],
+];
+---
+<BaseLayout title="Publications | Yonatan Kra" description="Articles, lessons and conference talks by Yonatan Kra." canonical="https://yonatankra.com/publications/">
+  <main class="publications-page" data-pagefind-body>
+    <header class="pub-intro">
+      <div class="pub-kicker">Publications</div>
+      <h1>Talks, articles and courses</h1>
+      <p>A curated archive of conference recordings, technical writing and teaching material.</p>
+      <nav class="pub-tabs" aria-label="Publication sections"><a class="active" href="#talks">Talks</a><a href="#articles">Articles</a><a href="#courses">Courses</a></nav>
+    </header>
+
+    <section id="talks" class="pub-section">
+      <div class="section-title"><div><span class="pub-kicker">Speaking</span><h2>Talks timeline</h2></div><p>Conference and meetup recordings, newest first.</p></div>
+      <div class="timeline">
+        {talks.map((talk) => (
+          <article class="talk">
+            <div class="talk-date"><strong>{talk.year}</strong><span>{talk.event}</span>{talk.date && <small>{talk.date}</small>}</div>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            {talk.video ? <a class="talk-thumb" href={`https://www.youtube.com/watch?v=${talk.video}`}><img src={`https://i.ytimg.com/vi/${talk.video}/hqdefault.jpg`} alt="" loading="lazy" /></a> : <div class="talk-thumb thumb-placeholder"><strong>{talk.event}</strong><span>{talk.title}</span></div>}
+            <div class="talk-copy"><h3>{talk.title}</h3><p>{talk.subtitle}</p><div class="talk-tags">{talk.tags.map(tag => <span>{tag}</span>)}</div></div>
+            {talk.video ? <a class="watch" href={`https://www.youtube.com/watch?v=${talk.video}`}>▶ YouTube</a> : <span class="watch unavailable">Recording not found</span>}
+          </article>
+        ))}
+      </div>
+      <details class="earlier-talks"><summary>Earlier talks and recordings</summary><div class="earlier-grid">{earlier.map(([title,event,url]) => <a href={url}><strong>{title}</strong><span>{event}</span></a>)}</div></details>
+    </section>
+
+    <section id="articles" class="pub-section compact-section">
+      <div class="section-title"><div><span class="pub-kicker">Writing</span><h2>Selected articles</h2></div><p>Surviving publication links from the original archive.</p></div>
+      <div class="resource-grid">{articles.map(([topic,title,source,url]) => <a href={url}><span>{topic}</span><strong>{title}</strong><small>{source}</small></a>)}</div>
+    </section>
+
+    <section id="courses" class="pub-section compact-section">
+      <div class="section-title"><div><span class="pub-kicker">Teaching</span><h2>Egghead lessons</h2></div><a class="section-link" href="https://egghead.io/instructors/yonatan-kra">Instructor page →</a></div>
+      <div class="resource-grid">
+        <a href="https://egghead.io/lessons/javascript-profiling-a-nodejs-app-from-the-chrome-dev-tools"><span>Node.js</span><strong>Profiling a Node.js App from Chrome DevTools</strong></a>
+        <a href="https://egghead.io/lessons/express-benchmark-http-requests-using-autocannonjs"><span>Node.js</span><strong>Benchmark HTTP Requests Using Autocannon.js</strong></a>
+        <a href="https://egghead.io/lessons/chrome-devtools-see-the-critical-rendering-path-in-the-browser"><span>Performance</span><strong>See the Critical Rendering Path in the Browser</strong></a>
+        <a href="https://egghead.io/lessons/javascript-layout-reflow-in-the-browser"><span>Performance</span><strong>Layout Reflow in the Browser</strong></a>
+        <a href="https://egghead.io/lessons/javascript-render-hello-world-text-with-custom-elements"><span>Web Components</span><strong>Render Hello World with Custom Elements</strong></a>
+        <a href="https://egghead.io/lessons/html-5-avoiding-css-conflicts-via-shadow-dom-css-encapsulation"><span>Web Components</span><strong>Avoid CSS Conflicts via Shadow DOM</strong></a>
+      </div>
+    </section>
+  </main>
+  <style>
+    .publications-page{width:min(1180px,calc(100% - 40px));margin:auto;padding:50px 0 30px}.pub-intro{margin-bottom:48px}.pub-intro h1{margin:6px 0 8px;font-size:clamp(2.5rem,5vw,4.2rem);line-height:1;letter-spacing:-.055em}.pub-intro p,.section-title p{color:var(--muted)}.pub-kicker{color:var(--blue);text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;font-weight:800}.pub-tabs{display:flex;gap:28px;margin-top:28px;border-bottom:1px solid var(--line)}.pub-tabs a{padding:10px 0 12px;font-weight:700;color:#475569}.pub-tabs .active{color:var(--blue);border-bottom:2px solid var(--blue)}.pub-section{padding:18px 0 54px}.section-title{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:26px}.section-title h2{margin:4px 0 0;font-size:1.7rem;letter-spacing:-.035em}.section-title p{margin:0}.timeline{position:relative}.timeline:before{content:'';position:absolute;left:225px;top:10px;bottom:10px;width:1px;background:#dbe3ef}.talk{display:grid;grid-template-columns:190px 22px 270px minmax(0,1fr) 120px;gap:24px;align-items:center;min-height:180px;padding:22px 0}.talk-date{align-self:start;padding-top:5px;display:flex;flex-direction:column;gap:6px;color:#64748b}.talk-date strong{color:var(--blue);font-size:1.2rem}.talk-date span{color:#334155;font-weight:700}.talk-date small{font-size:.78rem}.timeline-dot{position:relative;z-index:1;width:12px;height:12px;border-radius:50%;background:#2563eb;justify-self:center}.talk-thumb{display:block;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#0f172a}.talk-thumb img{width:100%;height:100%;object-fit:cover;display:block}.thumb-placeholder{padding:20px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#172554,#312e81);color:#fff}.thumb-placeholder span{margin-top:8px;font-size:.85rem;color:#cbd5e1}.talk-copy h3{margin:0 0 8px;font-size:1.25rem;line-height:1.25;letter-spacing:-.025em}.talk-copy p{margin:0;color:#64748b}.talk-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}.talk-tags span{padding:5px 10px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:.72rem;font-weight:700}.watch{justify-self:end;padding:9px 13px;border:1px solid #d7e0ec;border-radius:9px;color:#334155;font-size:.82rem;font-weight:750}.watch:hover{border-color:#93c5fd;color:var(--blue)}.watch.unavailable{border:0;padding:0;color:#94a3b8;font-weight:600}.earlier-talks{margin:20px 0 0 236px;border-top:1px solid var(--line);padding-top:18px}.earlier-talks summary{cursor:pointer;color:var(--blue);font-weight:750}.earlier-grid,.resource-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}.earlier-grid a,.resource-grid a{padding:15px 17px;border:1px solid var(--line);border-radius:10px;background:#fff}.earlier-grid strong,.resource-grid strong{display:block}.earlier-grid span,.resource-grid span,.resource-grid small{display:block;color:#64748b;font-size:.78rem}.resource-grid span{color:var(--blue);font-weight:700;margin-bottom:4px}.resource-grid small{margin-top:5px}.compact-section{border-top:1px solid var(--line)}.section-link{color:var(--blue);font-weight:750}
+    @media(max-width:900px){.timeline:before{left:10px}.talk{grid-template-columns:22px 180px minmax(0,1fr);gap:16px;padding-left:0}.talk-date{grid-column:2/-1;grid-row:auto;padding-top:0;flex-direction:row;align-items:center;flex-wrap:wrap}.timeline-dot{grid-column:1;grid-row:2}.talk-thumb{grid-column:2}.talk-copy{grid-column:3}.watch{grid-column:3;justify-self:start}.earlier-talks{margin-left:0}}@media(max-width:640px){.publications-page{width:calc(100% - 28px);padding-top:32px}.section-title{display:block}.talk{grid-template-columns:22px minmax(0,1fr)}.talk-date{grid-column:2}.timeline-dot{grid-column:1;grid-row:2}.talk-thumb,.talk-copy,.watch{grid-column:2}.talk-thumb{max-width:420px}.resource-grid,.earlier-grid{grid-template-columns:1fr}.pub-tabs{gap:20px}}
+  </style>
+</BaseLayout>

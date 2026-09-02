@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const base = import.meta.env.BASE_URL;
+const tagSlug = (tag) => tag.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const tagUrl = (tag) => `${base}tag/${tagSlug(tag)}/`;
+
+const tagCounts = new Map();
+for (const post of posts) {
+  for (const tag of post.data.tags) tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+}
+
+const tags = [...tagCounts]
+  .map(([name, count]) => ({ name, count }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+---
+<BaseLayout title="Tags — Yonatan Kra" description="Browse all article tags on Yonatan Kra's archive.">
+  <main class="archive-index">
+    <div class="eyebrow">Explore the archive</div>
+    <h1>All tags</h1>
+    <div class="tag-list">
+      {tags.map((tag) => (
+        <a class="tag-chip" href={tagUrl(tag.name)}>
+          <span>{tag.name}</span><small>{tag.count}</small>
+        </a>
+      ))}
+    </div>
+  </main>
+
+  <style>
+    .archive-index { width: min(var(--page), calc(100% - 40px)); margin: 0 auto; padding: 52px 0 64px; }
+    h1 { margin: 6px 0 24px; font-size: 2rem; letter-spacing: -.035em; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tag-chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border: 1px solid #e0e7ff; border-radius: 999px; color: #35425a; background: #f7f8ff; font-size: .82rem; font-weight: 650; line-height: 1.1; }
+    .tag-chip:hover { border-color: #bfdbfe; color: var(--blue); background: #eff6ff; }
+    .tag-chip small { color: #94a3b8; font-size: .72em; }
+    @media (max-width: 700px) {
+      .archive-index { width: calc(100% - 28px); padding-top: 36px; }
+    }
+  </style>
+</BaseLayout>
