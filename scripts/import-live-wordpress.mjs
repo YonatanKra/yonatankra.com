@@ -12,7 +12,7 @@ fs.mkdirSync(pageDir, { recursive: true });
 
 async function request(url, optional) {
   try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(15000), headers: { 'user-agent': 'Mozilla/5.0 yonatankra.com Astro migration', accept: 'application/json' } });
+    const res = await fetch(url, { signal: AbortSignal.timeout(30000), headers: { 'user-agent': 'Mozilla/5.0 yonatankra.com Astro migration', accept: 'application/json' } });
     const type = res.headers.get('content-type') || '';
     if (!res.ok || !type.includes('json')) throw new Error(`${res.status} ${res.statusText}, content-type=${type}`);
     return res;
@@ -24,8 +24,9 @@ async function request(url, optional) {
 
 async function all(resource, params = {}, optional = false) {
   const out = [];
+  const perPage = resource === 'posts' ? 5 : 20;
   for (let page = 1; ; page++) {
-    const q = new URLSearchParams({ per_page: '20', page: String(page), ...params });
+    const q = new URLSearchParams({ per_page: String(perPage), page: String(page), ...params });
     const url = `${API}/${resource}?${q}`;
     const res = await request(url, optional);
     if (!res) return out;
