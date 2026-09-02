@@ -52,6 +52,18 @@ async function one(resource, id) {
   return r ? r.json() : null;
 }
 
+async function manyByIds(resource, ids, fields) {
+  const out = [];
+  for (let i = 0; i < ids.length; i += 100) {
+    const chunk = ids.slice(i, i + 100);
+    if (!chunk.length) continue;
+    const q = new URLSearchParams({ per_page: '100', include: chunk.join(','), _fields: fields });
+    const r = await request(`${API}/${resource}?${q}`, true);
+    if (r) out.push(...await r.json());
+  }
+  return out;
+}
+
 const fields = 'id,slug,date,modified,link,title,excerpt,content,categories,tags,featured_media';
 const [posts, pages, comments] = await Promise.all([
   all('posts', { status: 'publish', _fields: fields }),
@@ -65,11 +77,12 @@ const mediaIds = [...new Set(posts.map(p => p.featured_media).filter(Boolean))];
 const [cats, tags, featured] = await Promise.all([
   Promise.all(catIds.map(id => one('categories', id))),
   Promise.all(tagIds.map(id => one('tags', id))),
-  Promise.all(mediaIds.map(id => one('media', id))),
+  manyByIds('media', mediaIds, 'id,source_url,media_details'),
 ]);
 const catMap = new Map(cats.filter(Boolean).map(x => [x.id, x]));
 const tagMap = new Map(tags.filter(Boolean).map(x => [x.id, x]));
 const mediaMapById = new Map(featured.filter(Boolean).map(x => [x.id, x]));
+if (mediaIds.length && mediaMapById.size === 0) throw new Error('Could not resolve any featured media; refusing to import posts without their featured images.');
 
 const commentsByPost = new Map();
 for (const c of comments) {
