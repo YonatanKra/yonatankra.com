@@ -8,6 +8,7 @@ on:
       - 'public/**'
       - 'migration/legacy-posts.json'
       - 'migration/media-urls.json'
+      - 'migration/static-files.txt'
       - 'scripts/repair-featured-images.mjs'
       - 'scripts/download-live-media.mjs'
       - 'scripts/validate-legacy-urls.mjs'
@@ -17,7 +18,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -37,6 +38,29 @@ jobs:
         with:
           node-version: 22
       - run: npm install
+      - name: Restore static presentation folders
+        run: |
+          while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            target="public/$rel"
+            if [ -s "$target" ]; then
+              continue
+            fi
+            mkdir -p "$(dirname "$target")"
+            echo "Downloading /$rel"
+            curl -fL --retry 3 --retry-delay 2 "https://yonatankra.com/$rel" -o "$target"
+          done < migration/static-files.txt
+      - name: Persist static presentation folders
+        run: |
+          if git diff --quiet -- public/performance public/ykdemos; then
+            echo "Static folders already persisted."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/performance public/ykdemos
+            git commit -m "Restore performance and ykdemos static folders"
+            git push
+          fi
       - name: Restore featured image metadata
         run: node scripts/repair-featured-images.mjs
       - name: Download restored featured media
