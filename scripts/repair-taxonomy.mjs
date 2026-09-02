@@ -7,6 +7,7 @@ import {
   categoryPath,
   decodeHtml,
   fetchWordPress,
+  normalizeTagSlug,
   normalizeTagTerms,
   TAG_ALIASES,
 } from './wordpress-migration-utils.mjs';
@@ -100,10 +101,8 @@ for (const post of posts) {
     }));
 
   const rawPostTags = (post.tags || []).map(id => tagById.get(id)).filter(Boolean);
-  const postTags = normalizeTagTerms(rawPostTags.map(term => {
-    const canonical = tagBySlug.get(term.slug);
-    return canonical ?? term;
-  }));
+  const canonicalPostTerms = rawPostTags.map(term => tagBySlug.get(normalizeTagSlug(term.slug)) ?? term);
+  const postTags = normalizeTagTerms(canonicalPostTerms);
 
   const categories = [];
   const seenCategoryPaths = new Set();
