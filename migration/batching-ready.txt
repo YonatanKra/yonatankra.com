@@ -1,0 +1,1 @@
+Ready to batch generated public post content after CI stabilization.
