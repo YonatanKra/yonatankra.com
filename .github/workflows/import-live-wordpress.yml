@@ -2,9 +2,6 @@ name: Import live WordPress site
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/full-migration-trigger'
 
 permissions:
   contents: write
