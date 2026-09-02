@@ -28,7 +28,7 @@ const shareUrl = encodeURIComponent(canonical);
 <BaseLayout title={`${entry.data.title} | Yonatan Kra`} description={description} canonical={canonical}>
   {isPost ? (
     <article class="post-shell">
-      <div class="post-main">
+      <div class="post-main" data-pagefind-body>
         <header class="post-header">
           {categories.length > 0 && (
             <div class="post-categories">{categories.slice(0, 4).map((category) => <span>{categoryName(category)}</span>)}</div>
