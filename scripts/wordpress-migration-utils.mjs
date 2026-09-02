@@ -6,6 +6,31 @@ function normalizedBasePath() {
   return `/${raw.replace(/^\/+|\/+$/g, '')}`;
 }
 
+export async function fetchWordPress(url, { attempts = 4, timeout = 30000, userAgent = 'Mozilla/5.0 yonatankra.com Astro migration' } = {}) {
+  let lastResponse;
+  let lastError;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      const res = await fetch(url, {
+        signal: AbortSignal.timeout(timeout),
+        headers: { 'user-agent': userAgent, accept: 'application/json' },
+      });
+      lastResponse = res;
+      const type = res.headers.get('content-type') || '';
+      if (res.ok && type.includes('json')) return res;
+      if (attempt === attempts || (res.status < 500 && res.status !== 403 && res.status !== 429)) return res;
+    } catch (error) {
+      lastError = error;
+      if (attempt === attempts) throw error;
+    }
+    const delayMs = [1000, 3000, 8000][attempt - 1] ?? 8000;
+    console.warn(`WordPress request retry ${attempt}/${attempts - 1} after ${lastResponse ? `${lastResponse.status} ${lastResponse.statusText}` : lastError}`);
+    await new Promise(resolve => setTimeout(resolve, delayMs));
+  }
+  if (lastResponse) return lastResponse;
+  throw lastError ?? new Error(`WordPress request failed: ${url}`);
+}
+
 export function decodeHtml(s = '') {
   return s.replace(/<[^>]+>/g, '')
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
