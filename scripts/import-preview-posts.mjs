@@ -2,42 +2,19 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
+import {
+  WORDPRESS_SITE as SITE,
+  categoryPath,
+  decodeHtml,
+  mediaUrlsFromHtml,
+  normalizeMediaUrl,
+  publicPath,
+  rewriteImportedHtml,
+  uploadPath,
+} from './wordpress-migration-utils.mjs';
 
-const SITE = 'https://yonatankra.com';
 const API = `${SITE}/wp-json/wp/v2`;
 const postDir = path.resolve('src/content/posts');
-
-function decodeHtml(s = '') {
-  return s.replace(/<[^>]+>/g, '')
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
-    .replaceAll('&amp;', '&').replaceAll('&lt;', '<').replaceAll('&gt;', '>')
-    .replaceAll('&quot;', '"').replaceAll('&#039;', "'").replaceAll('&nbsp;', ' ').trim();
-}
-
-function uploadPath(url) {
-  if (!url) return undefined;
-  try {
-    const u = new URL(url.startsWith('//') ? `https:${url}` : url, SITE);
-    const marker = '/wp-content/uploads/';
-    const i = u.pathname.indexOf(marker);
-    return i >= 0 ? decodeURIComponent(u.pathname.slice(i)) : undefined;
-  } catch { return undefined; }
-}
-
-function categoryPath(term) {
-  try { return new URL(term.link).pathname.match(/\/category\/(.+?)\/?$/)?.[1] || term.slug; }
-  catch { return term.slug; }
-}
-
-function mediaUrlsFromHtml(html = '') {
-  const found = new Set();
-  for (const m of html.matchAll(/(?:https?:)?\/\/[^"'\s<>]+|\/wp-content\/uploads\/[^"'\s<>]+/g)) {
-    const raw = m[0].replaceAll('&amp;', '&');
-    if (uploadPath(raw)) found.add(raw.startsWith('/') ? `${SITE}${raw}` : raw.startsWith('//') ? `https:${raw}` : raw);
-  }
-  return found;
-}
 
 const url = `${API}/posts?per_page=2&orderby=date&order=desc&status=publish&_embed=1`;
 const res = await fetch(url, {
@@ -56,7 +33,7 @@ fs.mkdirSync(postDir, { recursive: true });
 const mediaMap = new Map();
 function registerMedia(rawUrl) {
   if (!rawUrl) return;
-  const normalized = rawUrl.startsWith('/') ? `${SITE}${rawUrl}` : rawUrl.startsWith('//') ? `https:${rawUrl}` : rawUrl;
+  const normalized = normalizeMediaUrl(rawUrl);
   const dest = uploadPath(normalized);
   if (dest) mediaMap.set(dest, normalized);
 }
@@ -66,6 +43,7 @@ for (const p of posts) {
   const cats = embeddedTerms.filter(t => t.taxonomy === 'category' && t.slug !== 'uncategorized');
   const tags = embeddedTerms.filter(t => t.taxonomy === 'post_tag');
   const featured = p._embedded?.['wp:featuredmedia']?.[0];
+  const featuredPath = uploadPath(featured?.source_url);
   const fm = {
     title: decodeHtml(p.title?.rendered),
     slug: p.slug,
@@ -75,15 +53,16 @@ for (const p of posts) {
     description: decodeHtml(p.excerpt?.rendered),
     categories: cats.map(c => ({ name: decodeHtml(c.name), slug: c.slug, path: categoryPath(c) })),
     tags: tags.map(t => decodeHtml(t.name)),
-    ...(uploadPath(featured?.source_url) ? { featuredImage: uploadPath(featured.source_url) } : {}),
+    ...(featuredPath ? { featuredImage: publicPath(featuredPath) } : {}),
     canonical: `${SITE}/${p.slug}/`,
     comments: [],
   };
 
-  const body = p.content?.rendered || '';
+  const originalBody = p.content?.rendered || '';
+  const body = rewriteImportedHtml(originalBody);
   fs.writeFileSync(path.join(postDir, `${p.slug}.md`), `---\n${YAML.stringify(fm, { lineWidth: 0 }).trim()}\n---\n\n${body}\n`);
 
-  for (const mediaUrl of mediaUrlsFromHtml(body)) registerMedia(mediaUrl);
+  for (const mediaUrl of mediaUrlsFromHtml(originalBody)) registerMedia(mediaUrl);
   if (featured) {
     registerMedia(featured.source_url);
     for (const size of Object.values(featured.media_details?.sizes || {})) registerMedia(size.source_url);
