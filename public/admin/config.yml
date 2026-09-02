@@ -4,10 +4,8 @@ backend:
   branch: main
   use_graphql: true
   squash_merges: true
-  # Production GitHub OAuth requires a tiny external OAuth proxy.
-  # Uncomment these after the proxy is deployed:
-  # base_url: https://cms-auth.yonatankra.com
-  # auth_endpoint: auth
+  base_url: https://cms-auth.yonatankra.com
+  auth_endpoint: auth
 
 publish_mode: editorial_workflow
 local_backend: true
