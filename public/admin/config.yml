@@ -38,10 +38,10 @@ collections:
     summary: "{{title}} · {{published}}"
     sortable_fields: [published, title, updated]
     view_filters:
-      - label: Drafts
+      - label: Hidden drafts
         field: draft
         pattern: true
-      - label: Published
+      - label: Public articles
         field: draft
         pattern: false
     editor:
@@ -85,19 +85,69 @@ collections:
         widget: list
         required: false
         summary: "{{fields.name}}"
-        hint: Reuse the existing WordPress category name, slug and path when possible. Hierarchical categories use paths such as coding/algorithms.
+        hint: Choose an existing WordPress category. Keep its slug/path unchanged so archive URLs remain stable.
         fields:
           - label: Name
             name: name
-            widget: string
+            widget: select
+            options:
+              - Tauri
+              - Github
+              - Web Component
+              - Design Patterns
+              - GraphQL
+              - Musings
+              - Coding
+              - Algorithms
+              - Gaming
+              - Interview Questions
+              - vivid
+              - nodejs
+              - debugging
+              - nx
+              - typescript
+              - webpack
+              - Javascript
+              - Memory
+              - chrome extensions
+              - javascript engine
+              - canvas
+              - NPM
+              - Architecture
+              - Open Source
+              - AskQL
+              - tutorials
+              - Rust
+              - Blogging
+              - Skills
+              - Meta Programming
+              - Flutter
+              - Uncategorized
+              - ConfrontJS 2019
+              - Javascript Israel
+              - ConfrontJS
+              - WarsawJS
+              - Conferences
+              - CodeTalks 2019
+              - docker
+              - Cypress
+              - jest
+              - Playwright
+              - Testing
+              - Security
+              - Performance
+              - Tauri Demo
+              - devops
+              - github actions
           - label: Slug
             name: slug
             widget: string
             pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Use lowercase words separated by hyphens.']
+            hint: Existing category slug, e.g. playwright.
           - label: Path
             name: path
             widget: string
-            hint: Usually the slug. For child categories use parent/child, e.g. testing/playwright.
+            hint: Usually the slug. Child categories use parent/child, e.g. testing/playwright.
       - label: Tags
         name: tags
         widget: list
@@ -119,11 +169,11 @@ collections:
         required: false
         pattern: ['^https?://.+', 'Enter a full http(s) URL.']
         hint: Leave empty for new posts unless the canonical URL should differ from the article URL.
-      - label: Draft
+      - label: Hide from site
         name: draft
         widget: boolean
-        default: true
-        hint: Draft posts are excluded from the built site.
+        default: false
+        hint: Editorial Workflow already handles normal drafts. Turn this on only to keep a merged article hidden from the public site.
       - label: Comments
         name: comments
         widget: hidden
