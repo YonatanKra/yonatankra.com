@@ -9,6 +9,8 @@ import {
   fetchWordPress,
   mediaUrlsFromHtml as htmlMedia,
   normalizeMediaUrl,
+  normalizeTagSlug,
+  normalizeTagTerms,
   publicPath,
   rewriteImportedHtml,
   uploadPath,
@@ -81,6 +83,7 @@ const [cats, tags, featured] = await Promise.all([
 ]);
 const catMap = new Map(cats.filter(Boolean).map(x => [x.id, x]));
 const tagMap = new Map(tags.filter(Boolean).map(x => [x.id, x]));
+const tagBySlug = new Map(tags.filter(Boolean).map(x => [x.slug, x]));
 const mediaMapById = new Map(featured.filter(Boolean).map(x => [x.id, x]));
 if (mediaIds.length && mediaMapById.size === 0) throw new Error('Could not resolve any featured media; refusing to import posts without their featured images.');
 
@@ -100,8 +103,10 @@ function registerMedia(url) {
 
 for (const p of posts) {
   const f = mediaMapById.get(p.featured_media);
-  const cats = (p.categories || []).map(id => catMap.get(id)).filter(Boolean).filter(c => c.slug !== 'uncategorized');
-  const ts = (p.tags || []).map(id => tagMap.get(id)).filter(Boolean);
+  const cats = (p.categories || []).map(id => catMap.get(id)).filter(Boolean);
+  const rawTags = (p.tags || []).map(id => tagMap.get(id)).filter(Boolean);
+  const canonicalTags = rawTags.map(term => tagBySlug.get(normalizeTagSlug(term.slug)) ?? term);
+  const ts = normalizeTagTerms(canonicalTags);
   const featuredPath = uploadPath(f?.source_url);
   const fm = {
     title: decode(p.title?.rendered),
@@ -111,7 +116,7 @@ for (const p of posts) {
     author: 'Yonatan Kra',
     description: decode(p.excerpt?.rendered),
     categories: cats.map(c => ({ name: decode(c.name), slug: c.slug, path: categoryPath(c) })),
-    tags: ts.map(t => decode(t.name)),
+    tags: ts.map(t => t.name),
     ...(featuredPath ? { featuredImage: publicPath(featuredPath) } : {}),
     canonical: `${SITE}/${p.slug}/`,
     comments: (commentsByPost.get(p.id) || []).sort((a, b) => a.date.localeCompare(b.date)),
