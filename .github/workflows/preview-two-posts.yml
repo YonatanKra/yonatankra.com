@@ -52,7 +52,7 @@ jobs:
           done < migration/static-files.txt
       - name: Persist static presentation folders
         run: |
-          if git diff --quiet -- public/performance public/ykdemos; then
+          if [ -z "$(git status --porcelain -- public/performance public/ykdemos)" ]; then
             echo "Static folders already persisted."
           else
             git config user.name "github-actions[bot]"
