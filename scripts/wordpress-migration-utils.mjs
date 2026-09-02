@@ -6,14 +6,29 @@ function normalizedBasePath() {
   return `/${raw.replace(/^\/+|\/+$/g, '')}`;
 }
 
+function alternateRestUrl(url) {
+  try {
+    const source = new URL(url);
+    if (!source.pathname.startsWith('/wp-json/')) return url;
+    const alternate = new URL(SITE);
+    alternate.searchParams.set('rest_route', source.pathname.slice('/wp-json'.length));
+    for (const [key, value] of source.searchParams) alternate.searchParams.append(key, value);
+    return alternate.href;
+  } catch {
+    return url;
+  }
+}
+
 export async function fetchWordPress(url, { attempts = 4, timeout = 30000, userAgent = 'Mozilla/5.0 yonatankra.com Astro migration' } = {}) {
   let lastResponse;
   let lastError;
+  const alternate = alternateRestUrl(url);
   for (let attempt = 1; attempt <= attempts; attempt++) {
+    const requestUrl = attempt % 2 === 0 ? alternate : url;
     try {
-      const res = await fetch(url, {
+      const res = await fetch(requestUrl, {
         signal: AbortSignal.timeout(timeout),
-        headers: { 'user-agent': userAgent, accept: 'application/json' },
+        headers: { 'user-agent': userAgent, accept: 'application/json', 'cache-control': 'no-cache' },
       });
       lastResponse = res;
       const type = res.headers.get('content-type') || '';
