@@ -80,11 +80,16 @@ export function mediaUrlsFromHtml(html = '') {
 }
 
 export function rewriteImportedHtml(html = '') {
-  return html.replace(/(?:https?:)?\/\/[^"'\s<>,]+|\/wp-content\/uploads\/[^"'\s<>,]+/g, (raw) => {
+  const withLocalMedia = html.replace(/(?:https?:)?\/\/[^"'\s<>,]+|\/wp-content\/uploads\/[^"'\s<>,]+/g, (raw) => {
     const decoded = raw.replaceAll('&amp;', '&');
     const dest = uploadPath(decoded);
     return dest ? publicPath(dest) : raw;
   });
+
+  return withLocalMedia.replace(
+    /(\b(?:href|src|poster)=["'])(?:https?:)?\/\/(?:www\.)?yonatankra\.com(\/[^"']*)/gi,
+    (_, prefix, pathname) => `${prefix}${publicPath(pathname)}`,
+  );
 }
 
 export const WORDPRESS_SITE = SITE;
