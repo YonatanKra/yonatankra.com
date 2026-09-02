@@ -105,6 +105,7 @@ const withBase = (pathname: string) => `${base}${pathname.replace(/^\/+/, '')}`;
         </a>
         <nav class="nav" aria-label="Main navigation">
           <a href={base}>Articles</a>
+          <a class="optional" href={withBase('publications/')}>Publications</a>
           <a class="optional" href={withBase('about-me/')}>About</a>
           <a class="optional" href={withBase('feed.xml')}>RSS</a>
         </nav>
