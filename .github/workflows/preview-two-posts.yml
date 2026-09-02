@@ -8,6 +8,8 @@ on:
       - 'public/**'
       - 'migration/legacy-posts.json'
       - 'migration/media-urls.json'
+      - 'scripts/repair-featured-images.mjs'
+      - 'scripts/download-live-media.mjs'
       - 'scripts/validate-legacy-urls.mjs'
       - '.github/workflows/preview-two-posts.yml'
       - 'astro.config.mjs'
@@ -35,6 +37,10 @@ jobs:
         with:
           node-version: 22
       - run: npm install
+      - name: Restore featured image metadata
+        run: node scripts/repair-featured-images.mjs
+      - name: Download restored featured media
+        run: node scripts/download-live-media.mjs
       - name: Build Astro and search index
         run: npm run build
       - name: Validate migrated URLs and local media
