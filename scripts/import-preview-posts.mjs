@@ -6,6 +6,7 @@ import {
   WORDPRESS_SITE as SITE,
   categoryPath,
   decodeHtml,
+  fetchWordPress,
   mediaUrlsFromHtml,
   normalizeMediaUrl,
   publicPath,
@@ -17,10 +18,7 @@ const API = `${SITE}/wp-json/wp/v2`;
 const postDir = path.resolve('src/content/posts');
 
 const url = `${API}/posts?per_page=2&orderby=date&order=desc&status=publish&_embed=1`;
-const res = await fetch(url, {
-  signal: AbortSignal.timeout(30000),
-  headers: { 'user-agent': 'Mozilla/5.0 yonatankra.com Astro preview migration', accept: 'application/json' },
-});
+const res = await fetchWordPress(url, { userAgent: 'Mozilla/5.0 yonatankra.com Astro preview migration' });
 if (!res.ok || !(res.headers.get('content-type') || '').includes('json')) {
   throw new Error(`Could not fetch preview posts: ${res.status} ${res.statusText}`);
 }
