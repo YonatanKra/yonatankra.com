@@ -1,0 +1,123 @@
+name: Persist recovered featured images
+
+on:
+  push:
+    branches: [hotfix/persist-featured-images]
+    paths:
+      - '.github/workflows/persist-featured-images.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download last good preview artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/9839845504/zip" \
+            -o /tmp/preview.zip
+          mkdir -p /tmp/preview-zip /tmp/preview-site
+          unzip -q /tmp/preview.zip -d /tmp/preview-zip
+          tar -xf /tmp/preview-zip/artifact.tar -C /tmp/preview-site
+
+      - name: Restore featuredImage frontmatter
+        shell: python
+        run: |
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import re
+
+          SITE = Path('/tmp/preview-site')
+          POSTS = Path('src/content/posts')
+
+          class FeaturedParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.src = None
+              def handle_starttag(self, tag, attrs):
+                  if tag != 'img' or self.src:
+                      return
+                  data = dict(attrs)
+                  classes = set((data.get('class') or '').split())
+                  if 'featured-image' in classes and data.get('src'):
+                      self.src = data['src']
+
+          recovered = {}
+          for html in SITE.glob('*/index.html'):
+              parser = FeaturedParser()
+              parser.feed(html.read_text(encoding='utf-8', errors='ignore'))
+              if not parser.src:
+                  continue
+              src = re.sub(r'^/yonatankra\.com', '', parser.src)
+              recovered[html.parent.name] = src
+
+          if len(recovered) != 57:
+              raise SystemExit(f'Expected 57 recovered featured images, found {len(recovered)}')
+
+          changed = 0
+          matched = 0
+          for file in POSTS.glob('*.md'):
+              slug = file.stem
+              src = recovered.get(slug)
+              if not src:
+                  continue
+              matched += 1
+              text = file.read_text(encoding='utf-8')
+              fm = re.match(r'^---\n([\s\S]*?)\n---\n', text)
+              if not fm:
+                  raise SystemExit(f'Missing frontmatter: {file}')
+              if re.search(r'^featuredImage\s*:', fm.group(1), re.M):
+                  continue
+              new_frontmatter = fm.group(1).rstrip() + f'\nfeaturedImage: {src}'
+              updated = '---\n' + new_frontmatter + '\n---\n' + text[fm.end():]
+              file.write_text(updated, encoding='utf-8')
+              changed += 1
+
+          print(f'Recovered mapping: {len(recovered)}; matched posts: {matched}; changed posts: {changed}')
+          if matched != 57:
+              raise SystemExit(f'Expected 57 matching post files, found {matched}')
+          if changed == 0:
+              raise SystemExit('No post frontmatter changed; refusing empty recovery')
+
+      - name: Verify restored paths exist
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          missing = []
+          count = 0
+          for file in Path('src/content/posts').glob('*.md'):
+              text = file.read_text(encoding='utf-8')
+              m = re.search(r'^featuredImage:\s*["\']?([^"\'\n]+)', text, re.M)
+              if not m:
+                  continue
+              count += 1
+              src = m.group(1).strip()
+              if src.startswith('/wp-content/uploads/'):
+                  target = Path('public') / src.lstrip('/')
+                  if not target.exists():
+                      missing.append((file.name, src))
+          print(f'Posts with featuredImage: {count}')
+          if missing:
+              raise SystemExit('Missing featured media:\n' + '\n'.join(f'{f}: {s}' for f, s in missing))
+
+      - name: Commit recovered metadata
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/content/posts
+          git commit -m 'content: persist featured image metadata'
+          git push origin HEAD:hotfix/persist-featured-images
