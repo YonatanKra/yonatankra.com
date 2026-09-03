@@ -5,7 +5,7 @@ const talks = [
   { year:'2026', event:'DWX', date:'Jun–Jul 2026', title:'Gaming optimization design patterns you should apply to your web app', subtitle:'DWX 2026 · Mannheim', url:'https://www.developer-world.com/dwx', tags:['JavaScript','Performance','Design Patterns','Web'] },
   { year:'2025', event:'NodeTLV', date:'2025', title:'Neural Networks in Plain JavaScript', subtitle:'NodeTLV ’25 · Tel Aviv', video:'2sHjQx6Dagg', tags:['JavaScript','AI','Neural Networks','Node.js'] },
   { year:'2025', event:'JavaScript Israel', date:'Jan 23, 2025', title:'Runtime Performance Optimization in Production', subtitle:'With Keren Kenzi · JavaScript Israel', video:'6dNPOu-HRWk', tags:['JavaScript','Performance','Production'] },
-  { year:'2024', event:'Jfokus', date:'Feb 2024', title:'Gaming Optimization Design Patterns You Should Apply to Your Web App', subtitle:'Jfokus · Stockholm', tags:['JavaScript','Performance','Design Patterns'] },
+  { year:'2024', event:'Jfokus', date:'Feb 2024', title:'Gaming Optimization Design Patterns You Should Apply to Your Web App', subtitle:'Jfokus · Stockholm', url:'https://www.youtube.com/playlist?list=PLUQORQEatnJezysGP4J-EZm34u-OyILC2', thumbnail:'https://images.ctfassets.net/hvaj6ykr63ta/2tTQtAeEBkCPCMD2vKGD3F/694e9ab8d790523264656d2e79669f3b/hero-2024-1200x600.jpg', linkLabel:'▶ Jfokus videos', tags:['JavaScript','Performance','Design Patterns'] },
   { year:'2024', event:'ConfrontJS', date:'Apr 12, 2024', title:'Test Your Frontend Like a Pro', subtitle:'ConfrontJS · Warsaw', video:'zmjBc_jhRfA', tags:['Testing','Frontend','JavaScript'] },
   { year:'2024', event:'JavaScript Israel', title:'Neural Networks in Plain JavaScript', subtitle:'JavaScript Israel', video:'lZ_-lHVToZw', tags:['JavaScript','AI','Neural Networks'] },
   { year:'2023', event:'Jfokus', date:'Feb 8, 2023', title:'GitHub Actions — From Zero to Hero', subtitle:'Jfokus · Stockholm', video:'e3xN6p5RB98', tags:['DevOps','CI/CD','GitHub Actions'] },
@@ -61,9 +61,9 @@ const articles = [
           <article class="talk">
             <div class="talk-date"><strong>{talk.year}</strong><span>{talk.event}</span>{talk.date && <small>{talk.date}</small>}</div>
             <span class="timeline-dot" aria-hidden="true"></span>
-            {talk.video ? <a class="talk-thumb" href={href}><img src={`https://i.ytimg.com/vi/${talk.video}/hqdefault.jpg`} alt="" loading="lazy" /></a> : <div class="talk-thumb thumb-placeholder"><strong>{talk.event}</strong><span>{talk.title}</span></div>}
+            {talk.video ? <a class="talk-thumb" href={href}><img src={`https://i.ytimg.com/vi/${talk.video}/hqdefault.jpg`} alt="" loading="lazy" /></a> : talk.thumbnail ? <a class="talk-thumb" href={href}><img src={talk.thumbnail} alt="" loading="lazy" /></a> : <div class="talk-thumb thumb-placeholder"><strong>{talk.event}</strong><span>{talk.title}</span></div>}
             <div class="talk-copy"><h3>{talk.title}</h3><p>{talk.subtitle}</p><div class="talk-tags">{talk.tags.map(tag => <span>{tag}</span>)}</div></div>
-            {href ? <a class="watch" href={href}>{talk.video ? '▶ YouTube' : '↗ Talk page'}</a> : <span class="watch unavailable">Recording not found</span>}
+            {href ? <a class="watch" href={href}>{talk.linkLabel || (talk.video ? '▶ YouTube' : '↗ Talk page')}</a> : <span class="watch unavailable">Recording not found</span>}
           </article>
           );
         })}
