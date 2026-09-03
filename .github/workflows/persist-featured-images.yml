@@ -32,15 +32,17 @@ jobs:
           unzip -q /tmp/preview.zip -d /tmp/preview-zip
           tar -xf /tmp/preview-zip/artifact.tar -C /tmp/preview-site
 
-      - name: Restore featuredImage frontmatter
+      - name: Restore featuredImage frontmatter and media
         shell: python
         run: |
           from html.parser import HTMLParser
           from pathlib import Path
           import re
+          import shutil
 
           SITE = Path('/tmp/preview-site')
           POSTS = Path('src/content/posts')
+          PUBLIC = Path('public')
 
           class FeaturedParser(HTMLParser):
               def __init__(self):
@@ -68,24 +70,35 @@ jobs:
 
           changed = 0
           matched = 0
+          copied = 0
           for file in POSTS.glob('*.md'):
               slug = file.stem
               src = recovered.get(slug)
               if not src:
                   continue
               matched += 1
+
               text = file.read_text(encoding='utf-8')
               fm = re.match(r'^---\n([\s\S]*?)\n---\n', text)
               if not fm:
                   raise SystemExit(f'Missing frontmatter: {file}')
-              if re.search(r'^featuredImage\s*:', fm.group(1), re.M):
-                  continue
-              new_frontmatter = fm.group(1).rstrip() + f'\nfeaturedImage: {src}'
-              updated = '---\n' + new_frontmatter + '\n---\n' + text[fm.end():]
-              file.write_text(updated, encoding='utf-8')
-              changed += 1
+              if not re.search(r'^featuredImage\s*:', fm.group(1), re.M):
+                  new_frontmatter = fm.group(1).rstrip() + f'\nfeaturedImage: {src}'
+                  updated = '---\n' + new_frontmatter + '\n---\n' + text[fm.end():]
+                  file.write_text(updated, encoding='utf-8')
+                  changed += 1
 
-          print(f'Recovered mapping: {len(recovered)}; matched posts: {matched}; changed posts: {changed}')
+              if src.startswith('/wp-content/uploads/'):
+                  source = SITE / src.lstrip('/')
+                  target = PUBLIC / src.lstrip('/')
+                  if not source.exists():
+                      raise SystemExit(f'Featured image missing from preserved preview artifact: {src}')
+                  if not target.exists():
+                      target.parent.mkdir(parents=True, exist_ok=True)
+                      shutil.copy2(source, target)
+                      copied += 1
+
+          print(f'Recovered mapping: {len(recovered)}; matched posts: {matched}; changed posts: {changed}; copied media: {copied}')
           if matched != 57:
               raise SystemExit(f'Expected 57 matching post files, found {matched}')
           if changed == 0:
@@ -111,13 +124,15 @@ jobs:
                   if not target.exists():
                       missing.append((file.name, src))
           print(f'Posts with featuredImage: {count}')
+          if count != 57:
+              raise SystemExit(f'Expected 57 posts with featuredImage, found {count}')
           if missing:
               raise SystemExit('Missing featured media:\n' + '\n'.join(f'{f}: {s}' for f, s in missing))
 
-      - name: Commit recovered metadata
+      - name: Commit recovered metadata and media
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add src/content/posts
-          git commit -m 'content: persist featured image metadata'
+          git add src/content/posts public/wp-content/uploads
+          git commit -m 'content: persist featured images and metadata'
           git push origin HEAD:hotfix/persist-featured-images
