@@ -24,6 +24,7 @@ comments:
     date: 2023-02-20T18:44:35
     content: |
       <p>having such a library providing all the UI is a life saver! great serve yonatankra</p>
+featuredImage: /wp-content/uploads/2023/02/Vivids-birthday-1-e1677139877113.jpg
 ---
 
 <p class="has-medium-font-size">Vivid, Vonage&#8217;s design system, is now published. What better way to celebrate Vivid&#8217;s public birthday than to build a birthday quiz? Let&#8217;s have a vivid birthday!</p>

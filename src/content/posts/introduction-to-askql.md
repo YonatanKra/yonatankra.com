@@ -14,6 +14,7 @@ tags:
   - nodejs
 canonical: https://yonatankra.com/introduction-to-askql/
 comments: []
+featuredImage: /wp-content/uploads/2020/10/image-3.png
 ---
 
 <p>AskQL is a new query language that is also a programming language. Read on to see how you can actually get Star Wars with AskQL.</p>

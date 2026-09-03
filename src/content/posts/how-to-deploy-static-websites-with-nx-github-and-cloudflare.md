@@ -26,6 +26,7 @@ tags:
   - vue
 canonical: https://yonatankra.com/how-to-deploy-static-websites-with-nx-github-and-cloudflare/
 comments: []
+featuredImage: /wp-content/uploads/2024/06/image-14.png
 ---
 
 <p class="has-medium-font-size">A question was raised in a forum asking how to deploy static websites for free. Then, more specifically, it was mentioned they were using Nx to generate multiple websites. In this article, we will create a new Nx project with a few apps, publish our code to github, deploy all the websites to GitHub actions, and set up Cloudflare to share our custom domain. Prerequisites: git and nodejs installed.</p>

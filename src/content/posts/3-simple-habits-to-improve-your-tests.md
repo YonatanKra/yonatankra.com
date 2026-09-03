@@ -17,6 +17,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/3-simple-habits-to-improve-your-tests/
 comments: []
+featuredImage: /wp-content/uploads/2023/02/pltn-style-a-ninja-with-a-laptop-arranging-functions-cute-big-circular-reflective-eyes-pixar-rend-.png
 ---
 
 <p class="has-medium-font-size">How can tests be your best documentation? What small changes can improve the contract between your code and its consumers? Learn how to improve your tests from a real-world example.</p>

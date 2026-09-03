@@ -12,6 +12,7 @@ categories:
 tags: []
 canonical: https://yonatankra.com/from-zero-to-hero-with-github-actions-video/
 comments: []
+featuredImage: /wp-content/uploads/2023/05/image-1.png
 ---
 
 <p class="has-medium-font-size">My talk from JFokus 2023. I spoke about the main building blocks of a CI/CD process with github actions.</p>

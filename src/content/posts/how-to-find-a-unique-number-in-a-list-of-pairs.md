@@ -47,6 +47,7 @@ comments:
               else:<br />
                   res -=i<br />
           return res</p>
+featuredImage: /wp-content/uploads/2021/10/odd-fruit.webp
 ---
 
 <p class="has-medium-font-size">Finding a single unique number in a list containing pairs might sound pretty simple, right? </p>

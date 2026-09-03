@@ -18,6 +18,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/musings-about-tests-as-documentation/
 comments: []
+featuredImage: /wp-content/uploads/2021/01/musingDocumentation.jpg
 ---
 
 <p>This post originated from a non-english post on Linkedin. Here&#8217;s a translation of the original post:</p>

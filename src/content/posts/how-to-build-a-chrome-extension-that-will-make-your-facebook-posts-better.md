@@ -21,6 +21,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/how-to-build-a-chrome-extension-that-will-make-your-facebook-posts-better/
 comments: []
+featuredImage: /wp-content/uploads/2022/08/boldSocial.png
 ---
 
 <p class="has-medium-font-size">How to build a chrome extension, manipulate and interact with a page and publish it to the Chrome Web Store? Here&#8217;s how I created a Chrome extension that enables me to style the text in my posts and comments &#8211; and how you can do it too</p>

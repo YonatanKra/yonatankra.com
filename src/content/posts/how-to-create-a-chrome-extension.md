@@ -14,6 +14,7 @@ tags:
   - javascript
 canonical: https://yonatankra.com/how-to-create-a-chrome-extension/
 comments: []
+featuredImage: /wp-content/uploads/2022/08/chrome-webstore.png
 ---
 
 <p class="has-medium-font-size">Did you know you can improve your (and your colleagues&#8217;) life by developing chrome extensions? Keren Kenzi showed how to do it in Fullstack Exchange 2022</p>

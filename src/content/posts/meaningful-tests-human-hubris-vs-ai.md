@@ -29,6 +29,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/meaningful-tests-human-hubris-vs-ai/
 comments: []
+featuredImage: /wp-content/uploads/2025/09/Leonardo_Phoenix_09_A_stylized_splitscreen_icon_on_one_side_a_2.jpg
 ---
 
 <p class="has-medium-font-size">What makes a test meaningful? How can tests shape better architecture? And what roles do humans and AI play?</p>

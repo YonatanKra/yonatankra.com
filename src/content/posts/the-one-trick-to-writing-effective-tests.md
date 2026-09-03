@@ -14,6 +14,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/the-one-trick-to-writing-effective-tests/
 comments: []
+featuredImage: /wp-content/uploads/2023/02/magic-cards-on-fire-trending-on-artstation-sharp-focus-studio-photo-intricate-details-highly-de-.png
 ---
 
 <p class="has-medium-font-size">How do you know your test is effective? How do you know your test protects you from breaking changes? And how can you do TDD without doing TDD? The best distillment of TDD taken from a TDD workshop in JFokus.</p>

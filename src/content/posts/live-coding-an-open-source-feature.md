@@ -24,6 +24,7 @@ tags:
   - tdd
 canonical: https://yonatankra.com/live-coding-an-open-source-feature/
 comments: []
+featuredImage: /wp-content/uploads/2023/03/image-3.png
 ---
 
 <p class="has-medium-font-size">How do I approach a new feature in an open source project? How do I TDD a frontend feature? What do we use for cross-browser testing? All this and more in this live coding session recording</p>

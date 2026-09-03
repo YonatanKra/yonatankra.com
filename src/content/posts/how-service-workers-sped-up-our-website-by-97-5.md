@@ -23,6 +23,7 @@ tags:
   - vivid
 canonical: https://yonatankra.com/how-service-workers-sped-up-our-website-by-97-5/
 comments: []
+featuredImage: /wp-content/uploads/2023/06/service-worker.jpeg
 ---
 
 <p><strong>Here’s how we made our website load 97.5% faster by using service workers, how we ensure the users will get the newest version every time, and how you can do it too.</strong></p>

@@ -22,6 +22,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/busting-legacy-code-with-ai-agents/
 comments: []
+featuredImage: /wp-content/uploads/2025/11/Whisk_11a51506908318b99014a2fb922af306eg.png
 ---
 
 <div id="ez-toc-container" class="ez-toc-v2_0_87 counter-hierarchy ez-toc-counter ez-toc-grey ez-toc-container-direction">

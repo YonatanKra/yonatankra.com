@@ -27,6 +27,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/test-drive-your-code-confrontjs-2023/
 comments: []
+featuredImage: /wp-content/uploads/2023/09/test-drive-your-code.jpeg
 ---
 
 <p class="has-medium-font-size">On March 2023 I gave the keynote at ConfrontJS in Warsaw. I spoke about how we can become more professional as developers, my 5 tips for becoming such, and a final most-important take-home message to the audience. </p>

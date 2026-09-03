@@ -23,6 +23,7 @@ tags:
   - nodejs
 canonical: https://yonatankra.com/on-covid-19-graphql-and-askql/
 comments: []
+featuredImage: /wp-content/uploads/2020/10/graphQL-covid-askQL-removebg-preview.png
 ---
 
 <p class="has-medium-font-size">How does AskQL differ from GraphQL? </p>

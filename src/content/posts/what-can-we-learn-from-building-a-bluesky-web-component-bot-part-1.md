@@ -30,6 +30,7 @@ tags:
   - web components
 canonical: https://yonatankra.com/what-can-we-learn-from-building-a-bluesky-web-component-bot-part-1/
 comments: []
+featuredImage: /wp-content/uploads/2024/12/image-4.png
 ---
 
 <p class="has-medium-font-size">How to build a web component based application that integrates the BlueSky Social public API? Covered topics: TDD, BlueSky API, BlueSky bot (automation), AtProto SDK, Streaming, Web components.</p>

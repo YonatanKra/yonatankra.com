@@ -18,6 +18,7 @@ tags:
   - nodejs
 canonical: https://yonatankra.com/askql-nodejs-quickstart/
 comments: []
+featuredImage: /wp-content/uploads/2020/10/image-5.png
 ---
 
 <p>AskQL is a new query language that is also a programming language. I&#8217;ve written <a href="/introduction-to-askql/" data-type="post" data-id="453">an introduction about it in the former post</a>.</p>

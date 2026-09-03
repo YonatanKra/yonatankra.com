@@ -22,6 +22,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/what-is-the-coupling-pitfall-and-how-to-avoid-it/
 comments: []
+featuredImage: /wp-content/uploads/2022/07/testingNo-1-e1659278476586.png
 ---
 
 <p class="has-medium-font-size">How to avoid constant tests maintenance and regressions in your code? In this article, we will talk about a new term &#8220;the Coupling Pitfall&#8221;, what harm it is doing to your code, and a way to fix it.</p>

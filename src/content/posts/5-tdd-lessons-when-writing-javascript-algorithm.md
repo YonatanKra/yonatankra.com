@@ -18,6 +18,7 @@ categories:
 tags: []
 canonical: https://yonatankra.com/5-tdd-lessons-when-writing-javascript-algorithm/
 comments: []
+featuredImage: /wp-content/uploads/2021/12/paul-gilmore-x2W9Q_VqIHI-unsplash-scaled.jpeg
 ---
 
 <p class="has-medium-font-size">How to develop an algorithm using TDD? In this article we will implement the Diamond-Square algorithm using TDD. This article was inspired by Uncle Bob&#8217;s blog post TDD Lesson &#8211; Terrain Generation.</p>

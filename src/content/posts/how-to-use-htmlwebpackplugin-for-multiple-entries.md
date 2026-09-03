@@ -14,6 +14,7 @@ tags:
   - webpack
 canonical: https://yonatankra.com/how-to-use-htmlwebpackplugin-for-multiple-entries/
 comments: []
+featuredImage: /wp-content/uploads/2022/01/webpack_html.png
 ---
 
 <p class="has-medium-font-size">Here&#8217;s how to create an HTML for a specific or every entry file using Webpack and HTML Webpack Plugin. A really short explanation.</p>

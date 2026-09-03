@@ -20,6 +20,7 @@ tags:
   - github actions
 canonical: https://yonatankra.com/how-to-test-github-actions-locally-using-act/
 comments: []
+featuredImage: /wp-content/uploads/2020/11/githubActionsAndDocker.png
 ---
 
 <p class="has-medium-font-size">Github actions are taking a considerable part of the devops world.  Developers find them super friendly for most use cases.  Developing your flow can be much faster if you can run them locally. This article will show you how.</p>

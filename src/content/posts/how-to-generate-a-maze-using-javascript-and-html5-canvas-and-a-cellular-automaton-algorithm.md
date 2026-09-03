@@ -29,6 +29,7 @@ comments:
     date: 2022-06-30T18:10:17
     content: |
       <p>Isn&#8217;t the <a href="https://codepen.io/yonatankra/pen/LYyQZdO" target="_blank" rel="noopener nofollow ugc">codepen</a> enough?</p>
+featuredImage: /wp-content/uploads/2021/07/canvas_maze.png
 ---
 
 <p class="has-medium-font-size">Generating a random map on a canvas is fun. In this article you will learn how to generate a random map or maze on an HTML5 canvas. We will use a model called Cellular Automaton.</p>

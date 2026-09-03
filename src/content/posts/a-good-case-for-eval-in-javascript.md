@@ -30,6 +30,7 @@ comments:
       It didn&#8217;t work at the time, and we have left <code>lit</code> in favor of <code>fast</code> so for us it is irrelevant anymore 🙂<br />
       This would be beneficial for future readers who are lit users I guess 🙂<br />
       I&#8217;ll update the article with your comment.</p>
+featuredImage: /wp-content/uploads/2022/02/evalVsDuplicates.jpeg
 ---
 
 <p class="has-medium-font-size">Or: How to generate dynamic html tags inside lit-html templates? <code>eval</code> is sometimes mixed up with <code>evil</code>. We also hear sometimes that there are cases in which it is needed. This is one such case&#8230;</p>

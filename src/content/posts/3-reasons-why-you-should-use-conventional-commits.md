@@ -22,6 +22,7 @@ tags:
   - team work
 canonical: https://yonatankra.com/3-reasons-why-you-should-use-conventional-commits/
 comments: []
+featuredImage: /wp-content/uploads/2023/10/image-5.png
 ---
 
 <p class="has-medium-font-size">Conventional Commits is a standardized approach to version control that enhances clarity, consistency, and collaboration among developers. We&#8217;ll understand what Conventional Commits are, explore how they work, and explain the three main benefits you gain by using them. </p>

@@ -16,6 +16,7 @@ tags:
   - image editing
 canonical: https://yonatankra.com/blogging-graphics-resources/
 comments: []
+featuredImage: /wp-content/uploads/2021/12/freeGraphics2.png
 ---
 
 <p class="has-medium-font-size">Every blog article needs graphics.  This post will help you get easily get free to use graphics for your blog posts, product or even the next family event invitation.</p>
