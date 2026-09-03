@@ -25,6 +25,24 @@ const withBase = (pathname: string) => `${base}${pathname.replace(/^\/+/, '')}`;
     <link rel="canonical" href={canonical} />
     <link rel="alternate" type="application/rss+xml" title="Yonatan Kra" href={withBase('feed.xml')} />
     <title>{title}</title>
+    <script is:inline>
+      (() => {
+        const productionHosts = new Set(['yonatankra.com', 'www.yonatankra.com']);
+        if (!productionHosts.has(window.location.hostname)) return;
+
+        const measurementId = 'G-1BEMFWMRT5';
+        const gtagScript = document.createElement('script');
+        gtagScript.async = true;
+        gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+        document.head.appendChild(gtagScript);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', measurementId);
+      })();
+    </script>
     <style is:global>
       :root {
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
