@@ -16,6 +16,8 @@ const talks = [
   { year:'2021', event:'JSConf Armenia', title:'Optimization design patterns - from games to web', subtitle:'JavaScript Conference Armenia 2021', url:'https://2021.jsconf.am/', tags:['JavaScript','Performance','Design Patterns'] },
   { year:'2021', event:'TestJS Summit', date:'Jan 2021', title:'Practical Web App Performance Problem Solving', subtitle:'TestJS Summit · Online', url:'https://gitnation.com/contents/practical-web-app-performance-problem-solving', tags:['JavaScript','Performance','Testing'] },
   { year:'2020', event:'WarsawJS', date:'Jul 8, 2020', title:'The Event Loop and Your Code', subtitle:'WarsawJS Meetup #71', video:'Nqx3rtv_dko', tags:['JavaScript','Event Loop'] },
+  { year:'2020', event:'JavaScript Bangkok', date:'Feb 8, 2020', title:'Optimization design patterns - from games to web', subtitle:'JavaScript Bangkok 1.0.0 · Bangkok', url:'https://creatorsgarten.org/videos/jsbkk1/design-patterns', tags:['JavaScript','Performance','Design Patterns'] },
+  { year:'2020', event:'JavaScript Israel', date:'Jan 2020', title:'Optimization Design Patterns - From Games to Web', subtitle:'JavaScript Israel · Hebrew', video:'sGJtMnY5PtA', tags:['JavaScript','Performance','Design Patterns'] },
   { year:'2019', event:'CodeTalks', title:'Runtime Optimization Patterns — From Games to Your Application', subtitle:'CodeTalks · Hamburg', video:'gBoBUSB-sNU', tags:['JavaScript','Performance','Patterns'] },
   { year:'2019', event:'ConfrontJS', title:'Collecting Garbage in ConfrontJS', subtitle:'ConfrontJS · Warsaw · lightning talk', video:'gLj-p7gHwj8', tags:['JavaScript','Performance','Object Pool','Garbage Collection'] },
   { year:'2018', event:'FullStackCon London', date:'Jul 2018', title:'Web Tech Performance', subtitle:'FullStackCon London · Skills Matter', url:'https://sessionize.com/yonatan-kra/', tags:['JavaScript','Performance','Web'] },
@@ -25,12 +27,10 @@ const talks = [
 ];
 
 const earlier = [
-  ['Optimization Design Patterns in JavaScript','JavaScript Israel','https://www.youtube.com/watch?v=sGJtMnY5PtA'],
-  ['Optimization Design Patterns — From Games to Web','JSBangkok','https://creatorsgarten.org/videos/jsbkk1/design-patterns'],
-  ['The Sixth Element — Angular Elements in Action','JavaScript Israel','https://www.youtube.com/watch?v=eYIGTyE62DU'],
-  ['Test Driven (Micro) Architecture','Modern Web Online','https://youtu.be/ONaRbIW6OMs?t=1312'],
-  ['Web App Performance','WalkMe Tech Talks','https://www.youtube.com/watch?v=KwDIuNrmYMk&t=89s'],
-  ['V8 Performance Optimizations','WalkMe Tech Talks','https://www.youtube.com/watch?v=tL-sE4JIP-c'],
+  ['The Sixth Element — Angular Elements in Action','Recording · event attribution not yet verified','https://www.youtube.com/watch?v=eYIGTyE62DU'],
+  ['Test Driven (Micro) Architecture','Recording · event attribution not yet verified','https://youtu.be/ONaRbIW6OMs?t=1312'],
+  ['Web App Performance','Recording · event attribution not yet verified','https://www.youtube.com/watch?v=KwDIuNrmYMk&t=89s'],
+  ['V8 Performance Optimizations','Recording · event attribution not yet verified','https://www.youtube.com/watch?v=tL-sE4JIP-c'],
 ];
 
 const articles = [
@@ -67,7 +67,7 @@ const articles = [
           );
         })}
       </div>
-      <details class="earlier-talks"><summary>Earlier talks and recordings</summary><div class="earlier-grid">{earlier.map(([title,event,url]) => <a href={url}><strong>{title}</strong><span>{event}</span></a>)}</div></details>
+      <details class="earlier-talks"><summary>Additional recordings</summary><div class="earlier-grid">{earlier.map(([title,event,url]) => <a href={url}><strong>{title}</strong><span>{event}</span></a>)}</div></details>
     </section>
 
     <section id="articles" class="pub-section compact-section">
