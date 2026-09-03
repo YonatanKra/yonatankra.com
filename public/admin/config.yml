@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: YonatanKra/yonatankra.com
-  branch: feature/decap-cms-v2
+  branch: main
   use_graphql: true
   squash_merges: true
   base_url: https://cms-auth.yonatankra.com
@@ -10,8 +10,8 @@ backend:
 publish_mode: editorial_workflow
 local_backend: true
 
-site_url: https://feature-decap-cms-v2-yonatankra-com.yccisrael.workers.dev
-display_url: https://feature-decap-cms-v2-yonatankra-com.yccisrael.workers.dev
+site_url: https://yonatankra.com
+display_url: https://yonatankra.com
 show_preview_links: true
 
 media_folder: public/wp-content/uploads
