@@ -29,6 +29,7 @@ comments:
     date: 2022-05-10T15:25:12
     content: |
       <p>and here&#8217;s <a href="https://github.com/Vonage/vivid-3/pull/348" target="_blank" rel="noopener nofollow ugc">its PR</a></p>
+featuredImage: /wp-content/uploads/2022/04/modules-modules-everywhere-5bd745.jpeg
 ---
 
 <p class="has-medium-font-size">What is the new standard to serve both an ECMAScript Module (ESM) as well as Commonjs in the same package? How to use it? And how to make <code>Jest</code> and <code>Playwright</code> to work with it?</p>

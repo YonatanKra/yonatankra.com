@@ -24,6 +24,7 @@ tags:
   - javascript
 canonical: https://yonatankra.com/how-to-remote-debug-and-profile-node-js-apps/
 comments: []
+featuredImage: /wp-content/uploads/2021/12/Remote-Debugging.png
 ---
 
 <p class="has-medium-font-size">Debugging is an important skill for every developer. Here’s how to quickly setup debugging for nodejs with free tools everyone has.</p>

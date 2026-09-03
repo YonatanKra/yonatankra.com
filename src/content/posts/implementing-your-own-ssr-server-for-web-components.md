@@ -24,6 +24,7 @@ tags:
   - web components
 canonical: https://yonatankra.com/implementing-your-own-ssr-server-for-web-components/
 comments: []
+featuredImage: /wp-content/uploads/2024/05/image-1.png
 ---
 
 <p class="has-medium-font-size">Server Side Rendering (SSR) is a very hot topic today. What’s with React Server Components bringing all these buzz words that “I just have to implement in my project”&#8230; Let’s see what’s all the fuss about by implementing our own SSR server for web components.</p>

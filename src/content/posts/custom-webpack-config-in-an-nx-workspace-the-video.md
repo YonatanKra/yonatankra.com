@@ -21,6 +21,7 @@ tags:
   - webpack
 canonical: https://yonatankra.com/custom-webpack-config-in-an-nx-workspace-the-video/
 comments: []
+featuredImage: /wp-content/uploads/2021/01/nrwlWebpack.jpg
 ---
 
 <p class="has-medium-font-size">This is my talk from nx conf 2021 on how to customize webpack config in an Nx workspace.</p>

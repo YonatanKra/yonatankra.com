@@ -15,6 +15,7 @@ tags:
   - unit tests
 canonical: https://yonatankra.com/a-tale-of-implementation-and-detail/
 comments: []
+featuredImage: /wp-content/uploads/2023/08/implementation-details.jpeg
 ---
 
 <p class="has-medium-font-size">As a testing advocate, I frequently delve into &#8220;<strong>implementation details</strong>&#8221; and &#8220;<strong>public interfaces.</strong>&#8221; These terms refer to the inner workings of your API and how it&#8217;s presented to users. Rather than just defining them, let&#8217;s explore their significance through a real-world example. Witness how grasping these concepts enhances our code in practical scenarios.</p>

@@ -45,6 +45,7 @@ comments:
             &#8220;jest-canvas-mock&#8221;<br />
           ]<br />
         },</p>
+featuredImage: /wp-content/uploads/2021/08/jest-on-canvas.jpeg
 ---
 
 <p class="has-medium-font-size">In this short article you will learn what you need to install in order to prepare a test environment for canvas operations with jest. After finishing the article, you will be ready for some canvas testing action!</p>

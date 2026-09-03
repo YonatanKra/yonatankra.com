@@ -15,6 +15,7 @@ categories:
 tags: []
 canonical: https://yonatankra.com/ars-blogging-how-to-start-and-manage-a-tech-blog/
 comments: []
+featuredImage: /wp-content/uploads/2021/09/blogging.jpeg
 ---
 
 <p class="has-medium-font-size">How to start blogging? What are the benefits of blogging and continuously sharing your knowledge? How to get your articles to an audience and who&#8217;s best to write for?</p>

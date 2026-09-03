@@ -23,6 +23,7 @@ tags:
   - JavaScript performance
 canonical: https://yonatankra.com/how-to-optimize-javascript-performance/
 comments: []
+featuredImage: /wp-content/uploads/2022/07/ConfrontJS-speaking.jpeg
 ---
 
 <p class="has-medium-font-size">How can we profile and optimize our JavaScript code? How can we profile and optimize rendering in the browser? How does it all relate to the all-mighty Event Loop?</p>

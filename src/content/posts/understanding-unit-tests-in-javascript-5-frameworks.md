@@ -23,6 +23,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/understanding-unit-tests-in-javascript-5-frameworks/
 comments: []
+featuredImage: /wp-content/uploads/2022/06/ferenc-almasi-EWLHA4T-mso-unsplash.jpeg
 ---
 
 <p class="has-medium-font-size">When it comes to testing, checking a single function is different from testing a complete application at once. It helps to understand the flaws in any units of the application and allows the developers to take appropriate steps.&nbsp;</p>

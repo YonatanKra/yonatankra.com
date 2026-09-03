@@ -16,6 +16,7 @@ tags:
   - nx workspace
 canonical: https://yonatankra.com/how-to-create-a-workspace-generator-in-nx-workspace/
 comments: []
+featuredImage: /wp-content/uploads/2022/05/workspace-generator.jpg
 ---
 
 <p class="has-medium-font-size">How to create an Nx generator? How to use it in your Nx workspace? How we converted a workspace generator into a publishable library? And how can boring be good for you?</p>

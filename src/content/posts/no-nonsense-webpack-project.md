@@ -16,6 +16,7 @@ tags:
   - webpack
 canonical: https://yonatankra.com/no-nonsense-webpack-project/
 comments: []
+featuredImage: /wp-content/uploads/2022/01/fireworks.jpeg
 ---
 
 <p class="has-medium-font-size">Or: How to use Webpack to build a project from scratch? </p>

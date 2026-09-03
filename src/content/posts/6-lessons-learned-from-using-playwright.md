@@ -21,6 +21,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/6-lessons-learned-from-using-playwright/
 comments: []
+featuredImage: /wp-content/uploads/2022/04/little-girl-e-lessons.jpeg
 ---
 
 <p class="has-medium-font-size">Here are 6 practical lessons learned from a production incident, ui-test coverage (using playwright) and code review.</p>

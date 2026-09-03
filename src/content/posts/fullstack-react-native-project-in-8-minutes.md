@@ -23,6 +23,7 @@ tags:
   - react-native
 canonical: https://yonatankra.com/fullstack-react-native-project-in-8-minutes/
 comments: []
+featuredImage: /wp-content/uploads/2021/12/Fullstack.png
 ---
 
 <p class="has-medium-font-size">Setup a fully working fullstack express, react and react-native environment in 8 minutes. We will do it with Nx, express, react and react native.</p>

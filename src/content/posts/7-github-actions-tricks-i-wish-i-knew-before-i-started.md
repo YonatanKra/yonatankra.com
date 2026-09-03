@@ -50,6 +50,7 @@ comments:
       This tells the action to use the code inside `_lina-and-build.yml` from the branch `main`.<br />
       In the example I use it here: <a href="https://gist.github.com/YonatanKra/99aa3be8aadad92fc87c9fa39658a718#file-pre-release-yml-L13" rel="nofollow ugc">reusable workflow usage</a><br />
       Hope this clarifies it 🙂</p>
+featuredImage: /wp-content/uploads/2021/12/love_github_actions.png
 ---
 
 <p class="has-medium-font-size">Here are 7 tricks with github actions that changed my life (or at least my CI/CD pipeline). These tricks helped me create a more maintainable workflows code as well as boosted performance of the whole CI/CD process.</p>

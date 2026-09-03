@@ -21,6 +21,7 @@ tags:
   - unit tests
 canonical: https://yonatankra.com/how-to-write-unit-tests-in-rust-for-tauri/
 comments: []
+featuredImage: /wp-content/uploads/2023/08/Unit-tests-in-Rust.png
 ---
 
 <p class="has-medium-font-size">Tauri is a desktop apps framework built with Rust for its backend and JavaScript for its front end. The first thing I like to do in a project is set up a unit tests infrastructure. I found it surprisingly easy to do it in Rust.</p>

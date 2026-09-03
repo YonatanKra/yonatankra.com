@@ -37,6 +37,7 @@ comments:
     date: 2022-08-16T17:33:16
     content: |
       <p>works as expected. Thank you very much!</p>
+featuredImage: /wp-content/uploads/2021/02/um-yeah-unit-test-report.jpg
 ---
 
 <p>This is going to be a short one.  I&#8217;m using nrwl/nx a LOT. I&#8217;m also testing a LOT.  Lately I needed to add a coverage report to one of my nrwl/nx repositories. The coverage tool I was using needed the coverage in one file, while the nrwl/nx creates the reports per library and app.</p>

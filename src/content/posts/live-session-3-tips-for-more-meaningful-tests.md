@@ -18,6 +18,7 @@ tags:
   - testing
 canonical: https://yonatankra.com/live-session-3-tips-for-more-meaningful-tests/
 comments: []
+featuredImage: /wp-content/uploads/2023/05/image.png
 ---
 
 <p class="has-medium-font-size">In 12 minutes, I shared with my colleagues three tips I used to refactor tests of legacy code. Testing the API, <a href="/the-one-trick-to-writing-effective-tests/" data-type="post" data-id="1653">ensuring the tests fail for the right reason</a>, and avoiding <a href="/what-is-the-coupling-pitfall-and-how-to-avoid-it/" data-type="post" data-id="1553">the coupling pitfall</a> are exhibited in this live session.</p>

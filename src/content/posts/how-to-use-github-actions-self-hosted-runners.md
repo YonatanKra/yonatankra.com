@@ -27,6 +27,7 @@ comments:
     content: |
       <p>&gt; <span>Self-hosted runners are meant to be used in private github repositories. Why? Because forks of the main repository might be able to run the jobs on your self-hosted runner.</span></p>
       <p><span>They can&#8217;t run jobs on your self-hosted runners directly from their forks, but they could if they manage to get a pull request approved to run jobs on your self-hosted runners. More details about self-hosted runner security on </span><a href="https://runs-on.com/security/#the-problem-with-self-hosted-runners" rel="nofollow ugc">https://runs-on.com/security/#the-problem-with-self-hosted-runners</a>.</p>
+featuredImage: /wp-content/uploads/2023/03/7cvw6q.jpg
 ---
 
 <p class="has-medium-font-size">How and when to run Github Actions jobs on your own machine?</p>

@@ -33,6 +33,7 @@ comments:
     date: 2023-01-19T06:42:28
     content: |
       <p>What do you mean? Do you have a repository where the issue is reproduced?</p>
+featuredImage: /wp-content/uploads/2021/01/nrwlWebpack.jpg
 ---
 
 <p class="has-medium-font-size">Customizing webpack for your own needs is a powerful functionality. It allows you full control of your app&#8217;s development and deployment process. In this article we will go over how to do that in an NX monorepo.</p>

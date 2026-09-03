@@ -31,6 +31,7 @@ comments:
     content: |
       <p>Good points. Thanks!<br />
       Added to my to-do list!</p>
+featuredImage: /wp-content/uploads/2022/09/Github-Docker-1.jpg
 ---
 
 <p class="has-medium-font-size">How to use the docker image to run Github Actions? How to use them to speed up the flows and stabilize tests? And when you should not use them?</p>

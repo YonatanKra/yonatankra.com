@@ -34,6 +34,7 @@ comments:
     content: |
       <p>You are correct. I&#8217;m a big fan of <a href="/?s=pre+allocation" rel="noopener" target="_blank">pre allocation</a> for performance boosts.<br />
       Didn&#8217;t want to delve too much into it, but if it is of interest to anyone, here is a link to articles in which I speak about it and how to measure its implications: <a href="/?s=pre+allocation" rel="noopener" target="_blank">https://yonatankra.com/?s=pre+allocation</a>.</p>
+featuredImage: /wp-content/uploads/2021/10/intersections.jpeg
 ---
 
 <p class="has-medium-font-size">Can we learn something practical from a pure computer science interview question? In this article we will solve an interview question and optimize it &#8211; but we will also look at a practical way to handle data in real life.</p>
